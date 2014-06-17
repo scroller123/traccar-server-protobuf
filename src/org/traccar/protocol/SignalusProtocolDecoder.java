@@ -16,6 +16,7 @@
 package org.traccar.protocol;
 
 import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.traccar.BaseProtocolDecoder;
@@ -55,11 +56,15 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
     protected Object decode(
             ChannelHandlerContext ctx, Channel channel, Object msg)
             throws Exception {
-        String sentence = /*decompress*/((String)msg);
+
+        ChannelBuffer buf = (ChannelBuffer) msg;
+        int length = buf.readShort(); // size
+        byte[] sentence = new byte[length];
+        buf.readBytes(sentence);
 
         //LOGIN PACKET
         try {
-            TerminalProtos.LoginPackage loginPacket = TerminalProtos.LoginPackage.parseFrom(hexStringToByteArray(sentence));
+            TerminalProtos.LoginPackage loginPacket = TerminalProtos.LoginPackage.parseFrom(sentence);
 
             if (!loginPacket.isInitialized() || loginPacket.getType() != TerminalProtos.PackageType.LOGIN)
                 throw new Exception();
@@ -88,14 +93,21 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
             }else{
                 responseLoginPacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.INVALID_PACKET);
             }
-            channel.write(/*compress*/(bytArrayToHex(responseLoginPacket.build().toByteArray()))+"\n");
+
+            byte[] packetBytes = responseLoginPacket.build().toByteArray();
+            byte[] lengthBytes = shortToByteArray((short)packetBytes.length);
+            ChannelBuffer message = ChannelBuffers.directBuffer(packetBytes.length + lengthBytes.length);
+            message.writeBytes(lengthBytes);
+            message.writeBytes(packetBytes);
+            channel.write(message);
+//            channel.write(/*compress*/(bytArrayToHex(responseLoginPacket.build().toByteArray()))+"\n");
 
             loginPacket = null;
         }catch (Exception e){}
 
         //DATA PACKET
         try {
-            TerminalProtos.DataPackage dataPacket = TerminalProtos.DataPackage.parseFrom(hexStringToByteArray(sentence));
+            TerminalProtos.DataPackage dataPacket = TerminalProtos.DataPackage.parseFrom(sentence);
 
             if (!dataPacket.isInitialized() || dataPacket.getType() != TerminalProtos.PackageType.DATA)
                 throw new Exception();
@@ -160,7 +172,13 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                         );
                 responseLoginPacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
 
-                channel.write(/*compress*/(bytArrayToHex(responseLoginPacket.build().toByteArray()))+"\n");
+                byte[] packetBytes = responseLoginPacket.build().toByteArray();
+                byte[] lengthBytes = shortToByteArray((short)packetBytes.length);
+                ChannelBuffer message = ChannelBuffers.directBuffer(packetBytes.length + lengthBytes.length);
+                message.writeBytes(lengthBytes);
+                message.writeBytes(packetBytes);
+                channel.write(message);
+//                channel.write(/*compress*/(bytArrayToHex(responseLoginPacket.build().toByteArray()))+"\n");
                 return position;
 
             }else{
@@ -182,7 +200,14 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                         +"Satellites in fix: "+dataPacket.getSatellitesInFix()+""
                 );
             }
-            channel.write(/*compress*/(bytArrayToHex(responseLoginPacket.build().toByteArray()))+"\n");
+
+            byte[] packetBytes = responseLoginPacket.build().toByteArray();
+            byte[] lengthBytes = shortToByteArray((short)packetBytes.length);
+            ChannelBuffer message = ChannelBuffers.directBuffer(packetBytes.length + lengthBytes.length);
+            message.writeBytes(lengthBytes);
+            message.writeBytes(packetBytes);
+            channel.write(message);
+            //channel.write(/*compress*/(bytArrayToHex(responseLoginPacket.build().toByteArray()))+"\n");
 
             dataPacket = null;
 
@@ -238,6 +263,20 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
         }
         System.out.println("Output String lenght : " + outStr.length());
         return outStr;
+    }
+
+    public static final byte[] intToByteArray(int value) {
+        return new byte[] {
+                (byte)(value >>> 24),
+                (byte)(value >>> 16),
+                (byte)(value >>> 8),
+                (byte)value};
+    }
+
+    public static final byte[] shortToByteArray(short value) {
+        return new byte[] {
+                (byte)(value >>> 8),
+                (byte)value};
     }
 
 }
