@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact name="Traccar-master-2014:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Traccar_master_2014_jar</output-path>
+    <root id="root">
+      <element id="archive" name="Traccar-master-2014.jar">
+        <element id="module-output" name="Traccar-master-2014" />
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/lib/mysql-connector-java-5.1.26.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/log4j-1.2.17.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/netty-3.7.0.Final.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/h2-1.3.174.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/javax.servlet-api-3.0.1.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/jetty-all-server-8.1.13.v20130916.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/wrapper.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/junit-4.10.jar" />
+    </root>
+  </artifact>
+</component>
