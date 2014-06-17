@@ -26,8 +26,15 @@ public interface DataManager {
      * Manage devices
      */
     public List<Device> getDevices() throws Exception;
+    public void refreshDevices() throws Exception;
     public Device getDeviceByImei(String imei) throws Exception;
-    public void removeNeedRestart(Long deviceId) throws Exception;
+    public Device getDeviceByID(Long id) throws Exception;
+
+    public void setDoSearchingBluetootValue(Long deviceId, int value) throws Exception;
+
+    public void deleteBluetoothSearchResult(Long deviceId) throws Exception;
+    public void insertBluetoothSearchResult(Long deviceId, String name, String mac) throws Exception;
+
     public Long addSig(String hex, String adds, String gps, String charge, String acc, String voltage, String signal) throws Exception;
 
     /**

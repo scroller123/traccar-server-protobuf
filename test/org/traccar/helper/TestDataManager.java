@@ -16,12 +16,29 @@ public class TestDataManager implements DataManager {
         Device device = new Device();
         device.setId(new Long(1));
         device.setImei("123456789012345");
-        device.setNeedRestart("0");
+        device.setDoSearchingBluetooth("1");
         return device;
     }
+
+
     @Override
-    public void removeNeedRestart(Long deviceId) throws Exception {
+    public void refreshDevices(){
     }
+
+    @Override
+    public Device getDeviceByID(Long id){
+        return null;
+    }
+
+    @Override
+    public void deleteBluetoothSearchResult(Long deviceId){}
+    @Override
+    public void insertBluetoothSearchResult(Long deviceId, String name, String mac) {}
+
+    @Override
+    public void setDoSearchingBluetootValue(Long deviceId, int value)  {
+    }
+
     @Override
     public Long addPosition(Position position) {
         return null;

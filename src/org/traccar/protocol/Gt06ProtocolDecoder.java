@@ -278,44 +278,8 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
             getDataManager().addSig("id:"+String.valueOf(deviceId), extendedInfo.toString(), gps.toString(), charge.toString(), acc.toString(), voltage.toString(), signal.toString());
 
             Log.debug("My: message type - MSG_STATUS HEARTBEAT, deviceID: " + String.valueOf(deviceId));
+            sendResponse(channel, type, buf.readUnsignedShort());
 
-            if(getDataManager().getDeviceByImei(deviceImei).getNeedRestart()) {
-                Log.debug("My: restart, deviceID: " + String.valueOf(deviceId));
-                getDataManager().addSig("id:"+String.valueOf(deviceId), "restart", null, null, null, null, null);
-                getDataManager().removeNeedRestart(deviceId);
-                sendResponse(channel, type, buf.readUnsignedShort());
-
-//                if (channel != null) {
-//                    ChannelBuffer response = ChannelBuffers.directBuffer(10);
-//                    response.writeByte(0x78); response.writeByte(0x78); // header
-//                    response.writeByte(0x16); // size
-//                    response.writeByte(0x80); //protocol
-//                    response.writeByte(0x09); //length of command A || E
-//
-//                    response.writeByte(0x00); //server flag bit
-//                    response.writeByte(0x00);
-//                    response.writeByte(0x00);
-//                    response.writeByte(0x01);
-//
-//                    response.writeByte(0x44);//
-//                    response.writeByte(0x57);//
-//                    response.writeByte(0x58);//
-//                    response.writeByte(0x58);//
-//                    response.writeByte(0x23);//
-//
-//                    response.writeByte(0x00);
-//                    response.writeByte(0x02);//english
-//
-//                    response.writeShort(index+1);     //index
-//
-//                    response.writeShort(Crc.crc16Ccitt(response.toByteBuffer(2, 16)));
-//                    response.writeByte(0x0D); response.writeByte(0x0A); // ending
-//                    channel.write(response);
-//                }
-
-            }else{
-                sendResponse(channel, type, buf.readUnsignedShort());
-            }
 
         }else {
 

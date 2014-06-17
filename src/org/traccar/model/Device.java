@@ -72,17 +72,19 @@ public class Device {
         this.uniqueId = uniqueId;
     }
 
-    /**
-     * Need Restart
-     */
-    private boolean needRestart;
 
-    public boolean getNeedRestart() {
-        return needRestart;
+
+    /**
+     * Do Searching Bluetooth
+     */
+    private int doSearchingBluetooth;
+
+    public int getDoSearchingBluetooth() {
+        return doSearchingBluetooth;
     }
 
-    public void setNeedRestart(String needRestart) {
-        this.needRestart = Integer.valueOf(needRestart)==1 ? true : false;
+    public void setDoSearchingBluetooth(String doSearchingBluetooth) {
+        this.doSearchingBluetooth = Integer.valueOf(doSearchingBluetooth);
     }
 
 }

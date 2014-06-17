@@ -5686,6 +5686,26 @@ public final class TerminalProtos {
      */
     com.example.signalus_terminal.TerminalProtos.DataResponcePackage.BluetoothDeviceOrBuilder getBluetoothDeviceOrBuilder(
         int index);
+
+    // optional int32 do_searching_bluetooth = 6;
+    /**
+     * <code>optional int32 do_searching_bluetooth = 6;</code>
+     */
+    boolean hasDoSearchingBluetooth();
+    /**
+     * <code>optional int32 do_searching_bluetooth = 6;</code>
+     */
+    int getDoSearchingBluetooth();
+
+    // optional int32 do_scan_audio_noise = 7;
+    /**
+     * <code>optional int32 do_scan_audio_noise = 7;</code>
+     */
+    boolean hasDoScanAudioNoise();
+    /**
+     * <code>optional int32 do_scan_audio_noise = 7;</code>
+     */
+    int getDoScanAudioNoise();
   }
   /**
    * Protobuf type {@code terminal.DataResponcePackage}
@@ -5776,6 +5796,16 @@ public final class TerminalProtos {
                 mutable_bitField0_ |= 0x00000010;
               }
               bluetoothDevice_.add(input.readMessage(com.example.signalus_terminal.TerminalProtos.DataResponcePackage.BluetoothDevice.PARSER, extensionRegistry));
+              break;
+            }
+            case 48: {
+              bitField0_ |= 0x00000010;
+              doSearchingBluetooth_ = input.readInt32();
+              break;
+            }
+            case 56: {
+              bitField0_ |= 0x00000020;
+              doScanAudioNoise_ = input.readInt32();
               break;
             }
           }
@@ -6673,12 +6703,46 @@ public final class TerminalProtos {
       return bluetoothDevice_.get(index);
     }
 
+    // optional int32 do_searching_bluetooth = 6;
+    public static final int DO_SEARCHING_BLUETOOTH_FIELD_NUMBER = 6;
+    private int doSearchingBluetooth_;
+    /**
+     * <code>optional int32 do_searching_bluetooth = 6;</code>
+     */
+    public boolean hasDoSearchingBluetooth() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional int32 do_searching_bluetooth = 6;</code>
+     */
+    public int getDoSearchingBluetooth() {
+      return doSearchingBluetooth_;
+    }
+
+    // optional int32 do_scan_audio_noise = 7;
+    public static final int DO_SCAN_AUDIO_NOISE_FIELD_NUMBER = 7;
+    private int doScanAudioNoise_;
+    /**
+     * <code>optional int32 do_scan_audio_noise = 7;</code>
+     */
+    public boolean hasDoScanAudioNoise() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional int32 do_scan_audio_noise = 7;</code>
+     */
+    public int getDoScanAudioNoise() {
+      return doScanAudioNoise_;
+    }
+
     private void initFields() {
       type_ = com.example.signalus_terminal.TerminalProtos.PackageType.LOGIN;
       index_ = 0L;
       status_ = com.example.signalus_terminal.TerminalProtos.DataResponcePackage.StatusType.NO_ERROR;
       msg_ = "";
       bluetoothDevice_ = java.util.Collections.emptyList();
+      doSearchingBluetooth_ = 0;
+      doScanAudioNoise_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -6725,6 +6789,12 @@ public final class TerminalProtos {
       for (int i = 0; i < bluetoothDevice_.size(); i++) {
         output.writeMessage(5, bluetoothDevice_.get(i));
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(6, doSearchingBluetooth_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeInt32(7, doScanAudioNoise_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -6753,6 +6823,14 @@ public final class TerminalProtos {
       for (int i = 0; i < bluetoothDevice_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, bluetoothDevice_.get(i));
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, doSearchingBluetooth_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(7, doScanAudioNoise_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6885,6 +6963,10 @@ public final class TerminalProtos {
         } else {
           bluetoothDeviceBuilder_.clear();
         }
+        doSearchingBluetooth_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        doScanAudioNoise_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -6938,6 +7020,14 @@ public final class TerminalProtos {
         } else {
           result.bluetoothDevice_ = bluetoothDeviceBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.doSearchingBluetooth_ = doSearchingBluetooth_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.doScanAudioNoise_ = doScanAudioNoise_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -6993,6 +7083,12 @@ public final class TerminalProtos {
               bluetoothDeviceBuilder_.addAllMessages(other.bluetoothDevice_);
             }
           }
+        }
+        if (other.hasDoSearchingBluetooth()) {
+          setDoSearchingBluetooth(other.getDoSearchingBluetooth());
+        }
+        if (other.hasDoScanAudioNoise()) {
+          setDoScanAudioNoise(other.getDoScanAudioNoise());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -7458,6 +7554,72 @@ public final class TerminalProtos {
         return bluetoothDeviceBuilder_;
       }
 
+      // optional int32 do_searching_bluetooth = 6;
+      private int doSearchingBluetooth_ ;
+      /**
+       * <code>optional int32 do_searching_bluetooth = 6;</code>
+       */
+      public boolean hasDoSearchingBluetooth() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional int32 do_searching_bluetooth = 6;</code>
+       */
+      public int getDoSearchingBluetooth() {
+        return doSearchingBluetooth_;
+      }
+      /**
+       * <code>optional int32 do_searching_bluetooth = 6;</code>
+       */
+      public Builder setDoSearchingBluetooth(int value) {
+        bitField0_ |= 0x00000020;
+        doSearchingBluetooth_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 do_searching_bluetooth = 6;</code>
+       */
+      public Builder clearDoSearchingBluetooth() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        doSearchingBluetooth_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 do_scan_audio_noise = 7;
+      private int doScanAudioNoise_ ;
+      /**
+       * <code>optional int32 do_scan_audio_noise = 7;</code>
+       */
+      public boolean hasDoScanAudioNoise() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>optional int32 do_scan_audio_noise = 7;</code>
+       */
+      public int getDoScanAudioNoise() {
+        return doScanAudioNoise_;
+      }
+      /**
+       * <code>optional int32 do_scan_audio_noise = 7;</code>
+       */
+      public Builder setDoScanAudioNoise(int value) {
+        bitField0_ |= 0x00000040;
+        doScanAudioNoise_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 do_scan_audio_noise = 7;</code>
+       */
+      public Builder clearDoScanAudioNoise() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        doScanAudioNoise_ = 0;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:terminal.DataResponcePackage)
     }
 
@@ -7538,17 +7700,19 @@ public final class TerminalProtos {
       "on\022\021\n\ttimestamp\030\001 \002(\003\022\016\n\006course\030\002 \002(\002\022\020\n" +
       "\010latitude\030\003 \002(\001\022\021\n\tlongitude\030\004 \002(\001\022\r\n\005sp" +
       "eed\030\005 \002(\002\022\020\n\010altitude\030\006 \002(\001\032,\n\017Bluetooth",
-      "Device\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\"\266\002\n\023Da" +
+      "Device\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\"\363\002\n\023Da" +
       "taResponcePackage\022#\n\004type\030\001 \002(\0162\025.termin" +
       "al.PackageType\022\r\n\005index\030\002 \002(\003\0228\n\006status\030" +
       "\003 \002(\0162(.terminal.DataResponcePackage.Sta" +
       "tusType\022\013\n\003msg\030\004 \001(\t\022F\n\017bluetoothDevice\030" +
       "\005 \003(\0132-.terminal.DataResponcePackage.Blu" +
-      "etoothDevice\032,\n\017BluetoothDevice\022\014\n\004name\030" +
-      "\001 \002(\t\022\013\n\003mac\030\002 \002(\t\".\n\nStatusType\022\014\n\010NO_E" +
-      "RROR\020\000\022\022\n\016INVALID_PACKET\020\001*\"\n\013PackageTyp" +
-      "e\022\t\n\005LOGIN\020\000\022\010\n\004DATA\020\001B/\n\035com.example.si",
-      "gnalus_terminalB\016TerminalProtos"
+      "etoothDevice\022\036\n\026do_searching_bluetooth\030\006" +
+      " \001(\005\022\033\n\023do_scan_audio_noise\030\007 \001(\005\032,\n\017Blu" +
+      "etoothDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\"" +
+      ".\n\nStatusType\022\014\n\010NO_ERROR\020\000\022\022\n\016INVALID_P",
+      "ACKET\020\001*\"\n\013PackageType\022\t\n\005LOGIN\020\000\022\010\n\004DAT" +
+      "A\020\001B/\n\035com.example.signalus_terminalB\016Te" +
+      "rminalProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7596,7 +7760,7 @@ public final class TerminalProtos {
           internal_static_terminal_DataResponcePackage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_terminal_DataResponcePackage_descriptor,
-              new java.lang.String[] { "Type", "Index", "Status", "Msg", "BluetoothDevice", });
+              new java.lang.String[] { "Type", "Index", "Status", "Msg", "BluetoothDevice", "DoSearchingBluetooth", "DoScanAudioNoise", });
           internal_static_terminal_DataResponcePackage_BluetoothDevice_descriptor =
             internal_static_terminal_DataResponcePackage_descriptor.getNestedTypes().get(0);
           internal_static_terminal_DataResponcePackage_BluetoothDevice_fieldAccessorTable = new

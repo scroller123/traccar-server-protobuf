@@ -217,12 +217,6 @@ public class ServerManager {
             serverList.add(new TrackerServer(this, new ServerBootstrap(), protocol) {
                 @Override
                 protected void addSpecificHandlers(ChannelPipeline pipeline) {
-                    Log.debug("Signalus protocol enabled");
-//                    byte delimiter[] = { (byte) '\n' };
-//                    pipeline.addLast("frameDecoder", new DelimiterBasedFrameDecoder(1024, ChannelBuffers.wrappedBuffer(delimiter)));
-//                    pipeline.addLast("frameDecoder", new LineBasedFrameDecoder(1024));
-//                    pipeline.addLast("stringDecoder", new StringDecoder());
-//                    pipeline.addLast("stringEncoder", new StringEncoder());
                     pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(1024, 0, 2, 0, 0));
                     pipeline.addLast("objectDecoder", new SignalusProtocolDecoder(ServerManager.this));
                 }

@@ -49,7 +49,9 @@ public class DatabaseDataManager implements DataManager {
      * Database statements
      */
     private NamedParameterStatement queryGetDevices;
-    private NamedParameterStatement queryRemoveNeedRestart;
+    private NamedParameterStatement querySetDoSearchingBluetootValue;
+    private NamedParameterStatement queryDeleteBluetoothSearchResult;
+    private NamedParameterStatement queryInsertBluetoothSearchResult;
     private NamedParameterStatement queryAddPosition;
     private NamedParameterStatement queryUpdateLatestPosition;
     private NamedParameterStatement queryAddSig;
@@ -96,10 +98,22 @@ public class DatabaseDataManager implements DataManager {
             queryGetDevices = new NamedParameterStatement(connection, query);
         }
 
-        query = properties.getProperty("database.removeNeedRestart");
+        query = properties.getProperty("database.setDoSearchingBluetootValue");
         if (query != null) {
-            queryRemoveNeedRestart = new NamedParameterStatement(connection, query);
+            querySetDoSearchingBluetootValue = new NamedParameterStatement(connection, query);
         }
+
+        query = properties.getProperty("database.deleteBluetoothSearchResult");
+        if (query != null) {
+            queryDeleteBluetoothSearchResult = new NamedParameterStatement(connection, query);
+        }
+
+        query = properties.getProperty("database.insertBluetoothSearchResult");
+        if (query != null) {
+            queryInsertBluetoothSearchResult = new NamedParameterStatement(connection, query);
+        }
+
+
 
         query = properties.getProperty("database.insertPosition");
         if (query != null) {
@@ -129,7 +143,7 @@ public class DatabaseDataManager implements DataManager {
                 Device device = new Device();
                 device.setId(result.getLong("id"));
                 device.setImei(result.getString("imei"));
-                device.setNeedRestart(result.getString("need_restart"));
+                device.setDoSearchingBluetooth(result.getString("do_searching_bluetooth"));
                 deviceList.add(device);
             }
         }
@@ -141,6 +155,7 @@ public class DatabaseDataManager implements DataManager {
      * Devices cache
      */
     private Map<String, Device> devices;
+    private Map<Long, Device> devicesIDs;
     private Calendar devicesLastUpdate;
     private Long devicesRefreshDelay;
 
@@ -148,26 +163,68 @@ public class DatabaseDataManager implements DataManager {
     public Device getDeviceByImei(String imei) throws SQLException {
 
         if ((devices == null) || (Calendar.getInstance().getTimeInMillis() - devicesLastUpdate.getTimeInMillis() > devicesRefreshDelay)) {
-            List<Device> list = getDevices();
-            devices = new HashMap<String, Device>();
-            for (Device device: list) {
-                devices.put(device.getImei(), device);
-            }
-            devicesLastUpdate = Calendar.getInstance();
+            refreshDevices();
         }
 
         return devices.get(imei);
     }
 
     @Override
-    public void removeNeedRestart(Long deviceId) throws SQLException {
+    public Device getDeviceByID(Long id) throws SQLException {
 
-        if (queryRemoveNeedRestart != null) {
-            queryRemoveNeedRestart.prepare();
-            queryRemoveNeedRestart.setLong("device_id", deviceId);
-            queryRemoveNeedRestart.executeUpdate();
+        if ((devicesIDs == null) || (Calendar.getInstance().getTimeInMillis() - devicesLastUpdate.getTimeInMillis() > devicesRefreshDelay)) {
+            refreshDevices();
+        }
+
+        return devicesIDs.get(id);
+    }
+
+    @Override
+    public void refreshDevices() throws SQLException {
+        List<Device> list = getDevices();
+        devices = new HashMap<String, Device>();
+        devicesIDs = new HashMap<Long, Device>();
+        for (Device device: list) {
+            devices.put(device.getImei(), device);
+            devicesIDs.put(device.getId(), device);
+        }
+        devicesLastUpdate = Calendar.getInstance();
+
+        return;
+    }
+
+    @Override
+    public void setDoSearchingBluetootValue(Long deviceId, int value) throws SQLException {
+        if (querySetDoSearchingBluetootValue != null) {
+            querySetDoSearchingBluetootValue.prepare();
+            querySetDoSearchingBluetootValue.setLong("device_id", deviceId);
+            querySetDoSearchingBluetootValue.setInt("value", value);
+            querySetDoSearchingBluetootValue.executeUpdate();
         }
     }
+
+    @Override
+    public void deleteBluetoothSearchResult(Long deviceId) throws SQLException {
+        if (queryDeleteBluetoothSearchResult != null) {
+            queryDeleteBluetoothSearchResult.prepare();
+            queryDeleteBluetoothSearchResult.setLong("device_id", deviceId);
+            queryDeleteBluetoothSearchResult.executeUpdate();
+        }
+    }
+
+    @Override
+    public void insertBluetoothSearchResult(Long deviceId, String name, String mac) throws SQLException {
+        if (queryInsertBluetoothSearchResult != null) {
+            queryInsertBluetoothSearchResult.prepare();
+            queryInsertBluetoothSearchResult.setLong("device_id", deviceId);
+            queryInsertBluetoothSearchResult.setString("name", name);
+            queryInsertBluetoothSearchResult.setString("mac", mac);
+            queryInsertBluetoothSearchResult.executeUpdate();
+        }
+    }
+
+
+
 
     @Override
     public synchronized Long addPosition(Position position) throws SQLException {

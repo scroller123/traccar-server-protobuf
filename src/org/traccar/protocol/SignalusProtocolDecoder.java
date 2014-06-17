@@ -22,6 +22,7 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 import org.traccar.BaseProtocolDecoder;
 import org.traccar.ServerManager;
 import org.traccar.helper.Log;
+import org.traccar.model.Device;
 import org.traccar.model.ExtendedInfoFormatter;
 import org.traccar.model.Position;
 
@@ -84,17 +85,17 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 }catch (Exception e) {}
             }
 
-            TerminalProtos.DataResponcePackage.Builder responseLoginPacket = TerminalProtos.DataResponcePackage.newBuilder();
-            responseLoginPacket.setType(TerminalProtos.PackageType.LOGIN);
-            responseLoginPacket.setIndex(loginPacket.getIndex());
+            TerminalProtos.DataResponcePackage.Builder responsePacket = TerminalProtos.DataResponcePackage.newBuilder();
+            responsePacket.setType(TerminalProtos.PackageType.LOGIN);
+            responsePacket.setIndex(loginPacket.getIndex());
 
             if (deviceId != null){
-                responseLoginPacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
+                responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
             }else{
-                responseLoginPacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.INVALID_PACKET);
+                responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.INVALID_PACKET);
             }
 
-            byte[] packetBytes = responseLoginPacket.build().toByteArray();
+            byte[] packetBytes = responsePacket.build().toByteArray();
             byte[] lengthBytes = shortToByteArray((short)packetBytes.length);
             ChannelBuffer message = ChannelBuffers.directBuffer(packetBytes.length + lengthBytes.length);
             message.writeBytes(lengthBytes);
@@ -114,13 +115,23 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             Log.info("DATA PACKET, device: "+deviceId);
 
-            TerminalProtos.DataResponcePackage.Builder responseLoginPacket = TerminalProtos.DataResponcePackage.newBuilder();
-            responseLoginPacket.setIndex(dataPacket.getIndex());
-            responseLoginPacket.setType(TerminalProtos.PackageType.LOGIN);
+
+            if (dataPacket.getBluetoothDeviceCount()>0) {
+                for(int i=0; i<dataPacket.getBluetoothDeviceCount(); i++) {
+                    getDataManager().insertBluetoothSearchResult(deviceId, dataPacket.getBluetoothDevice(i).getName(), dataPacket.getBluetoothDevice(i).getMac());
+                }
+            }
+
+
+            TerminalProtos.DataResponcePackage.Builder responsePacket = TerminalProtos.DataResponcePackage.newBuilder();
+            responsePacket.setType(TerminalProtos.PackageType.DATA);
+            responsePacket.setIndex(dataPacket.getIndex());
+
+            Position position = null;
 
             if (deviceId != null && dataPacket.getSatellitesInFix() > 2) {
 
-                Position position = new Position();
+                position = new Position();
                 position.setDeviceId(deviceId);
                 ExtendedInfoFormatter extendedInfo = new ExtendedInfoFormatter("signalus");
                 extendedInfo.set("index", dataPacket.getIndex());
@@ -170,20 +181,13 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                             +"Satellites: "+dataPacket.getSatellites()+", "
                             +"Satellites in fix: "+dataPacket.getSatellitesInFix()+""
                         );
-                responseLoginPacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
+                responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
 
-                byte[] packetBytes = responseLoginPacket.build().toByteArray();
-                byte[] lengthBytes = shortToByteArray((short)packetBytes.length);
-                ChannelBuffer message = ChannelBuffers.directBuffer(packetBytes.length + lengthBytes.length);
-                message.writeBytes(lengthBytes);
-                message.writeBytes(packetBytes);
-                channel.write(message);
-//                channel.write(/*compress*/(bytArrayToHex(responseLoginPacket.build().toByteArray()))+"\n");
-                return position;
+
 
             }else{
-                responseLoginPacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
-                responseLoginPacket.setMsg("< 3 sattelites");
+                responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
+                responsePacket.setMsg("< 3 sattelites");
 
                 Log.info("Device: "+deviceId+", "
                         +"index: "+dataPacket.getIndex()+", "
@@ -199,18 +203,29 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                         +"Satellites: "+dataPacket.getSatellites()+", "
                         +"Satellites in fix: "+dataPacket.getSatellitesInFix()+""
                 );
+
+
             }
 
-            byte[] packetBytes = responseLoginPacket.build().toByteArray();
+            // bluetooth searching
+            Device device = getDataManager().getDeviceByID(deviceId);
+            if (device.getDoSearchingBluetooth()==1){
+                getDataManager().deleteBluetoothSearchResult(deviceId);
+                getDataManager().setDoSearchingBluetootValue(deviceId, 0);
+                responsePacket.setDoSearchingBluetooth(1);
+            }
+
+            byte[] packetBytes = responsePacket.build().toByteArray();
             byte[] lengthBytes = shortToByteArray((short)packetBytes.length);
             ChannelBuffer message = ChannelBuffers.directBuffer(packetBytes.length + lengthBytes.length);
             message.writeBytes(lengthBytes);
             message.writeBytes(packetBytes);
             channel.write(message);
-            //channel.write(/*compress*/(bytArrayToHex(responseLoginPacket.build().toByteArray()))+"\n");
 
             dataPacket = null;
 
+            if (position!=null)
+                return position;
 
 
         }catch (Exception e){}

@@ -53,6 +53,10 @@ public class NamedParameterStatement {
         this.connection = connection;
     }
 
+    public PreparedStatement getStatement(){
+        return statement;
+    }
+
     /**
      * Parse query
      */
@@ -62,6 +66,7 @@ public class NamedParameterStatement {
         StringBuilder parsedQuery = new StringBuilder(length);
         boolean inSingleQuote = false;
         boolean inDoubleQuote = false;
+        boolean inBackQuote = false;
         int index = 1;
 
         for(int i = 0; i < length; i++) {
@@ -73,6 +78,8 @@ public class NamedParameterStatement {
                 if (c == '\'') inSingleQuote = false;
             } else if (inDoubleQuote) {
                 if (c == '"') inDoubleQuote = false;
+            } else if (inBackQuote) {
+                if (c == '`') inBackQuote = false;
             } else {
 
                 // String begin
@@ -80,6 +87,8 @@ public class NamedParameterStatement {
                     inSingleQuote = true;
                 } else if (c == '"') {
                     inDoubleQuote = true;
+                } else if (c == '`') {
+                    inBackQuote = true;
                 } else if (c == ':' && i + 1 < length &&
                         Character.isJavaIdentifierStart(query.charAt(i + 1))) {
 
@@ -242,5 +251,7 @@ public class NamedParameterStatement {
             }
         }
     }
+
+
 
 }
