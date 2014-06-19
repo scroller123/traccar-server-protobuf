@@ -27,6 +27,13 @@ import org.traccar.model.ExtendedInfoFormatter;
 import org.traccar.model.Position;
 import org.traccar.model.BluetoothDevice;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,6 +48,8 @@ import java.util.zip.GZIPOutputStream;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
+import javax.swing.*;
 
 import com.google.protobuf.*;
 import com.example.signalus_terminal.TerminalProtos;
@@ -153,7 +162,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
                 position.setLatitude(dataPacket.getPosition().getLatitude());
                 position.setLongitude(dataPacket.getPosition().getLongitude());
-                position.setAltitude(dataPacket.getPosition().getAltitude());
+                position.setAltitude((double)dataPacket.getPosition().getAltitude());
 
 
                 extendedInfo.set("mcc1", dataPacket.getCell(0).getMcc());
@@ -219,6 +228,24 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             }
 
+            // Neighhooding Cells
+            if (dataPacket.getNeighboringcellCount() >= 3) {
+                StringBuilder url = new StringBuilder();
+                url.append("http://www.signalus.ru/outer/setLBSPosition?deviceID="+deviceId);
+                for(TerminalProtos.DataPackage.NeighboringCell nhCell : dataPacket.getNeighboringcellList()) {
+                    url.append("&cellinfo[]="+dataPacket.getCell(0).getMcc()+":"+nhCell.getMnc()+":"+nhCell.getLac()+":"+nhCell.getCell()+"&cellrssi[]="+nhCell.getStrength());
+                }
+                SendLBSPositionProcess process = new SendLBSPositionProcess(url.toString());
+                try {
+                    process.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+
             Device device = getDataManager().getDeviceByID(deviceId);
 
             // bluetooth searching
@@ -257,10 +284,41 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
         return null;
     }
 
+    public class SendLBSPositionProcess extends SwingWorker {
+        String url;
 
+        public SendLBSPositionProcess (String url){
+            this.url = url;
+        }
+        /**
+         * @throws Exception
+         */
+        protected Object doInBackground() throws Exception {
+            final String USER_AGENT = "Mozilla/5.0";
 
+            try{
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                con.setConnectTimeout(5000);
+                con.setReadTimeout(5000);
+                con.setRequestMethod("GET");
+                con.setRequestProperty("User-Agent", USER_AGENT);
+                int responseCode = con.getResponseCode();
 
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
 
+                in.close();
+
+            }catch (Exception e){
+                Log.error("HTTP GET Exception: "+e.getMessage()+", "+e.getCause().getMessage());
+            }
+
+            return null;
+        }
+    }
 
     public byte[] hexStringToByteArray(String s) {
         int len = s.length();

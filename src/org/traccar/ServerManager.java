@@ -217,7 +217,7 @@ public class ServerManager {
             serverList.add(new TrackerServer(this, new ServerBootstrap(), protocol) {
                 @Override
                 protected void addSpecificHandlers(ChannelPipeline pipeline) {
-                    pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(1024, 0, 2, 0, 0));
+                    pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(4096, 0, 2, 0, 0));
                     pipeline.addLast("objectDecoder", new SignalusProtocolDecoder(ServerManager.this));
                 }
             });
