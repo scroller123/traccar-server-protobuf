@@ -16,6 +16,7 @@
 package org.traccar.model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Data manager
@@ -30,7 +31,10 @@ public interface DataManager {
     public Device getDeviceByImei(String imei) throws Exception;
     public Device getDeviceByID(Long id) throws Exception;
 
-    public void setDoSearchingBluetootValue(Long deviceId, int value) throws Exception;
+    public ArrayList<BluetoothDevice> selectBluetoothBinded(Long deviceId) throws Exception;
+
+    public void setDoSearchingBluetoothValue(Long deviceId, int value) throws Exception;
+    public void setDoBindingBluetoothValue(Long deviceId, int value) throws Exception;
 
     public void deleteBluetoothSearchResult(Long deviceId) throws Exception;
     public void insertBluetoothSearchResult(Long deviceId, String name, String mac) throws Exception;

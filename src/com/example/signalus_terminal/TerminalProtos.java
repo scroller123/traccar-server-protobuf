@@ -843,19 +843,30 @@ public final class TerminalProtos {
      */
     int getSatellitesInFix();
 
-    // optional .terminal.DataPackage.Cell cell = 8;
+    // repeated .terminal.DataPackage.Cell cell = 8;
     /**
-     * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+     * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
      */
-    boolean hasCell();
+    java.util.List<com.example.signalus_terminal.TerminalProtos.DataPackage.Cell> 
+        getCellList();
     /**
-     * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+     * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
      */
-    com.example.signalus_terminal.TerminalProtos.DataPackage.Cell getCell();
+    com.example.signalus_terminal.TerminalProtos.DataPackage.Cell getCell(int index);
     /**
-     * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+     * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
      */
-    com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder getCellOrBuilder();
+    int getCellCount();
+    /**
+     * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+     */
+    java.util.List<? extends com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder> 
+        getCellOrBuilderList();
+    /**
+     * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+     */
+    com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder getCellOrBuilder(
+        int index);
 
     // optional .terminal.DataPackage.Position position = 9;
     /**
@@ -989,21 +1000,16 @@ public final class TerminalProtos {
               break;
             }
             case 66: {
-              com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000080) == 0x00000080)) {
-                subBuilder = cell_.toBuilder();
+              if (!((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
+                cell_ = new java.util.ArrayList<com.example.signalus_terminal.TerminalProtos.DataPackage.Cell>();
+                mutable_bitField0_ |= 0x00000080;
               }
-              cell_ = input.readMessage(com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(cell_);
-                cell_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000080;
+              cell_.add(input.readMessage(com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.PARSER, extensionRegistry));
               break;
             }
             case 74: {
               com.example.signalus_terminal.TerminalProtos.DataPackage.Position.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000100) == 0x00000100)) {
+              if (((bitField0_ & 0x00000080) == 0x00000080)) {
                 subBuilder = position_.toBuilder();
               }
               position_ = input.readMessage(com.example.signalus_terminal.TerminalProtos.DataPackage.Position.PARSER, extensionRegistry);
@@ -1011,7 +1017,7 @@ public final class TerminalProtos {
                 subBuilder.mergeFrom(position_);
                 position_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000100;
+              bitField0_ |= 0x00000080;
               break;
             }
             case 82: {
@@ -1030,6 +1036,9 @@ public final class TerminalProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
+          cell_ = java.util.Collections.unmodifiableList(cell_);
+        }
         if (((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
           bluetoothDevice_ = java.util.Collections.unmodifiableList(bluetoothDevice_);
         }
@@ -1117,27 +1126,17 @@ public final class TerminalProtos {
        */
       int getStrength();
 
-      // required int32 networkType = 6;
+      // optional .terminal.DataPackage.Cell.CellPosition position = 6;
       /**
-       * <code>required int32 networkType = 6;</code>
-       */
-      boolean hasNetworkType();
-      /**
-       * <code>required int32 networkType = 6;</code>
-       */
-      int getNetworkType();
-
-      // required .terminal.DataPackage.Cell.CellPosition position = 7;
-      /**
-       * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+       * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
        */
       boolean hasPosition();
       /**
-       * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+       * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
        */
       com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition getPosition();
       /**
-       * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+       * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
        */
       com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPositionOrBuilder getPositionOrBuilder();
     }
@@ -1217,14 +1216,9 @@ public final class TerminalProtos {
                 strength_ = input.readInt32();
                 break;
               }
-              case 48: {
-                bitField0_ |= 0x00000020;
-                networkType_ = input.readInt32();
-                break;
-              }
-              case 58: {
+              case 50: {
                 com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.Builder subBuilder = null;
-                if (((bitField0_ & 0x00000040) == 0x00000040)) {
+                if (((bitField0_ & 0x00000020) == 0x00000020)) {
                   subBuilder = position_.toBuilder();
                 }
                 position_ = input.readMessage(com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.PARSER, extensionRegistry);
@@ -1232,7 +1226,7 @@ public final class TerminalProtos {
                   subBuilder.mergeFrom(position_);
                   position_ = subBuilder.buildPartial();
                 }
-                bitField0_ |= 0x00000040;
+                bitField0_ |= 0x00000020;
                 break;
               }
             }
@@ -1937,39 +1931,23 @@ public final class TerminalProtos {
         return strength_;
       }
 
-      // required int32 networkType = 6;
-      public static final int NETWORKTYPE_FIELD_NUMBER = 6;
-      private int networkType_;
+      // optional .terminal.DataPackage.Cell.CellPosition position = 6;
+      public static final int POSITION_FIELD_NUMBER = 6;
+      private com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition position_;
       /**
-       * <code>required int32 networkType = 6;</code>
+       * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
        */
-      public boolean hasNetworkType() {
+      public boolean hasPosition() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>required int32 networkType = 6;</code>
-       */
-      public int getNetworkType() {
-        return networkType_;
-      }
-
-      // required .terminal.DataPackage.Cell.CellPosition position = 7;
-      public static final int POSITION_FIELD_NUMBER = 7;
-      private com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition position_;
-      /**
-       * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
-       */
-      public boolean hasPosition() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
-      }
-      /**
-       * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+       * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
        */
       public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition getPosition() {
         return position_;
       }
       /**
-       * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+       * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
        */
       public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPositionOrBuilder getPositionOrBuilder() {
         return position_;
@@ -1981,7 +1959,6 @@ public final class TerminalProtos {
         lac_ = 0;
         cell_ = 0;
         strength_ = 0;
-        networkType_ = 0;
         position_ = com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.getDefaultInstance();
       }
       private byte memoizedIsInitialized = -1;
@@ -2009,17 +1986,11 @@ public final class TerminalProtos {
           memoizedIsInitialized = 0;
           return false;
         }
-        if (!hasNetworkType()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasPosition()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!getPosition().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
+        if (hasPosition()) {
+          if (!getPosition().isInitialized()) {
+            memoizedIsInitialized = 0;
+            return false;
+          }
         }
         memoizedIsInitialized = 1;
         return true;
@@ -2044,10 +2015,7 @@ public final class TerminalProtos {
           output.writeInt32(5, strength_);
         }
         if (((bitField0_ & 0x00000020) == 0x00000020)) {
-          output.writeInt32(6, networkType_);
-        }
-        if (((bitField0_ & 0x00000040) == 0x00000040)) {
-          output.writeMessage(7, position_);
+          output.writeMessage(6, position_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -2080,11 +2048,7 @@ public final class TerminalProtos {
         }
         if (((bitField0_ & 0x00000020) == 0x00000020)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(6, networkType_);
-        }
-        if (((bitField0_ & 0x00000040) == 0x00000040)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(7, position_);
+            .computeMessageSize(6, position_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -2213,14 +2177,12 @@ public final class TerminalProtos {
           bitField0_ = (bitField0_ & ~0x00000008);
           strength_ = 0;
           bitField0_ = (bitField0_ & ~0x00000010);
-          networkType_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000020);
           if (positionBuilder_ == null) {
             position_ = com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.getDefaultInstance();
           } else {
             positionBuilder_.clear();
           }
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000020);
           return this;
         }
 
@@ -2272,10 +2234,6 @@ public final class TerminalProtos {
           if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
             to_bitField0_ |= 0x00000020;
           }
-          result.networkType_ = networkType_;
-          if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
-            to_bitField0_ |= 0x00000040;
-          }
           if (positionBuilder_ == null) {
             result.position_ = position_;
           } else {
@@ -2312,9 +2270,6 @@ public final class TerminalProtos {
           if (other.hasStrength()) {
             setStrength(other.getStrength());
           }
-          if (other.hasNetworkType()) {
-            setNetworkType(other.getNetworkType());
-          }
           if (other.hasPosition()) {
             mergePosition(other.getPosition());
           }
@@ -2343,17 +2298,11 @@ public final class TerminalProtos {
             
             return false;
           }
-          if (!hasNetworkType()) {
-            
-            return false;
-          }
-          if (!hasPosition()) {
-            
-            return false;
-          }
-          if (!getPosition().isInitialized()) {
-            
-            return false;
+          if (hasPosition()) {
+            if (!getPosition().isInitialized()) {
+              
+              return false;
+            }
           }
           return true;
         }
@@ -2542,51 +2491,18 @@ public final class TerminalProtos {
           return this;
         }
 
-        // required int32 networkType = 6;
-        private int networkType_ ;
-        /**
-         * <code>required int32 networkType = 6;</code>
-         */
-        public boolean hasNetworkType() {
-          return ((bitField0_ & 0x00000020) == 0x00000020);
-        }
-        /**
-         * <code>required int32 networkType = 6;</code>
-         */
-        public int getNetworkType() {
-          return networkType_;
-        }
-        /**
-         * <code>required int32 networkType = 6;</code>
-         */
-        public Builder setNetworkType(int value) {
-          bitField0_ |= 0x00000020;
-          networkType_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required int32 networkType = 6;</code>
-         */
-        public Builder clearNetworkType() {
-          bitField0_ = (bitField0_ & ~0x00000020);
-          networkType_ = 0;
-          onChanged();
-          return this;
-        }
-
-        // required .terminal.DataPackage.Cell.CellPosition position = 7;
+        // optional .terminal.DataPackage.Cell.CellPosition position = 6;
         private com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition position_ = com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.getDefaultInstance();
         private com.google.protobuf.SingleFieldBuilder<
             com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.Builder, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPositionOrBuilder> positionBuilder_;
         /**
-         * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+         * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
          */
         public boolean hasPosition() {
-          return ((bitField0_ & 0x00000040) == 0x00000040);
+          return ((bitField0_ & 0x00000020) == 0x00000020);
         }
         /**
-         * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+         * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
          */
         public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition getPosition() {
           if (positionBuilder_ == null) {
@@ -2596,7 +2512,7 @@ public final class TerminalProtos {
           }
         }
         /**
-         * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+         * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
          */
         public Builder setPosition(com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition value) {
           if (positionBuilder_ == null) {
@@ -2608,11 +2524,11 @@ public final class TerminalProtos {
           } else {
             positionBuilder_.setMessage(value);
           }
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000020;
           return this;
         }
         /**
-         * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+         * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
          */
         public Builder setPosition(
             com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.Builder builderForValue) {
@@ -2622,15 +2538,15 @@ public final class TerminalProtos {
           } else {
             positionBuilder_.setMessage(builderForValue.build());
           }
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000020;
           return this;
         }
         /**
-         * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+         * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
          */
         public Builder mergePosition(com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition value) {
           if (positionBuilder_ == null) {
-            if (((bitField0_ & 0x00000040) == 0x00000040) &&
+            if (((bitField0_ & 0x00000020) == 0x00000020) &&
                 position_ != com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.getDefaultInstance()) {
               position_ =
                 com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.newBuilder(position_).mergeFrom(value).buildPartial();
@@ -2641,11 +2557,11 @@ public final class TerminalProtos {
           } else {
             positionBuilder_.mergeFrom(value);
           }
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000020;
           return this;
         }
         /**
-         * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+         * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
          */
         public Builder clearPosition() {
           if (positionBuilder_ == null) {
@@ -2654,19 +2570,19 @@ public final class TerminalProtos {
           } else {
             positionBuilder_.clear();
           }
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000020);
           return this;
         }
         /**
-         * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+         * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
          */
         public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.Builder getPositionBuilder() {
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000020;
           onChanged();
           return getPositionFieldBuilder().getBuilder();
         }
         /**
-         * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+         * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
          */
         public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPositionOrBuilder getPositionOrBuilder() {
           if (positionBuilder_ != null) {
@@ -2676,7 +2592,7 @@ public final class TerminalProtos {
           }
         }
         /**
-         * <code>required .terminal.DataPackage.Cell.CellPosition position = 7;</code>
+         * <code>optional .terminal.DataPackage.Cell.CellPosition position = 6;</code>
          */
         private com.google.protobuf.SingleFieldBuilder<
             com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPosition.Builder, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.CellPositionOrBuilder> 
@@ -4308,26 +4224,40 @@ public final class TerminalProtos {
       return satellitesInFix_;
     }
 
-    // optional .terminal.DataPackage.Cell cell = 8;
+    // repeated .terminal.DataPackage.Cell cell = 8;
     public static final int CELL_FIELD_NUMBER = 8;
-    private com.example.signalus_terminal.TerminalProtos.DataPackage.Cell cell_;
+    private java.util.List<com.example.signalus_terminal.TerminalProtos.DataPackage.Cell> cell_;
     /**
-     * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+     * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
      */
-    public boolean hasCell() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
-    }
-    /**
-     * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
-     */
-    public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell getCell() {
+    public java.util.List<com.example.signalus_terminal.TerminalProtos.DataPackage.Cell> getCellList() {
       return cell_;
     }
     /**
-     * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+     * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
      */
-    public com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder getCellOrBuilder() {
+    public java.util.List<? extends com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder> 
+        getCellOrBuilderList() {
       return cell_;
+    }
+    /**
+     * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+     */
+    public int getCellCount() {
+      return cell_.size();
+    }
+    /**
+     * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+     */
+    public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell getCell(int index) {
+      return cell_.get(index);
+    }
+    /**
+     * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+     */
+    public com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder getCellOrBuilder(
+        int index) {
+      return cell_.get(index);
     }
 
     // optional .terminal.DataPackage.Position position = 9;
@@ -4337,7 +4267,7 @@ public final class TerminalProtos {
      * <code>optional .terminal.DataPackage.Position position = 9;</code>
      */
     public boolean hasPosition() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     /**
      * <code>optional .terminal.DataPackage.Position position = 9;</code>
@@ -4396,7 +4326,7 @@ public final class TerminalProtos {
       voltage_ = 0;
       satellites_ = 0;
       satellitesInFix_ = 0;
-      cell_ = com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.getDefaultInstance();
+      cell_ = java.util.Collections.emptyList();
       position_ = com.example.signalus_terminal.TerminalProtos.DataPackage.Position.getDefaultInstance();
       bluetoothDevice_ = java.util.Collections.emptyList();
     }
@@ -4425,8 +4355,8 @@ public final class TerminalProtos {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (hasCell()) {
-        if (!getCell().isInitialized()) {
+      for (int i = 0; i < getCellCount(); i++) {
+        if (!getCell(i).isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -4471,10 +4401,10 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         output.writeInt32(7, satellitesInFix_);
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeMessage(8, cell_);
+      for (int i = 0; i < cell_.size(); i++) {
+        output.writeMessage(8, cell_.get(i));
       }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
         output.writeMessage(9, position_);
       }
       for (int i = 0; i < bluetoothDevice_.size(); i++) {
@@ -4517,11 +4447,11 @@ public final class TerminalProtos {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(7, satellitesInFix_);
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      for (int i = 0; i < cell_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, cell_);
+          .computeMessageSize(8, cell_.get(i));
       }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(9, position_);
       }
@@ -4663,11 +4593,11 @@ public final class TerminalProtos {
         satellitesInFix_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
         if (cellBuilder_ == null) {
-          cell_ = com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.getDefaultInstance();
+          cell_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000080);
         } else {
           cellBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000080);
         if (positionBuilder_ == null) {
           position_ = com.example.signalus_terminal.TerminalProtos.DataPackage.Position.getDefaultInstance();
         } else {
@@ -4736,16 +4666,17 @@ public final class TerminalProtos {
           to_bitField0_ |= 0x00000040;
         }
         result.satellitesInFix_ = satellitesInFix_;
-        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
-          to_bitField0_ |= 0x00000080;
-        }
         if (cellBuilder_ == null) {
+          if (((bitField0_ & 0x00000080) == 0x00000080)) {
+            cell_ = java.util.Collections.unmodifiableList(cell_);
+            bitField0_ = (bitField0_ & ~0x00000080);
+          }
           result.cell_ = cell_;
         } else {
           result.cell_ = cellBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
-          to_bitField0_ |= 0x00000100;
+          to_bitField0_ |= 0x00000080;
         }
         if (positionBuilder_ == null) {
           result.position_ = position_;
@@ -4798,8 +4729,31 @@ public final class TerminalProtos {
         if (other.hasSatellitesInFix()) {
           setSatellitesInFix(other.getSatellitesInFix());
         }
-        if (other.hasCell()) {
-          mergeCell(other.getCell());
+        if (cellBuilder_ == null) {
+          if (!other.cell_.isEmpty()) {
+            if (cell_.isEmpty()) {
+              cell_ = other.cell_;
+              bitField0_ = (bitField0_ & ~0x00000080);
+            } else {
+              ensureCellIsMutable();
+              cell_.addAll(other.cell_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.cell_.isEmpty()) {
+            if (cellBuilder_.isEmpty()) {
+              cellBuilder_.dispose();
+              cellBuilder_ = null;
+              cell_ = other.cell_;
+              bitField0_ = (bitField0_ & ~0x00000080);
+              cellBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getCellFieldBuilder() : null;
+            } else {
+              cellBuilder_.addAllMessages(other.cell_);
+            }
+          }
         }
         if (other.hasPosition()) {
           mergePosition(other.getPosition());
@@ -4855,8 +4809,8 @@ public final class TerminalProtos {
           
           return false;
         }
-        if (hasCell()) {
-          if (!getCell().isInitialized()) {
+        for (int i = 0; i < getCellCount(); i++) {
+          if (!getCell(i).isInitialized()) {
             
             return false;
           }
@@ -5129,116 +5083,239 @@ public final class TerminalProtos {
         return this;
       }
 
-      // optional .terminal.DataPackage.Cell cell = 8;
-      private com.example.signalus_terminal.TerminalProtos.DataPackage.Cell cell_ = com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.example.signalus_terminal.TerminalProtos.DataPackage.Cell, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder, com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder> cellBuilder_;
-      /**
-       * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
-       */
-      public boolean hasCell() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+      // repeated .terminal.DataPackage.Cell cell = 8;
+      private java.util.List<com.example.signalus_terminal.TerminalProtos.DataPackage.Cell> cell_ =
+        java.util.Collections.emptyList();
+      private void ensureCellIsMutable() {
+        if (!((bitField0_ & 0x00000080) == 0x00000080)) {
+          cell_ = new java.util.ArrayList<com.example.signalus_terminal.TerminalProtos.DataPackage.Cell>(cell_);
+          bitField0_ |= 0x00000080;
+         }
       }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.example.signalus_terminal.TerminalProtos.DataPackage.Cell, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder, com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder> cellBuilder_;
+
       /**
-       * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
        */
-      public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell getCell() {
+      public java.util.List<com.example.signalus_terminal.TerminalProtos.DataPackage.Cell> getCellList() {
         if (cellBuilder_ == null) {
-          return cell_;
+          return java.util.Collections.unmodifiableList(cell_);
         } else {
-          return cellBuilder_.getMessage();
+          return cellBuilder_.getMessageList();
         }
       }
       /**
-       * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
        */
-      public Builder setCell(com.example.signalus_terminal.TerminalProtos.DataPackage.Cell value) {
+      public int getCellCount() {
+        if (cellBuilder_ == null) {
+          return cell_.size();
+        } else {
+          return cellBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+       */
+      public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell getCell(int index) {
+        if (cellBuilder_ == null) {
+          return cell_.get(index);
+        } else {
+          return cellBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+       */
+      public Builder setCell(
+          int index, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell value) {
         if (cellBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          cell_ = value;
+          ensureCellIsMutable();
+          cell_.set(index, value);
           onChanged();
         } else {
-          cellBuilder_.setMessage(value);
+          cellBuilder_.setMessage(index, value);
         }
-        bitField0_ |= 0x00000080;
         return this;
       }
       /**
-       * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
        */
       public Builder setCell(
+          int index, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder builderForValue) {
+        if (cellBuilder_ == null) {
+          ensureCellIsMutable();
+          cell_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          cellBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+       */
+      public Builder addCell(com.example.signalus_terminal.TerminalProtos.DataPackage.Cell value) {
+        if (cellBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCellIsMutable();
+          cell_.add(value);
+          onChanged();
+        } else {
+          cellBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+       */
+      public Builder addCell(
+          int index, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell value) {
+        if (cellBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCellIsMutable();
+          cell_.add(index, value);
+          onChanged();
+        } else {
+          cellBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+       */
+      public Builder addCell(
           com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder builderForValue) {
         if (cellBuilder_ == null) {
-          cell_ = builderForValue.build();
+          ensureCellIsMutable();
+          cell_.add(builderForValue.build());
           onChanged();
         } else {
-          cellBuilder_.setMessage(builderForValue.build());
+          cellBuilder_.addMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000080;
         return this;
       }
       /**
-       * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
        */
-      public Builder mergeCell(com.example.signalus_terminal.TerminalProtos.DataPackage.Cell value) {
+      public Builder addCell(
+          int index, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder builderForValue) {
         if (cellBuilder_ == null) {
-          if (((bitField0_ & 0x00000080) == 0x00000080) &&
-              cell_ != com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.getDefaultInstance()) {
-            cell_ =
-              com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.newBuilder(cell_).mergeFrom(value).buildPartial();
-          } else {
-            cell_ = value;
-          }
+          ensureCellIsMutable();
+          cell_.add(index, builderForValue.build());
           onChanged();
         } else {
-          cellBuilder_.mergeFrom(value);
+          cellBuilder_.addMessage(index, builderForValue.build());
         }
-        bitField0_ |= 0x00000080;
         return this;
       }
       /**
-       * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+       */
+      public Builder addAllCell(
+          java.lang.Iterable<? extends com.example.signalus_terminal.TerminalProtos.DataPackage.Cell> values) {
+        if (cellBuilder_ == null) {
+          ensureCellIsMutable();
+          super.addAll(values, cell_);
+          onChanged();
+        } else {
+          cellBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
        */
       public Builder clearCell() {
         if (cellBuilder_ == null) {
-          cell_ = com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.getDefaultInstance();
+          cell_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000080);
           onChanged();
         } else {
           cellBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
       /**
-       * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
        */
-      public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder getCellBuilder() {
-        bitField0_ |= 0x00000080;
-        onChanged();
-        return getCellFieldBuilder().getBuilder();
+      public Builder removeCell(int index) {
+        if (cellBuilder_ == null) {
+          ensureCellIsMutable();
+          cell_.remove(index);
+          onChanged();
+        } else {
+          cellBuilder_.remove(index);
+        }
+        return this;
       }
       /**
-       * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
        */
-      public com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder getCellOrBuilder() {
-        if (cellBuilder_ != null) {
-          return cellBuilder_.getMessageOrBuilder();
-        } else {
-          return cell_;
+      public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder getCellBuilder(
+          int index) {
+        return getCellFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+       */
+      public com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder getCellOrBuilder(
+          int index) {
+        if (cellBuilder_ == null) {
+          return cell_.get(index);  } else {
+          return cellBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>optional .terminal.DataPackage.Cell cell = 8;</code>
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      public java.util.List<? extends com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder> 
+           getCellOrBuilderList() {
+        if (cellBuilder_ != null) {
+          return cellBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(cell_);
+        }
+      }
+      /**
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+       */
+      public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder addCellBuilder() {
+        return getCellFieldBuilder().addBuilder(
+            com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+       */
+      public com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder addCellBuilder(
+          int index) {
+        return getCellFieldBuilder().addBuilder(
+            index, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .terminal.DataPackage.Cell cell = 8;</code>
+       */
+      public java.util.List<com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder> 
+           getCellBuilderList() {
+        return getCellFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
           com.example.signalus_terminal.TerminalProtos.DataPackage.Cell, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder, com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder> 
           getCellFieldBuilder() {
         if (cellBuilder_ == null) {
-          cellBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          cellBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.example.signalus_terminal.TerminalProtos.DataPackage.Cell, com.example.signalus_terminal.TerminalProtos.DataPackage.Cell.Builder, com.example.signalus_terminal.TerminalProtos.DataPackage.CellOrBuilder>(
                   cell_,
+                  ((bitField0_ & 0x00000080) == 0x00000080),
                   getParentForChildren(),
                   isClean());
           cell_ = null;
@@ -7683,36 +7760,35 @@ public final class TerminalProtos {
       "\n\016terminal.proto\022\010terminal\"_\n\014LoginPacka" +
       "ge\022#\n\004type\030\001 \002(\0162\025.terminal.PackageType\022" +
       "\r\n\005index\030\002 \002(\003\022\014\n\004imei\030\003 \002(\003\022\r\n\005imei2\030\004 " +
-      "\002(\003\"\303\005\n\013DataPackage\022#\n\004type\030\001 \002(\0162\025.term" +
+      "\002(\003\"\256\005\n\013DataPackage\022#\n\004type\030\001 \002(\0162\025.term" +
       "inal.PackageType\022\r\n\005index\030\002 \002(\003\022\016\n\006charg" +
       "e\030\003 \002(\010\022\013\n\003acc\030\004 \002(\010\022\017\n\007voltage\030\005 \002(\005\022\022\n" +
       "\nsatellites\030\006 \001(\005\022\027\n\017satellitesInFix\030\007 \001" +
-      "(\005\022(\n\004cell\030\010 \001(\0132\032.terminal.DataPackage." +
+      "(\005\022(\n\004cell\030\010 \003(\0132\032.terminal.DataPackage." +
       "Cell\0220\n\010position\030\t \001(\0132\036.terminal.DataPa" +
       "ckage.Position\022>\n\017bluetoothDevice\030\n \003(\0132",
-      "%.terminal.DataPackage.BluetoothDevice\032\345" +
+      "%.terminal.DataPackage.BluetoothDevice\032\320" +
       "\001\n\004Cell\022\013\n\003mcc\030\001 \002(\005\022\013\n\003mnc\030\002 \002(\005\022\013\n\003lac" +
-      "\030\003 \002(\005\022\014\n\004cell\030\004 \002(\005\022\020\n\010strength\030\005 \002(\005\022\023" +
-      "\n\013networkType\030\006 \002(\005\0229\n\010position\030\007 \002(\0132\'." +
-      "terminal.DataPackage.Cell.CellPosition\032F" +
-      "\n\014CellPosition\022\021\n\ttimestamp\030\001 \002(\003\022\020\n\010lat" +
-      "itude\030\002 \002(\001\022\021\n\tlongitude\030\003 \002(\001\032s\n\010Positi" +
-      "on\022\021\n\ttimestamp\030\001 \002(\003\022\016\n\006course\030\002 \002(\002\022\020\n" +
-      "\010latitude\030\003 \002(\001\022\021\n\tlongitude\030\004 \002(\001\022\r\n\005sp" +
-      "eed\030\005 \002(\002\022\020\n\010altitude\030\006 \002(\001\032,\n\017Bluetooth",
-      "Device\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\"\363\002\n\023Da" +
-      "taResponcePackage\022#\n\004type\030\001 \002(\0162\025.termin" +
-      "al.PackageType\022\r\n\005index\030\002 \002(\003\0228\n\006status\030" +
-      "\003 \002(\0162(.terminal.DataResponcePackage.Sta" +
-      "tusType\022\013\n\003msg\030\004 \001(\t\022F\n\017bluetoothDevice\030" +
-      "\005 \003(\0132-.terminal.DataResponcePackage.Blu" +
-      "etoothDevice\022\036\n\026do_searching_bluetooth\030\006" +
-      " \001(\005\022\033\n\023do_scan_audio_noise\030\007 \001(\005\032,\n\017Blu" +
-      "etoothDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\"" +
-      ".\n\nStatusType\022\014\n\010NO_ERROR\020\000\022\022\n\016INVALID_P",
-      "ACKET\020\001*\"\n\013PackageType\022\t\n\005LOGIN\020\000\022\010\n\004DAT" +
-      "A\020\001B/\n\035com.example.signalus_terminalB\016Te" +
-      "rminalProtos"
+      "\030\003 \002(\005\022\014\n\004cell\030\004 \002(\005\022\020\n\010strength\030\005 \002(\005\0229" +
+      "\n\010position\030\006 \001(\0132\'.terminal.DataPackage." +
+      "Cell.CellPosition\032F\n\014CellPosition\022\021\n\ttim" +
+      "estamp\030\001 \002(\003\022\020\n\010latitude\030\002 \002(\001\022\021\n\tlongit" +
+      "ude\030\003 \002(\001\032s\n\010Position\022\021\n\ttimestamp\030\001 \002(\003" +
+      "\022\016\n\006course\030\002 \002(\002\022\020\n\010latitude\030\003 \002(\001\022\021\n\tlo" +
+      "ngitude\030\004 \002(\001\022\r\n\005speed\030\005 \002(\002\022\020\n\010altitude" +
+      "\030\006 \002(\001\032,\n\017BluetoothDevice\022\014\n\004name\030\001 \002(\t\022",
+      "\013\n\003mac\030\002 \002(\t\"\363\002\n\023DataResponcePackage\022#\n\004" +
+      "type\030\001 \002(\0162\025.terminal.PackageType\022\r\n\005ind" +
+      "ex\030\002 \002(\003\0228\n\006status\030\003 \002(\0162(.terminal.Data" +
+      "ResponcePackage.StatusType\022\013\n\003msg\030\004 \001(\t\022" +
+      "F\n\017bluetoothDevice\030\005 \003(\0132-.terminal.Data" +
+      "ResponcePackage.BluetoothDevice\022\036\n\026do_se" +
+      "arching_bluetooth\030\006 \001(\005\022\033\n\023do_scan_audio" +
+      "_noise\030\007 \001(\005\032,\n\017BluetoothDevice\022\014\n\004name\030" +
+      "\001 \002(\t\022\013\n\003mac\030\002 \002(\t\".\n\nStatusType\022\014\n\010NO_E" +
+      "RROR\020\000\022\022\n\016INVALID_PACKET\020\001*\"\n\013PackageTyp",
+      "e\022\t\n\005LOGIN\020\000\022\010\n\004DATA\020\001B/\n\035com.example.si" +
+      "gnalus_terminalB\016TerminalProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7736,7 +7812,7 @@ public final class TerminalProtos {
           internal_static_terminal_DataPackage_Cell_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_terminal_DataPackage_Cell_descriptor,
-              new java.lang.String[] { "Mcc", "Mnc", "Lac", "Cell", "Strength", "NetworkType", "Position", });
+              new java.lang.String[] { "Mcc", "Mnc", "Lac", "Cell", "Strength", "Position", });
           internal_static_terminal_DataPackage_Cell_CellPosition_descriptor =
             internal_static_terminal_DataPackage_Cell_descriptor.getNestedTypes().get(0);
           internal_static_terminal_DataPackage_Cell_CellPosition_fieldAccessorTable = new

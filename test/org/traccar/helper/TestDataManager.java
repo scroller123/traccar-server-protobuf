@@ -1,6 +1,9 @@
 package org.traccar.helper;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.traccar.model.BluetoothDevice;
 import org.traccar.model.DataManager;
 import org.traccar.model.Device;
 import org.traccar.model.Position;
@@ -36,8 +39,15 @@ public class TestDataManager implements DataManager {
     public void insertBluetoothSearchResult(Long deviceId, String name, String mac) {}
 
     @Override
-    public void setDoSearchingBluetootValue(Long deviceId, int value)  {
+    public ArrayList<BluetoothDevice> selectBluetoothBinded(Long deviceId) {
+        return null;
     }
+
+    @Override
+    public void setDoSearchingBluetoothValue(Long deviceId, int value)  {}
+
+    @Override
+    public void setDoBindingBluetoothValue(Long deviceId, int value)  {}
 
     @Override
     public Long addPosition(Position position) {

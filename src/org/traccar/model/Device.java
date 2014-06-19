@@ -87,4 +87,17 @@ public class Device {
         this.doSearchingBluetooth = Integer.valueOf(doSearchingBluetooth);
     }
 
+    /**
+     * Do Binding Bluetooth
+     */
+    private int doBindingBluetooth;
+
+    public int getDoBindingBluetooth() {
+        return doBindingBluetooth;
+    }
+
+    public void setDoBindingBluetooth(String doBindingBluetooth) {
+        this.doBindingBluetooth = Integer.valueOf(doBindingBluetooth);
+    }
+
 }

@@ -25,8 +25,10 @@ import org.traccar.helper.Log;
 import org.traccar.model.Device;
 import org.traccar.model.ExtendedInfoFormatter;
 import org.traccar.model.Position;
+import org.traccar.model.BluetoothDevice;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
@@ -154,15 +156,21 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 position.setAltitude(dataPacket.getPosition().getAltitude());
 
 
-                extendedInfo.set("mcc", dataPacket.getCell().getMcc());
-                extendedInfo.set("mnc", dataPacket.getCell().getMnc());
-                extendedInfo.set("lac", dataPacket.getCell().getLac());
-                extendedInfo.set("cell", dataPacket.getCell().getCell());
+                extendedInfo.set("mcc1", dataPacket.getCell(0).getMcc());
+                extendedInfo.set("mnc1", dataPacket.getCell(0).getMnc());
+                extendedInfo.set("lac1", dataPacket.getCell(0).getLac());
+                extendedInfo.set("cell1", dataPacket.getCell(0).getCell());
 
-                extendedInfo.set("cellLatitude", dataPacket.getCell().getPosition().getLatitude());
-                extendedInfo.set("cellLongitude", dataPacket.getCell().getPosition().getLongitude());
+                extendedInfo.set("mcc2", dataPacket.getCell(1).getMcc());
+                extendedInfo.set("mnc2", dataPacket.getCell(1).getMnc());
+                extendedInfo.set("lac2", dataPacket.getCell(1).getLac());
+                extendedInfo.set("cell2", dataPacket.getCell(1).getCell());
 
-                extendedInfo.set("cellstrength", dataPacket.getCell().getStrength());
+                extendedInfo.set("cell1Latitude", dataPacket.getCell(0).getPosition().getLatitude());
+                extendedInfo.set("cell1Longitude", dataPacket.getCell(0).getPosition().getLongitude());
+
+                extendedInfo.set("cell1strength", dataPacket.getCell(0).getStrength());
+                extendedInfo.set("cell2strength", dataPacket.getCell(1).getStrength());
 
 
                 position.setExtendedInfo(extendedInfo.toString());
@@ -174,10 +182,12 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                             +"speed: "+dataPacket.getPosition().getSpeed()+" km/h, "
                             +"Altitude: "+dataPacket.getPosition().getAltitude()+" m, "
                             +"Course: "+dataPacket.getPosition().getCourse()+", "
-                            +"CellID: "+dataPacket.getCell().getMcc()+"." +dataPacket.getCell().getMnc()+"."+dataPacket.getCell().getLac()+"."+dataPacket.getCell().getCell()+", "
-                            +"timestamp: "+dataPacket.getCell().getPosition().getTimestamp()+", "
-                            +"Cell strength: "+dataPacket.getCell().getStrength()+", "
-                            +"Cell position: "+dataPacket.getCell().getPosition().getLatitude()+","+dataPacket.getCell().getPosition().getLongitude()+", "
+                            +"Cell1ID: "+dataPacket.getCell(0).getMcc()+"." +dataPacket.getCell(0).getMnc()+"."+dataPacket.getCell(0).getLac()+"."+dataPacket.getCell(0).getCell()+", "
+                            +"Cell2ID: "+dataPacket.getCell(1).getMcc()+"." +dataPacket.getCell(1).getMnc()+"."+dataPacket.getCell(1).getLac()+"."+dataPacket.getCell(1).getCell()+", "
+                            +"Cell1 timestamp: "+dataPacket.getCell(0).getPosition().getTimestamp()+", "
+                            +"Cell1 strength: "+dataPacket.getCell(0).getStrength()+", "
+                            +"Cell2 strength: "+dataPacket.getCell(1).getStrength()+", "
+                            +"Cell1 position: "+dataPacket.getCell(0).getPosition().getLatitude()+","+dataPacket.getCell(0).getPosition().getLongitude()+", "
                             +"Satellites: "+dataPacket.getSatellites()+", "
                             +"Satellites in fix: "+dataPacket.getSatellitesInFix()+""
                         );
@@ -196,10 +206,12 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                         +"speed: "+dataPacket.getPosition().getSpeed()+" km/h, "
                         +"Altitude: "+dataPacket.getPosition().getAltitude()+" m, "
                         +"Course: "+dataPacket.getPosition().getCourse()+", "
-                        +"CellID: "+dataPacket.getCell().getMcc()+"." +dataPacket.getCell().getMnc()+"."+dataPacket.getCell().getLac()+"."+dataPacket.getCell().getCell()+", "
-                        +"timestamp: "+dataPacket.getCell().getPosition().getTimestamp()+", "
-                        +"Cell strength: "+dataPacket.getCell().getStrength()+", "
-                        +"Cell position: "+dataPacket.getCell().getPosition().getLatitude()+","+dataPacket.getCell().getPosition().getLongitude()+", "
+                        +"Cell1ID: "+dataPacket.getCell(0).getMcc()+"." +dataPacket.getCell(0).getMnc()+"."+dataPacket.getCell(0).getLac()+"."+dataPacket.getCell(0).getCell()+", "
+                        +"Cell2ID: "+dataPacket.getCell(1).getMcc()+"." +dataPacket.getCell(1).getMnc()+"."+dataPacket.getCell(1).getLac()+"."+dataPacket.getCell(1).getCell()+", "
+                        +"Cell1 timestamp: "+dataPacket.getCell(0).getPosition().getTimestamp()+", "
+                        +"Cell1 strength: "+dataPacket.getCell(0).getStrength()+", "
+                        +"Cell2 strength: "+dataPacket.getCell(1).getStrength()+", "
+                        +"Cell1 position: "+dataPacket.getCell(0).getPosition().getLatitude()+","+dataPacket.getCell(0).getPosition().getLongitude()+", "
                         +"Satellites: "+dataPacket.getSatellites()+", "
                         +"Satellites in fix: "+dataPacket.getSatellitesInFix()+""
                 );
@@ -207,12 +219,24 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             }
 
-            // bluetooth searching
             Device device = getDataManager().getDeviceByID(deviceId);
+
+            // bluetooth searching
             if (device.getDoSearchingBluetooth()==1){
                 getDataManager().deleteBluetoothSearchResult(deviceId);
-                getDataManager().setDoSearchingBluetootValue(deviceId, 0);
+                getDataManager().setDoSearchingBluetoothValue(deviceId, 0);
                 responsePacket.setDoSearchingBluetooth(1);
+            }
+
+            // bluetooth binded
+            if (device.getDoBindingBluetooth()==1){
+                getDataManager().setDoBindingBluetoothValue(deviceId, 0);
+                ArrayList<BluetoothDevice> btDevices = getDataManager().selectBluetoothBinded(deviceId);
+                for (BluetoothDevice btDevice : btDevices) {
+                    responsePacket.addBluetoothDevice(TerminalProtos.DataResponcePackage.BluetoothDevice.newBuilder()
+                                                        .setMac(btDevice.getMac())
+                                                        .setName(btDevice.getName()));
+                }
             }
 
             byte[] packetBytes = responsePacket.build().toByteArray();
@@ -232,6 +256,11 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
         return null;
     }
+
+
+
+
+
 
     public byte[] hexStringToByteArray(String s) {
         int len = s.length();

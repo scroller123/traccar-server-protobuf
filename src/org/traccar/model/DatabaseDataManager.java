@@ -49,7 +49,9 @@ public class DatabaseDataManager implements DataManager {
      * Database statements
      */
     private NamedParameterStatement queryGetDevices;
+    private NamedParameterStatement querySelectBluetoothBinded;
     private NamedParameterStatement querySetDoSearchingBluetootValue;
+    private NamedParameterStatement querySetDoBindingBluetootValue;
     private NamedParameterStatement queryDeleteBluetoothSearchResult;
     private NamedParameterStatement queryInsertBluetoothSearchResult;
     private NamedParameterStatement queryAddPosition;
@@ -98,9 +100,20 @@ public class DatabaseDataManager implements DataManager {
             queryGetDevices = new NamedParameterStatement(connection, query);
         }
 
+
+        query = properties.getProperty("database.selectBluetoothBinded");
+        if (query != null) {
+            querySelectBluetoothBinded = new NamedParameterStatement(connection, query);
+        }
+
         query = properties.getProperty("database.setDoSearchingBluetootValue");
         if (query != null) {
             querySetDoSearchingBluetootValue = new NamedParameterStatement(connection, query);
+        }
+
+        query = properties.getProperty("database.setDoBindingBluetootValue");
+        if (query != null) {
+            querySetDoBindingBluetootValue = new NamedParameterStatement(connection, query);
         }
 
         query = properties.getProperty("database.deleteBluetoothSearchResult");
@@ -144,6 +157,7 @@ public class DatabaseDataManager implements DataManager {
                 device.setId(result.getLong("id"));
                 device.setImei(result.getString("imei"));
                 device.setDoSearchingBluetooth(result.getString("do_searching_bluetooth"));
+                device.setDoBindingBluetooth(result.getString("do_binding_bluetooth"));
                 deviceList.add(device);
             }
         }
@@ -193,13 +207,46 @@ public class DatabaseDataManager implements DataManager {
         return;
     }
 
+
     @Override
-    public void setDoSearchingBluetootValue(Long deviceId, int value) throws SQLException {
+    public ArrayList<BluetoothDevice> selectBluetoothBinded(Long deviceId) throws SQLException {
+        ArrayList<BluetoothDevice> list = new ArrayList<BluetoothDevice>();
+        if (querySelectBluetoothBinded != null) {
+            querySelectBluetoothBinded.prepare();
+            querySelectBluetoothBinded.setLong("device_id", deviceId);
+
+            ResultSet result = querySelectBluetoothBinded.executeQuery();
+            while (result.next()) {
+                BluetoothDevice d = new BluetoothDevice();
+                d.setId(result.getLong("id"));
+                d.setName(result.getString("name"));
+                d.setMac(result.getString("mac"));
+                list.add(d);
+            }
+        }
+        return list;
+    }
+
+
+
+    @Override
+    public void setDoSearchingBluetoothValue(Long deviceId, int value) throws SQLException {
         if (querySetDoSearchingBluetootValue != null) {
             querySetDoSearchingBluetootValue.prepare();
             querySetDoSearchingBluetootValue.setLong("device_id", deviceId);
             querySetDoSearchingBluetootValue.setInt("value", value);
             querySetDoSearchingBluetootValue.executeUpdate();
+        }
+    }
+
+
+    @Override
+    public void setDoBindingBluetoothValue(Long deviceId, int value) throws SQLException {
+        if (querySetDoBindingBluetootValue != null) {
+            querySetDoBindingBluetootValue.prepare();
+            querySetDoBindingBluetootValue.setLong("device_id", deviceId);
+            querySetDoBindingBluetootValue.setInt("value", value);
+            querySetDoBindingBluetootValue.executeUpdate();
         }
     }
 
