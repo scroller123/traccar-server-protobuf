@@ -52,6 +52,7 @@ public class DatabaseDataManager implements DataManager {
     private NamedParameterStatement querySelectBluetoothBinded;
     private NamedParameterStatement querySetDoSearchingBluetootValue;
     private NamedParameterStatement querySetDoBindingBluetootValue;
+    private NamedParameterStatement querySetDoSettingsUpdateValue;
     private NamedParameterStatement queryDeleteBluetoothSearchResult;
     private NamedParameterStatement queryInsertBluetoothSearchResult;
     private NamedParameterStatement queryAddPosition;
@@ -116,6 +117,11 @@ public class DatabaseDataManager implements DataManager {
             querySetDoBindingBluetootValue = new NamedParameterStatement(connection, query);
         }
 
+        query = properties.getProperty("database.setDoSettingsUpdateValue");
+        if (query != null) {
+            querySetDoSettingsUpdateValue = new NamedParameterStatement(connection, query);
+        }
+
         query = properties.getProperty("database.deleteBluetoothSearchResult");
         if (query != null) {
             queryDeleteBluetoothSearchResult = new NamedParameterStatement(connection, query);
@@ -158,6 +164,9 @@ public class DatabaseDataManager implements DataManager {
                 device.setImei(result.getString("imei"));
                 device.setDoSearchingBluetooth(result.getString("do_searching_bluetooth"));
                 device.setDoBindingBluetooth(result.getString("do_binding_bluetooth"));
+                device.do_settings_update = result.getInt("do_settings_update");
+                device.setting_noise_volume_level = result.getDouble("setting_noise_volume_level");
+
                 deviceList.add(device);
             }
         }
@@ -247,6 +256,16 @@ public class DatabaseDataManager implements DataManager {
             querySetDoBindingBluetootValue.setLong("device_id", deviceId);
             querySetDoBindingBluetootValue.setInt("value", value);
             querySetDoBindingBluetootValue.executeUpdate();
+        }
+    }
+
+    @Override
+    public void setDoSettingsUpdateValue(Long deviceId, int value) throws SQLException {
+        if (querySetDoSettingsUpdateValue != null) {
+            querySetDoSettingsUpdateValue.prepare();
+            querySetDoSettingsUpdateValue.setLong("device_id", deviceId);
+            querySetDoSettingsUpdateValue.setInt("value", value);
+            querySetDoSettingsUpdateValue.executeUpdate();
         }
     }
 

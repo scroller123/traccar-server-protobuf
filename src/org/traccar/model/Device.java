@@ -20,6 +20,8 @@ package org.traccar.model;
  */
 public class Device {
 
+
+
     /**
      * Id
      */
@@ -99,5 +101,10 @@ public class Device {
     public void setDoBindingBluetooth(String doBindingBluetooth) {
         this.doBindingBluetooth = Integer.valueOf(doBindingBluetooth);
     }
+
+
+    public double setting_noise_volume_level;
+    public int do_settings_update;
+
 
 }

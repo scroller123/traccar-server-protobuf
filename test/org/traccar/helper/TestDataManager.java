@@ -50,6 +50,9 @@ public class TestDataManager implements DataManager {
     public void setDoBindingBluetoothValue(Long deviceId, int value)  {}
 
     @Override
+    public void setDoSettingsUpdateValue(Long deviceId, int value)  {}
+
+    @Override
     public Long addPosition(Position position) {
         return null;
     }

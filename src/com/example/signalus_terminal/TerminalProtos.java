@@ -793,33 +793,33 @@ public final class TerminalProtos {
      */
     long getIndex();
 
-    // required bool charge = 3;
+    // optional bool charge = 3;
     /**
-     * <code>required bool charge = 3;</code>
+     * <code>optional bool charge = 3;</code>
      */
     boolean hasCharge();
     /**
-     * <code>required bool charge = 3;</code>
+     * <code>optional bool charge = 3;</code>
      */
     boolean getCharge();
 
-    // required bool acc = 4;
+    // optional bool acc = 4;
     /**
-     * <code>required bool acc = 4;</code>
+     * <code>optional bool acc = 4;</code>
      */
     boolean hasAcc();
     /**
-     * <code>required bool acc = 4;</code>
+     * <code>optional bool acc = 4;</code>
      */
     boolean getAcc();
 
-    // required int32 voltage = 5;
+    // optional int32 voltage = 5;
     /**
-     * <code>required int32 voltage = 5;</code>
+     * <code>optional int32 voltage = 5;</code>
      */
     boolean hasVoltage();
     /**
-     * <code>required int32 voltage = 5;</code>
+     * <code>optional int32 voltage = 5;</code>
      */
     int getVoltage();
 
@@ -931,6 +931,16 @@ public final class TerminalProtos {
      */
     com.example.signalus_terminal.TerminalProtos.DataPackage.BluetoothDeviceOrBuilder getBluetoothDeviceOrBuilder(
         int index);
+
+    // optional double noise_volume_level = 12;
+    /**
+     * <code>optional double noise_volume_level = 12;</code>
+     */
+    boolean hasNoiseVolumeLevel();
+    /**
+     * <code>optional double noise_volume_level = 12;</code>
+     */
+    double getNoiseVolumeLevel();
   }
   /**
    * Protobuf type {@code terminal.DataPackage}
@@ -1059,6 +1069,11 @@ public final class TerminalProtos {
                 mutable_bitField0_ |= 0x00000400;
               }
               bluetoothDevice_.add(input.readMessage(com.example.signalus_terminal.TerminalProtos.DataPackage.BluetoothDevice.PARSER, extensionRegistry));
+              break;
+            }
+            case 97: {
+              bitField0_ |= 0x00000100;
+              noiseVolumeLevel_ = input.readDouble();
               break;
             }
           }
@@ -4900,49 +4915,49 @@ public final class TerminalProtos {
       return index_;
     }
 
-    // required bool charge = 3;
+    // optional bool charge = 3;
     public static final int CHARGE_FIELD_NUMBER = 3;
     private boolean charge_;
     /**
-     * <code>required bool charge = 3;</code>
+     * <code>optional bool charge = 3;</code>
      */
     public boolean hasCharge() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required bool charge = 3;</code>
+     * <code>optional bool charge = 3;</code>
      */
     public boolean getCharge() {
       return charge_;
     }
 
-    // required bool acc = 4;
+    // optional bool acc = 4;
     public static final int ACC_FIELD_NUMBER = 4;
     private boolean acc_;
     /**
-     * <code>required bool acc = 4;</code>
+     * <code>optional bool acc = 4;</code>
      */
     public boolean hasAcc() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required bool acc = 4;</code>
+     * <code>optional bool acc = 4;</code>
      */
     public boolean getAcc() {
       return acc_;
     }
 
-    // required int32 voltage = 5;
+    // optional int32 voltage = 5;
     public static final int VOLTAGE_FIELD_NUMBER = 5;
     private int voltage_;
     /**
-     * <code>required int32 voltage = 5;</code>
+     * <code>optional int32 voltage = 5;</code>
      */
     public boolean hasVoltage() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>required int32 voltage = 5;</code>
+     * <code>optional int32 voltage = 5;</code>
      */
     public int getVoltage() {
       return voltage_;
@@ -5110,6 +5125,22 @@ public final class TerminalProtos {
       return bluetoothDevice_.get(index);
     }
 
+    // optional double noise_volume_level = 12;
+    public static final int NOISE_VOLUME_LEVEL_FIELD_NUMBER = 12;
+    private double noiseVolumeLevel_;
+    /**
+     * <code>optional double noise_volume_level = 12;</code>
+     */
+    public boolean hasNoiseVolumeLevel() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    /**
+     * <code>optional double noise_volume_level = 12;</code>
+     */
+    public double getNoiseVolumeLevel() {
+      return noiseVolumeLevel_;
+    }
+
     private void initFields() {
       type_ = com.example.signalus_terminal.TerminalProtos.PackageType.LOGIN;
       index_ = 0L;
@@ -5122,6 +5153,7 @@ public final class TerminalProtos {
       neighboringcell_ = java.util.Collections.emptyList();
       position_ = com.example.signalus_terminal.TerminalProtos.DataPackage.Position.getDefaultInstance();
       bluetoothDevice_ = java.util.Collections.emptyList();
+      noiseVolumeLevel_ = 0D;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -5133,18 +5165,6 @@ public final class TerminalProtos {
         return false;
       }
       if (!hasIndex()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCharge()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasAcc()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasVoltage()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -5206,6 +5226,9 @@ public final class TerminalProtos {
       for (int i = 0; i < bluetoothDevice_.size(); i++) {
         output.writeMessage(11, bluetoothDevice_.get(i));
       }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeDouble(12, noiseVolumeLevel_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -5258,6 +5281,10 @@ public final class TerminalProtos {
       for (int i = 0; i < bluetoothDevice_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(11, bluetoothDevice_.get(i));
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(12, noiseVolumeLevel_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5417,6 +5444,8 @@ public final class TerminalProtos {
         } else {
           bluetoothDeviceBuilder_.clear();
         }
+        noiseVolumeLevel_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000800);
         return this;
       }
 
@@ -5508,6 +5537,10 @@ public final class TerminalProtos {
         } else {
           result.bluetoothDevice_ = bluetoothDeviceBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.noiseVolumeLevel_ = noiseVolumeLevel_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5626,6 +5659,9 @@ public final class TerminalProtos {
             }
           }
         }
+        if (other.hasNoiseVolumeLevel()) {
+          setNoiseVolumeLevel(other.getNoiseVolumeLevel());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -5636,18 +5672,6 @@ public final class TerminalProtos {
           return false;
         }
         if (!hasIndex()) {
-          
-          return false;
-        }
-        if (!hasCharge()) {
-          
-          return false;
-        }
-        if (!hasAcc()) {
-          
-          return false;
-        }
-        if (!hasVoltage()) {
           
           return false;
         }
@@ -5760,22 +5784,22 @@ public final class TerminalProtos {
         return this;
       }
 
-      // required bool charge = 3;
+      // optional bool charge = 3;
       private boolean charge_ ;
       /**
-       * <code>required bool charge = 3;</code>
+       * <code>optional bool charge = 3;</code>
        */
       public boolean hasCharge() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required bool charge = 3;</code>
+       * <code>optional bool charge = 3;</code>
        */
       public boolean getCharge() {
         return charge_;
       }
       /**
-       * <code>required bool charge = 3;</code>
+       * <code>optional bool charge = 3;</code>
        */
       public Builder setCharge(boolean value) {
         bitField0_ |= 0x00000004;
@@ -5784,7 +5808,7 @@ public final class TerminalProtos {
         return this;
       }
       /**
-       * <code>required bool charge = 3;</code>
+       * <code>optional bool charge = 3;</code>
        */
       public Builder clearCharge() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -5793,22 +5817,22 @@ public final class TerminalProtos {
         return this;
       }
 
-      // required bool acc = 4;
+      // optional bool acc = 4;
       private boolean acc_ ;
       /**
-       * <code>required bool acc = 4;</code>
+       * <code>optional bool acc = 4;</code>
        */
       public boolean hasAcc() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required bool acc = 4;</code>
+       * <code>optional bool acc = 4;</code>
        */
       public boolean getAcc() {
         return acc_;
       }
       /**
-       * <code>required bool acc = 4;</code>
+       * <code>optional bool acc = 4;</code>
        */
       public Builder setAcc(boolean value) {
         bitField0_ |= 0x00000008;
@@ -5817,7 +5841,7 @@ public final class TerminalProtos {
         return this;
       }
       /**
-       * <code>required bool acc = 4;</code>
+       * <code>optional bool acc = 4;</code>
        */
       public Builder clearAcc() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -5826,22 +5850,22 @@ public final class TerminalProtos {
         return this;
       }
 
-      // required int32 voltage = 5;
+      // optional int32 voltage = 5;
       private int voltage_ ;
       /**
-       * <code>required int32 voltage = 5;</code>
+       * <code>optional int32 voltage = 5;</code>
        */
       public boolean hasVoltage() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>required int32 voltage = 5;</code>
+       * <code>optional int32 voltage = 5;</code>
        */
       public int getVoltage() {
         return voltage_;
       }
       /**
-       * <code>required int32 voltage = 5;</code>
+       * <code>optional int32 voltage = 5;</code>
        */
       public Builder setVoltage(int value) {
         bitField0_ |= 0x00000010;
@@ -5850,7 +5874,7 @@ public final class TerminalProtos {
         return this;
       }
       /**
-       * <code>required int32 voltage = 5;</code>
+       * <code>optional int32 voltage = 5;</code>
        */
       public Builder clearVoltage() {
         bitField0_ = (bitField0_ & ~0x00000010);
@@ -6762,6 +6786,39 @@ public final class TerminalProtos {
         return bluetoothDeviceBuilder_;
       }
 
+      // optional double noise_volume_level = 12;
+      private double noiseVolumeLevel_ ;
+      /**
+       * <code>optional double noise_volume_level = 12;</code>
+       */
+      public boolean hasNoiseVolumeLevel() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
+      }
+      /**
+       * <code>optional double noise_volume_level = 12;</code>
+       */
+      public double getNoiseVolumeLevel() {
+        return noiseVolumeLevel_;
+      }
+      /**
+       * <code>optional double noise_volume_level = 12;</code>
+       */
+      public Builder setNoiseVolumeLevel(double value) {
+        bitField0_ |= 0x00000800;
+        noiseVolumeLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional double noise_volume_level = 12;</code>
+       */
+      public Builder clearNoiseVolumeLevel() {
+        bitField0_ = (bitField0_ & ~0x00000800);
+        noiseVolumeLevel_ = 0D;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:terminal.DataPackage)
     }
 
@@ -6865,6 +6922,16 @@ public final class TerminalProtos {
      * <code>optional int32 do_scan_audio_noise = 7;</code>
      */
     int getDoScanAudioNoise();
+
+    // optional double setting_noise_volume_level = 8;
+    /**
+     * <code>optional double setting_noise_volume_level = 8;</code>
+     */
+    boolean hasSettingNoiseVolumeLevel();
+    /**
+     * <code>optional double setting_noise_volume_level = 8;</code>
+     */
+    double getSettingNoiseVolumeLevel();
   }
   /**
    * Protobuf type {@code terminal.DataResponcePackage}
@@ -6965,6 +7032,11 @@ public final class TerminalProtos {
             case 56: {
               bitField0_ |= 0x00000020;
               doScanAudioNoise_ = input.readInt32();
+              break;
+            }
+            case 65: {
+              bitField0_ |= 0x00000040;
+              settingNoiseVolumeLevel_ = input.readDouble();
               break;
             }
           }
@@ -7894,6 +7966,22 @@ public final class TerminalProtos {
       return doScanAudioNoise_;
     }
 
+    // optional double setting_noise_volume_level = 8;
+    public static final int SETTING_NOISE_VOLUME_LEVEL_FIELD_NUMBER = 8;
+    private double settingNoiseVolumeLevel_;
+    /**
+     * <code>optional double setting_noise_volume_level = 8;</code>
+     */
+    public boolean hasSettingNoiseVolumeLevel() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional double setting_noise_volume_level = 8;</code>
+     */
+    public double getSettingNoiseVolumeLevel() {
+      return settingNoiseVolumeLevel_;
+    }
+
     private void initFields() {
       type_ = com.example.signalus_terminal.TerminalProtos.PackageType.LOGIN;
       index_ = 0L;
@@ -7902,6 +7990,7 @@ public final class TerminalProtos {
       bluetoothDevice_ = java.util.Collections.emptyList();
       doSearchingBluetooth_ = 0;
       doScanAudioNoise_ = 0;
+      settingNoiseVolumeLevel_ = 0D;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -7954,6 +8043,9 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeInt32(7, doScanAudioNoise_);
       }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeDouble(8, settingNoiseVolumeLevel_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -7990,6 +8082,10 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(7, doScanAudioNoise_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(8, settingNoiseVolumeLevel_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8126,6 +8222,8 @@ public final class TerminalProtos {
         bitField0_ = (bitField0_ & ~0x00000020);
         doScanAudioNoise_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
+        settingNoiseVolumeLevel_ = 0D;
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
 
@@ -8187,6 +8285,10 @@ public final class TerminalProtos {
           to_bitField0_ |= 0x00000020;
         }
         result.doScanAudioNoise_ = doScanAudioNoise_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.settingNoiseVolumeLevel_ = settingNoiseVolumeLevel_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -8248,6 +8350,9 @@ public final class TerminalProtos {
         }
         if (other.hasDoScanAudioNoise()) {
           setDoScanAudioNoise(other.getDoScanAudioNoise());
+        }
+        if (other.hasSettingNoiseVolumeLevel()) {
+          setSettingNoiseVolumeLevel(other.getSettingNoiseVolumeLevel());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -8779,6 +8884,39 @@ public final class TerminalProtos {
         return this;
       }
 
+      // optional double setting_noise_volume_level = 8;
+      private double settingNoiseVolumeLevel_ ;
+      /**
+       * <code>optional double setting_noise_volume_level = 8;</code>
+       */
+      public boolean hasSettingNoiseVolumeLevel() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <code>optional double setting_noise_volume_level = 8;</code>
+       */
+      public double getSettingNoiseVolumeLevel() {
+        return settingNoiseVolumeLevel_;
+      }
+      /**
+       * <code>optional double setting_noise_volume_level = 8;</code>
+       */
+      public Builder setSettingNoiseVolumeLevel(double value) {
+        bitField0_ |= 0x00000080;
+        settingNoiseVolumeLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional double setting_noise_volume_level = 8;</code>
+       */
+      public Builder clearSettingNoiseVolumeLevel() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        settingNoiseVolumeLevel_ = 0D;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:terminal.DataResponcePackage)
     }
 
@@ -8847,39 +8985,41 @@ public final class TerminalProtos {
       "\n\016terminal.proto\022\010terminal\"_\n\014LoginPacka" +
       "ge\022#\n\004type\030\001 \002(\0162\025.terminal.PackageType\022" +
       "\r\n\005index\030\002 \002(\003\022\014\n\004imei\030\003 \002(\003\022\r\n\005imei2\030\004 " +
-      "\002(\003\"\310\006\n\013DataPackage\022#\n\004type\030\001 \002(\0162\025.term" +
+      "\002(\003\"\344\006\n\013DataPackage\022#\n\004type\030\001 \002(\0162\025.term" +
       "inal.PackageType\022\r\n\005index\030\002 \002(\003\022\016\n\006charg" +
-      "e\030\003 \002(\010\022\013\n\003acc\030\004 \002(\010\022\017\n\007voltage\030\005 \002(\005\022\022\n" +
+      "e\030\003 \001(\010\022\013\n\003acc\030\004 \001(\010\022\017\n\007voltage\030\005 \001(\005\022\022\n" +
       "\nsatellites\030\006 \001(\005\022\027\n\017satellitesInFix\030\007 \001" +
       "(\005\022(\n\004cell\030\010 \003(\0132\032.terminal.DataPackage." +
       "Cell\022>\n\017neighboringcell\030\t \003(\0132%.terminal" +
       ".DataPackage.NeighboringCell\0220\n\010position",
       "\030\n \001(\0132\036.terminal.DataPackage.Position\022>" +
       "\n\017bluetoothDevice\030\013 \003(\0132%.terminal.DataP" +
-      "ackage.BluetoothDevice\032\320\001\n\004Cell\022\013\n\003mcc\030\001" +
-      " \002(\005\022\013\n\003mnc\030\002 \002(\005\022\013\n\003lac\030\003 \002(\005\022\014\n\004cell\030\004" +
-      " \002(\005\022\020\n\010strength\030\005 \002(\005\0229\n\010position\030\006 \001(\013" +
-      "2\'.terminal.DataPackage.Cell.CellPositio" +
-      "n\032F\n\014CellPosition\022\021\n\ttimestamp\030\001 \002(\003\022\020\n\010" +
-      "latitude\030\002 \002(\001\022\021\n\tlongitude\030\003 \002(\001\032X\n\017Nei" +
-      "ghboringCell\022\013\n\003mcc\030\001 \001(\005\022\013\n\003mnc\030\002 \001(\005\022\013" +
-      "\n\003lac\030\003 \001(\005\022\014\n\004cell\030\004 \001(\005\022\020\n\010strength\030\005 ",
-      "\001(\005\032s\n\010Position\022\021\n\ttimestamp\030\001 \002(\003\022\016\n\006co" +
-      "urse\030\002 \002(\005\022\020\n\010latitude\030\003 \002(\001\022\021\n\tlongitud" +
-      "e\030\004 \002(\001\022\r\n\005speed\030\005 \002(\005\022\020\n\010altitude\030\006 \002(\005" +
-      "\032,\n\017BluetoothDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac" +
-      "\030\002 \002(\t\"\363\002\n\023DataResponcePackage\022#\n\004type\030\001" +
-      " \002(\0162\025.terminal.PackageType\022\r\n\005index\030\002 \002" +
-      "(\003\0228\n\006status\030\003 \002(\0162(.terminal.DataRespon" +
-      "cePackage.StatusType\022\013\n\003msg\030\004 \001(\t\022F\n\017blu" +
-      "etoothDevice\030\005 \003(\0132-.terminal.DataRespon" +
-      "cePackage.BluetoothDevice\022\036\n\026do_searchin",
-      "g_bluetooth\030\006 \001(\005\022\033\n\023do_scan_audio_noise" +
-      "\030\007 \001(\005\032,\n\017BluetoothDevice\022\014\n\004name\030\001 \002(\t\022" +
-      "\013\n\003mac\030\002 \002(\t\".\n\nStatusType\022\014\n\010NO_ERROR\020\000" +
-      "\022\022\n\016INVALID_PACKET\020\001*\"\n\013PackageType\022\t\n\005L" +
-      "OGIN\020\000\022\010\n\004DATA\020\001B/\n\035com.example.signalus" +
-      "_terminalB\016TerminalProtos"
+      "ackage.BluetoothDevice\022\032\n\022noise_volume_l" +
+      "evel\030\014 \001(\001\032\320\001\n\004Cell\022\013\n\003mcc\030\001 \002(\005\022\013\n\003mnc\030" +
+      "\002 \002(\005\022\013\n\003lac\030\003 \002(\005\022\014\n\004cell\030\004 \002(\005\022\020\n\010stre" +
+      "ngth\030\005 \002(\005\0229\n\010position\030\006 \001(\0132\'.terminal." +
+      "DataPackage.Cell.CellPosition\032F\n\014CellPos" +
+      "ition\022\021\n\ttimestamp\030\001 \002(\003\022\020\n\010latitude\030\002 \002" +
+      "(\001\022\021\n\tlongitude\030\003 \002(\001\032X\n\017NeighboringCell" +
+      "\022\013\n\003mcc\030\001 \001(\005\022\013\n\003mnc\030\002 \001(\005\022\013\n\003lac\030\003 \001(\005\022",
+      "\014\n\004cell\030\004 \001(\005\022\020\n\010strength\030\005 \001(\005\032s\n\010Posit" +
+      "ion\022\021\n\ttimestamp\030\001 \002(\003\022\016\n\006course\030\002 \002(\005\022\020" +
+      "\n\010latitude\030\003 \002(\001\022\021\n\tlongitude\030\004 \002(\001\022\r\n\005s" +
+      "peed\030\005 \002(\005\022\020\n\010altitude\030\006 \002(\005\032,\n\017Bluetoot" +
+      "hDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\"\227\003\n\023D" +
+      "ataResponcePackage\022#\n\004type\030\001 \002(\0162\025.termi" +
+      "nal.PackageType\022\r\n\005index\030\002 \002(\003\0228\n\006status" +
+      "\030\003 \002(\0162(.terminal.DataResponcePackage.St" +
+      "atusType\022\013\n\003msg\030\004 \001(\t\022F\n\017bluetoothDevice" +
+      "\030\005 \003(\0132-.terminal.DataResponcePackage.Bl",
+      "uetoothDevice\022\036\n\026do_searching_bluetooth\030" +
+      "\006 \001(\005\022\033\n\023do_scan_audio_noise\030\007 \001(\005\022\"\n\032se" +
+      "tting_noise_volume_level\030\010 \001(\001\032,\n\017Blueto" +
+      "othDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\".\n\n" +
+      "StatusType\022\014\n\010NO_ERROR\020\000\022\022\n\016INVALID_PACK" +
+      "ET\020\001*\"\n\013PackageType\022\t\n\005LOGIN\020\000\022\010\n\004DATA\020\001" +
+      "B/\n\035com.example.signalus_terminalB\016Termi" +
+      "nalProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -8897,7 +9037,7 @@ public final class TerminalProtos {
           internal_static_terminal_DataPackage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_terminal_DataPackage_descriptor,
-              new java.lang.String[] { "Type", "Index", "Charge", "Acc", "Voltage", "Satellites", "SatellitesInFix", "Cell", "Neighboringcell", "Position", "BluetoothDevice", });
+              new java.lang.String[] { "Type", "Index", "Charge", "Acc", "Voltage", "Satellites", "SatellitesInFix", "Cell", "Neighboringcell", "Position", "BluetoothDevice", "NoiseVolumeLevel", });
           internal_static_terminal_DataPackage_Cell_descriptor =
             internal_static_terminal_DataPackage_descriptor.getNestedTypes().get(0);
           internal_static_terminal_DataPackage_Cell_fieldAccessorTable = new
@@ -8933,7 +9073,7 @@ public final class TerminalProtos {
           internal_static_terminal_DataResponcePackage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_terminal_DataResponcePackage_descriptor,
-              new java.lang.String[] { "Type", "Index", "Status", "Msg", "BluetoothDevice", "DoSearchingBluetooth", "DoScanAudioNoise", });
+              new java.lang.String[] { "Type", "Index", "Status", "Msg", "BluetoothDevice", "DoSearchingBluetooth", "DoScanAudioNoise", "SettingNoiseVolumeLevel", });
           internal_static_terminal_DataResponcePackage_BluetoothDevice_descriptor =
             internal_static_terminal_DataResponcePackage_descriptor.getNestedTypes().get(0);
           internal_static_terminal_DataResponcePackage_BluetoothDevice_fieldAccessorTable = new

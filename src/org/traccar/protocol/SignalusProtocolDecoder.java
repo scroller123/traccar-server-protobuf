@@ -126,6 +126,11 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             Log.info("DATA PACKET, device: "+deviceId);
 
+            // temp
+            if (dataPacket.hasNoiseVolumeLevel()){
+                Log.info("NOISE LEVEL: "+dataPacket.getNoiseVolumeLevel() +"");
+            }
+
 
             if (dataPacket.getBluetoothDeviceCount()>0) {
                 for(int i=0; i<dataPacket.getBluetoothDeviceCount(); i++) {
@@ -151,6 +156,9 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 time.clear();
                 time.setTimeInMillis(dataPacket.getPosition().getTimestamp());
                 position.setTime(time.getTime());
+
+                extendedInfo.set("acc", dataPacket.getAcc() ? 1 : 0);
+                extendedInfo.set("charge", dataPacket.getCharge() ? 1 : 0);
 
                 extendedInfo.set("satellites", dataPacket.getSatellitesInFix());
                 extendedInfo.set("satellitesAll", dataPacket.getSatellites());
@@ -181,6 +189,8 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 extendedInfo.set("cell1strength", dataPacket.getCell(0).getStrength());
                 extendedInfo.set("cell2strength", dataPacket.getCell(1).getStrength());
 
+                extendedInfo.set("noiseValue", dataPacket.getNoiseVolumeLevel());
+
 
                 position.setExtendedInfo(extendedInfo.toString());
 
@@ -198,7 +208,9 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                             +"Cell2 strength: "+dataPacket.getCell(1).getStrength()+", "
                             +"Cell1 position: "+dataPacket.getCell(0).getPosition().getLatitude()+","+dataPacket.getCell(0).getPosition().getLongitude()+", "
                             +"Satellites: "+dataPacket.getSatellites()+", "
-                            +"Satellites in fix: "+dataPacket.getSatellitesInFix()+""
+                            +"Satellites in fix: "+dataPacket.getSatellitesInFix()+", "
+                            +"ACC: "+(dataPacket.getAcc() ? 1:0)+", "
+                            +"CHANGE: "+(dataPacket.getCharge() ? 1:0)+", "
                         );
                 responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
 
@@ -222,7 +234,9 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                         +"Cell2 strength: "+dataPacket.getCell(1).getStrength()+", "
                         +"Cell1 position: "+dataPacket.getCell(0).getPosition().getLatitude()+","+dataPacket.getCell(0).getPosition().getLongitude()+", "
                         +"Satellites: "+dataPacket.getSatellites()+", "
-                        +"Satellites in fix: "+dataPacket.getSatellitesInFix()+""
+                        +"Satellites in fix: "+dataPacket.getSatellitesInFix()+", "
+                        +"ACC: "+(dataPacket.getAcc() ? 1:0)+", "
+                        +"CHANGE: "+(dataPacket.getCharge() ? 1:0)+", "
                 );
 
 
@@ -235,7 +249,11 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 for(TerminalProtos.DataPackage.NeighboringCell nhCell : dataPacket.getNeighboringcellList()) {
                     url.append("&cellinfo[]="+dataPacket.getCell(0).getMcc()+":"+nhCell.getMnc()+":"+nhCell.getLac()+":"+nhCell.getCell()+"&cellrssi[]="+nhCell.getStrength());
                 }
+                url.append("&position="+dataPacket.getPosition().getLatitude()+","+dataPacket.getPosition().getLongitude());
+
+
                 SendLBSPositionProcess process = new SendLBSPositionProcess(url.toString());
+
                 try {
                     process.execute();
                 } catch (Exception e) {
@@ -264,6 +282,12 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                                                         .setMac(btDevice.getMac())
                                                         .setName(btDevice.getName()));
                 }
+            }
+
+            // do settings update
+            if (device.do_settings_update==1){
+                getDataManager().setDoSettingsUpdateValue(deviceId, 0);
+                responsePacket.setSettingNoiseVolumeLevel(device.setting_noise_volume_level);
             }
 
             byte[] packetBytes = responsePacket.build().toByteArray();
