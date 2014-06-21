@@ -104,6 +104,13 @@ public class Device {
 
 
     public double setting_noise_volume_level;
+    public String setting_incoming_numbers;
+    public float setting_gsensor_level;
+    public int defence;
+
+
+
+
     public int do_settings_update;
 
 

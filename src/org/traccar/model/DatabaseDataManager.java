@@ -50,8 +50,9 @@ public class DatabaseDataManager implements DataManager {
      */
     private NamedParameterStatement queryGetDevices;
     private NamedParameterStatement querySelectBluetoothBinded;
-    private NamedParameterStatement querySetDoSearchingBluetootValue;
-    private NamedParameterStatement querySetDoBindingBluetootValue;
+    private NamedParameterStatement querySetDefenceValue;
+    private NamedParameterStatement querySetDoSearchingBluetoothValue;
+    private NamedParameterStatement querySetDoBindingBluetoothValue;
     private NamedParameterStatement querySetDoSettingsUpdateValue;
     private NamedParameterStatement queryDeleteBluetoothSearchResult;
     private NamedParameterStatement queryInsertBluetoothSearchResult;
@@ -107,14 +108,19 @@ public class DatabaseDataManager implements DataManager {
             querySelectBluetoothBinded = new NamedParameterStatement(connection, query);
         }
 
-        query = properties.getProperty("database.setDoSearchingBluetootValue");
+        query = properties.getProperty("database.setDefenceValue");
         if (query != null) {
-            querySetDoSearchingBluetootValue = new NamedParameterStatement(connection, query);
+            querySetDefenceValue = new NamedParameterStatement(connection, query);
         }
 
-        query = properties.getProperty("database.setDoBindingBluetootValue");
+        query = properties.getProperty("database.setDoSearchingBluetoothValue");
         if (query != null) {
-            querySetDoBindingBluetootValue = new NamedParameterStatement(connection, query);
+            querySetDoSearchingBluetoothValue = new NamedParameterStatement(connection, query);
+        }
+
+        query = properties.getProperty("database.setDoBindingBluetoothValue");
+        if (query != null) {
+            querySetDoBindingBluetoothValue = new NamedParameterStatement(connection, query);
         }
 
         query = properties.getProperty("database.setDoSettingsUpdateValue");
@@ -166,6 +172,11 @@ public class DatabaseDataManager implements DataManager {
                 device.setDoBindingBluetooth(result.getString("do_binding_bluetooth"));
                 device.do_settings_update = result.getInt("do_settings_update");
                 device.setting_noise_volume_level = result.getDouble("setting_noise_volume_level");
+                device.setting_incoming_numbers = result.getString("setting_incoming_numbers");
+                device.setting_gsensor_level = result.getFloat("setting_gsensor_level");
+                device.defence = result.getInt("defence");
+
+
 
                 deviceList.add(device);
             }
@@ -240,22 +251,31 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDoSearchingBluetoothValue(Long deviceId, int value) throws SQLException {
-        if (querySetDoSearchingBluetootValue != null) {
-            querySetDoSearchingBluetootValue.prepare();
-            querySetDoSearchingBluetootValue.setLong("device_id", deviceId);
-            querySetDoSearchingBluetootValue.setInt("value", value);
-            querySetDoSearchingBluetootValue.executeUpdate();
+        if (querySetDoSearchingBluetoothValue != null) {
+            querySetDoSearchingBluetoothValue.prepare();
+            querySetDoSearchingBluetoothValue.setLong("device_id", deviceId);
+            querySetDoSearchingBluetoothValue.setInt("value", value);
+            querySetDoSearchingBluetoothValue.executeUpdate();
         }
     }
 
+    @Override
+    public void setDefenceValue(Long deviceId, int value) throws SQLException {
+        if (querySetDefenceValue != null) {
+            querySetDefenceValue.prepare();
+            querySetDefenceValue.setLong("device_id", deviceId);
+            querySetDefenceValue.setInt("value", value);
+            querySetDefenceValue.executeUpdate();
+        }
+    }
 
     @Override
     public void setDoBindingBluetoothValue(Long deviceId, int value) throws SQLException {
-        if (querySetDoBindingBluetootValue != null) {
-            querySetDoBindingBluetootValue.prepare();
-            querySetDoBindingBluetootValue.setLong("device_id", deviceId);
-            querySetDoBindingBluetootValue.setInt("value", value);
-            querySetDoBindingBluetootValue.executeUpdate();
+        if (querySetDoBindingBluetoothValue != null) {
+            querySetDoBindingBluetoothValue.prepare();
+            querySetDoBindingBluetoothValue.setLong("device_id", deviceId);
+            querySetDoBindingBluetoothValue.setInt("value", value);
+            querySetDoBindingBluetoothValue.executeUpdate();
         }
     }
 

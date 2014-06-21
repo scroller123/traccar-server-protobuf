@@ -70,7 +70,7 @@
       <file leaf-file-name="SignalusProtocolDecoder.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="212" column="44" selection-start="9466" selection-end="9537" vertical-scroll-proportion="1.888548">
+            <state line="285" column="0" selection-start="13450" selection-end="13450" vertical-scroll-proportion="0.69325155">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,19 +78,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseProtocolDecoder.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/traccar/BaseProtocolDecoder.java">
+      <file leaf-file-name="DatabaseDataManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="29" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.0">
+            <state line="206" column="18" selection-start="7657" selection-end="7657" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseDataManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java">
+      <file leaf-file-name="Device.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Device.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="168" column="0" selection-start="6520" selection-end="6520" vertical-scroll-proportion="0.0">
+            <state line="108" column="0" selection-start="2329" selection-end="2329" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -120,10 +120,10 @@
         <option value="$PROJECT_DIR$/src/org/traccar/model/BluetoothDevice.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/model/Position.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/ServerManager.java" />
-        <option value="$PROJECT_DIR$/src/org/traccar/model/DataManager.java" />
-        <option value="$PROJECT_DIR$/test/org/traccar/helper/TestDataManager.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/model/Device.java" />
+        <option value="$PROJECT_DIR$/src/org/traccar/model/DataManager.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java" />
+        <option value="$PROJECT_DIR$/test/org/traccar/helper/TestDataManager.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java" />
       </list>
     </option>
@@ -536,8 +536,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1176" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.871063" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -559,7 +559,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3297244" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297244" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -648,21 +648,6 @@
         <state line="30" column="13" selection-start="1041" selection-end="1041" vertical-scroll-proportion="-0.30373362" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/org/traccar/helper/TestDataManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="66" selection-start="1305" selection-end="1305" vertical-scroll-proportion="0.80335367" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DataManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="66" selection-start="1304" selection-end="1366" vertical-scroll-proportion="0.37739658" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Device.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="17" selection-start="2216" selection-end="2216" vertical-scroll-proportion="0.8113017" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/ServerManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="219" column="90" selection-start="7130" selection-end="7130" vertical-scroll-proportion="1.2230071" />
@@ -690,17 +675,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/BaseProtocolDecoder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="29" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.0" />
+        <state line="32" column="29" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.29162464" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/org/traccar/helper/TestDataManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="1047" selection-end="1047" vertical-scroll-proportion="0.6996951" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Device.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="108" column="0" selection-start="2329" selection-end="2329" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DataManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="18" selection-start="988" selection-end="988" vertical-scroll-proportion="0.27447024">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="0" selection-start="6520" selection-end="6520" vertical-scroll-proportion="0.0" />
+        <state line="206" column="18" selection-start="7657" selection-end="7657" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="212" column="44" selection-start="9466" selection-end="9537" vertical-scroll-proportion="1.888548">
+        <state line="285" column="0" selection-start="13450" selection-end="13450" vertical-scroll-proportion="0.69325155">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -60,6 +60,8 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
     private Long deviceImei;
     private Long deviceImei2;
 
+    private int prevDefence;
+
     public SignalusProtocolDecoder(ServerManager serverManager) {
         super(serverManager);
     }
@@ -74,7 +76,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
         byte[] sentence = new byte[length];
         buf.readBytes(sentence);
 
-        //LOGIN PACKET
+        //LOGIN PACKET ##########################################################
         try {
             TerminalProtos.LoginPackage loginPacket = TerminalProtos.LoginPackage.parseFrom(sentence);
 
@@ -102,8 +104,13 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             if (deviceId != null){
                 responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
+
+                Device device = getDataManager().getDeviceByID(deviceId);
+                responsePacket.setDefence(device.defence);
+                prevDefence = device.defence;
             }else{
                 responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.INVALID_PACKET);
+                Log.info("Unknown device: imei1:"+deviceImei+", imei2:"+deviceImei2);
             }
 
             byte[] packetBytes = responsePacket.build().toByteArray();
@@ -112,12 +119,11 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
             message.writeBytes(lengthBytes);
             message.writeBytes(packetBytes);
             channel.write(message);
-//            channel.write(/*compress*/(bytArrayToHex(responseLoginPacket.build().toByteArray()))+"\n");
 
             loginPacket = null;
         }catch (Exception e){}
 
-        //DATA PACKET
+        //DATA PACKET ##########################################################
         try {
             TerminalProtos.DataPackage dataPacket = TerminalProtos.DataPackage.parseFrom(sentence);
 
@@ -126,10 +132,14 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             Log.info("DATA PACKET, device: "+deviceId);
 
-            // temp
+            // temp  *#*#*#*#*#*#*#
             if (dataPacket.hasNoiseVolumeLevel()){
                 Log.info("NOISE LEVEL: "+dataPacket.getNoiseVolumeLevel() +"");
             }
+            if (dataPacket.hasGsensorLevel()){
+                Log.info("G LEVEL: "+dataPacket.getGsensorLevel() +"");
+            }
+            // temp  *#*#*#*#*#*#*#
 
 
             if (dataPacket.getBluetoothDeviceCount()>0) {
@@ -137,6 +147,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                     getDataManager().insertBluetoothSearchResult(deviceId, dataPacket.getBluetoothDevice(i).getName(), dataPacket.getBluetoothDevice(i).getMac());
                 }
             }
+
 
 
             TerminalProtos.DataResponcePackage.Builder responsePacket = TerminalProtos.DataResponcePackage.newBuilder();
@@ -190,6 +201,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 extendedInfo.set("cell2strength", dataPacket.getCell(1).getStrength());
 
                 extendedInfo.set("noiseValue", dataPacket.getNoiseVolumeLevel());
+                extendedInfo.set("gSensor", dataPacket.getGsensorLevel());
 
 
                 position.setExtendedInfo(extendedInfo.toString());
@@ -242,18 +254,16 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             }
 
+
             // Neighhooding Cells
             if (dataPacket.getNeighboringcellCount() >= 3) {
                 StringBuilder url = new StringBuilder();
                 url.append("http://www.signalus.ru/outer/setLBSPosition?deviceID="+deviceId);
-                for(TerminalProtos.DataPackage.NeighboringCell nhCell : dataPacket.getNeighboringcellList()) {
+                for(TerminalProtos.DataPackage.NeighboringCell nhCell : dataPacket.getNeighboringcellList())
                     url.append("&cellinfo[]="+dataPacket.getCell(0).getMcc()+":"+nhCell.getMnc()+":"+nhCell.getLac()+":"+nhCell.getCell()+"&cellrssi[]="+nhCell.getStrength());
-                }
                 url.append("&position="+dataPacket.getPosition().getLatitude()+","+dataPacket.getPosition().getLongitude());
 
-
                 SendLBSPositionProcess process = new SendLBSPositionProcess(url.toString());
-
                 try {
                     process.execute();
                 } catch (Exception e) {
@@ -263,8 +273,18 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
 
 
-
+            // device parameters
             Device device = getDataManager().getDeviceByID(deviceId);
+
+            if (prevDefence != device.defence) {
+                prevDefence = device.defence;
+                responsePacket.setDefence(device.defence);
+            }
+
+            if (dataPacket.hasDefence() && dataPacket.getDefence()>=0) {
+                prevDefence = dataPacket.getDefence();
+                getDataManager().setDefenceValue(deviceId, dataPacket.getDefence());
+            }
 
             // bluetooth searching
             if (device.getDoSearchingBluetooth()==1){
@@ -284,11 +304,14 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 }
             }
 
-            // do settings update
+            // settings update
             if (device.do_settings_update==1){
                 getDataManager().setDoSettingsUpdateValue(deviceId, 0);
                 responsePacket.setSettingNoiseVolumeLevel(device.setting_noise_volume_level);
+                responsePacket.setSettingIncomingNumbers(device.setting_incoming_numbers != null ? device.setting_incoming_numbers : "");
+                responsePacket.setSettingGsensorLevel(device.setting_gsensor_level);
             }
+
 
             byte[] packetBytes = responsePacket.build().toByteArray();
             byte[] lengthBytes = shortToByteArray((short)packetBytes.length);

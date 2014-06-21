@@ -43,6 +43,10 @@ public class TestDataManager implements DataManager {
         return null;
     }
 
+
+    @Override
+    public void setDefenceValue(Long deviceId, int value)  {}
+
     @Override
     public void setDoSearchingBluetoothValue(Long deviceId, int value)  {}
 
