@@ -377,7 +377,20 @@ public class DatabaseDataManager implements DataManager {
     }
 
     @Override
-    public synchronized Long addSig(String hex, String adds, String gps, String charge, String acc, String voltage, String signal) throws SQLException {
+    public synchronized Long addSig(String hex,
+                                    int active_sim,
+                                    String adds,
+                                    String gps,
+                                    int satellites,
+                                    int satellites_all,
+                                    String charge,
+                                    String acc,
+                                    String voltage,
+                                    double g_sensor,
+                                    double  noise_value,
+                                    String cell1,
+                                    String cell2,
+                                    String signal) throws SQLException {
         String deviceID = null;
         String sentence = (String) hex;
         Pattern pattern = Pattern.compile("(id|imei)\\:(\\d+)");
@@ -396,11 +409,18 @@ public class DatabaseDataManager implements DataManager {
         if (queryAddSig != null && deviceID!=null) {
             queryAddSig.prepare(Statement.RETURN_GENERATED_KEYS);
             queryAddSig.setString("device_id", deviceID);
+            queryAddSig.setInt("active_sim", active_sim);
             queryAddSig.setString("adds", adds);
             queryAddSig.setString("gps", gps);
+            queryAddSig.setInt("satellites", satellites);
+            queryAddSig.setInt("satellites_all", satellites_all);
             queryAddSig.setString("charge", charge);
             queryAddSig.setString("acc", acc);
             queryAddSig.setString("voltage", voltage);
+            queryAddSig.setDouble("g_sensor", g_sensor);
+            queryAddSig.setDouble("noise_value", noise_value);
+            queryAddSig.setString("cell1", cell1);
+            queryAddSig.setString("cell2", cell2);
             queryAddSig.setString("signal", signal);
             queryAddSig.executeUpdate();
 

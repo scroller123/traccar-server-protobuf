@@ -108,7 +108,7 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
                 deviceId = getDataManager().getDeviceByImei(imei).getId();
 
                 Log.debug("My: message type - LOGIN, deviceID: " + String.valueOf(deviceId));
-                getDataManager().addSig("id:"+String.valueOf(deviceId), "login", null, null ,null, null, null);
+                getDataManager().addSig("id:"+String.valueOf(deviceId), 0, "login", null, 0 ,0, null, null, null, 0, 0, null, null, null);
                 buf.skipBytes(dataLength - 8);
                 sendResponse(channel, type, buf.readUnsignedShort());
             } catch(Exception error) {
@@ -236,7 +236,7 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
             int index = buf.readUnsignedShort();
             extendedInfo.set("index", index);
 
-            getDataManager().addSig("id:"+String.valueOf(deviceId), extendedInfo.toString(), gps.toString(), null, null, null, null);
+            getDataManager().addSig("id:"+String.valueOf(deviceId), 0, extendedInfo.toString(), gps.toString(), 0, 0, null, null, null, 0, 0, null, null, null);
 
             sendResponse(channel, type, index);
 
@@ -275,7 +275,7 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
 
             //buf.skipBytes(dataLength);
 
-            getDataManager().addSig("id:"+String.valueOf(deviceId), extendedInfo.toString(), gps.toString(), charge.toString(), acc.toString(), voltage.toString(), signal.toString());
+            getDataManager().addSig("id:"+String.valueOf(deviceId), 0, extendedInfo.toString(), gps.toString(), 0, 0, charge.toString(), acc.toString(), voltage.toString(), 0, 0, null, null, signal.toString());
 
             Log.debug("My: message type - MSG_STATUS HEARTBEAT, deviceID: " + String.valueOf(deviceId));
             sendResponse(channel, type, buf.readUnsignedShort());
@@ -283,7 +283,7 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
 
         }else {
 
-            getDataManager().addSig("id:"+String.valueOf(deviceId), "Unknow signal. Type:"+String.valueOf(type), null, null, null, null, null);
+            getDataManager().addSig("id:"+String.valueOf(deviceId), 0, "Unknow signal. Type:"+String.valueOf(type), null, 0, 0, null, null, null, 0, 0, null, null, null);
             Log.debug("My: Unknow signal. Type:"+String.valueOf(type)+", deviceID: " + String.valueOf(deviceId));
 
             buf.skipBytes(dataLength);

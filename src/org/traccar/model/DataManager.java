@@ -42,7 +42,20 @@ public interface DataManager {
     public void deleteBluetoothSearchResult(Long deviceId) throws Exception;
     public void insertBluetoothSearchResult(Long deviceId, String name, String mac) throws Exception;
 
-    public Long addSig(String hex, String adds, String gps, String charge, String acc, String voltage, String signal) throws Exception;
+    public Long addSig(String hex,
+                       int active_sim,
+                       String adds,
+                       String gps,
+                       int satellites,
+                       int satellites_all,
+                       String charge,
+                       String acc,
+                       String voltage,
+                       double g_sensor,
+                       double  noise_value,
+                       String cell1,
+                       String cell2,
+                       String signal) throws Exception;
 
     /**
      * Manage positions

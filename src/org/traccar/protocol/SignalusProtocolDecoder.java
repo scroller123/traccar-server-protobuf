@@ -156,7 +156,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             Position position = null;
 
-            if (deviceId != null && dataPacket.getSatellitesInFix() > 2) {
+            if (deviceId != null && dataPacket.hasPosition()) {
 
                 position = new Position();
                 position.setDeviceId(deviceId);
@@ -271,8 +271,6 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 }
             }
 
-
-
             // device parameters
             Device device = getDataManager().getDeviceByID(deviceId);
 
@@ -313,11 +311,28 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
             }
 
 
+            getDataManager().addSig("id:"+String.valueOf(deviceId),
+                    dataPacket.getActiveSim(),
+                    null,
+                    dataPacket.getSatellitesInFix() > 2 ? "1" : "0",
+                    dataPacket.getSatellitesInFix(),
+                    dataPacket.getSatellites(),
+                    dataPacket.getCharge() ? "1" : "0",
+                    dataPacket.getAcc() ? "1" : "0",
+                    String.valueOf(dataPacket.getVoltage()),
+                    dataPacket.getGsensorLevel(),
+                    dataPacket.getNoiseVolumeLevel(),
+                    dataPacket.getCell(0).getMcc()+":"+dataPacket.getCell(0).getMnc()+":"+dataPacket.getCell(0).getLac()+":"+dataPacket.getCell(0).getCell()+";"+dataPacket.getCell(0).getStrength(),
+                    dataPacket.getCell(1).getMcc()+":"+dataPacket.getCell(1).getMnc()+":"+dataPacket.getCell(1).getLac()+":"+dataPacket.getCell(1).getCell()+";"+dataPacket.getCell(1).getStrength(),
+                    null);
+
+
             byte[] packetBytes = responsePacket.build().toByteArray();
             byte[] lengthBytes = shortToByteArray((short)packetBytes.length);
             ChannelBuffer message = ChannelBuffers.directBuffer(packetBytes.length + lengthBytes.length);
             message.writeBytes(lengthBytes);
             message.writeBytes(packetBytes);
+
             channel.write(message);
 
             dataPacket = null;

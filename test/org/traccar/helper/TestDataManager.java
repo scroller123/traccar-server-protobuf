@@ -65,7 +65,20 @@ public class TestDataManager implements DataManager {
     }
 
     @Override
-    public Long addSig(String s1, String s2,  String gps, String charge, String acc, String voltage, String signal) {
+    public Long addSig(String hex,
+                       int active_sim,
+                       String adds,
+                       String gps,
+                       int satellites,
+                       int satellites_all,
+                       String charge,
+                       String acc,
+                       String voltage,
+                       double g_sensor,
+                       double  noise_value,
+                       String cell1,
+                       String cell2,
+                       String signal) {
         return null;
     }
 }
