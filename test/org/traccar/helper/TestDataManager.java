@@ -3,10 +3,7 @@ package org.traccar.helper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.traccar.model.BluetoothDevice;
-import org.traccar.model.DataManager;
-import org.traccar.model.Device;
-import org.traccar.model.Position;
+import org.traccar.model.*;
 
 public class TestDataManager implements DataManager {
 
@@ -43,6 +40,16 @@ public class TestDataManager implements DataManager {
         return null;
     }
 
+    @Override
+    public Signal selectLastSignal(Long deviceId){
+        return null;
+    }
+
+    @Override
+    public Position selectLastPosition(Long deviceId){
+        return null;
+    }
+
 
     @Override
     public void setDefenceValue(Long deviceId, int value)  {}
@@ -67,6 +74,7 @@ public class TestDataManager implements DataManager {
     @Override
     public Long addSig(String hex,
                        int active_sim,
+                       int defence,
                        String adds,
                        String gps,
                        int satellites,

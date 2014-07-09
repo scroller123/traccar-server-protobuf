@@ -16,6 +16,7 @@
 package org.traccar.model;
 
 import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * Position information
@@ -33,6 +34,11 @@ public class Position extends Data {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public void setTimeFromTimeStamp(long timestamp) {
+        Timestamp timeStamp = new Timestamp(timestamp);
+        this.time = new Date(timeStamp.getTime());
     }
 
     /**

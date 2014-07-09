@@ -49,6 +49,8 @@ public class DatabaseDataManager implements DataManager {
      * Database statements
      */
     private NamedParameterStatement queryGetDevices;
+    private NamedParameterStatement queryGetLastSignal;
+    private NamedParameterStatement queryGetLastPosition;
     private NamedParameterStatement querySelectBluetoothBinded;
     private NamedParameterStatement querySetDefenceValue;
     private NamedParameterStatement querySetDoSearchingBluetoothValue;
@@ -100,6 +102,15 @@ public class DatabaseDataManager implements DataManager {
         query = properties.getProperty("database.selectDevice");
         if (query != null) {
             queryGetDevices = new NamedParameterStatement(connection, query);
+        }
+
+        query = properties.getProperty("database.selectLastSignal");
+        if (query != null) {
+            queryGetLastSignal = new NamedParameterStatement(connection, query);
+        }
+        query = properties.getProperty("database.selectLastPosition");
+        if (query != null) {
+            queryGetLastPosition = new NamedParameterStatement(connection, query);
         }
 
 
@@ -175,6 +186,7 @@ public class DatabaseDataManager implements DataManager {
                 device.setting_incoming_numbers = result.getString("setting_incoming_numbers");
                 device.setting_gsensor_level = result.getFloat("setting_gsensor_level");
                 device.defence = result.getInt("defence");
+                device.setPhoneNumber(result.getString("notification_number"));
 
 
 
@@ -213,6 +225,8 @@ public class DatabaseDataManager implements DataManager {
         return devicesIDs.get(id);
     }
 
+
+
     @Override
     public void refreshDevices() throws SQLException {
         List<Device> list = getDevices();
@@ -225,6 +239,52 @@ public class DatabaseDataManager implements DataManager {
         devicesLastUpdate = Calendar.getInstance();
 
         return;
+    }
+
+
+    @Override
+    public Signal selectLastSignal(Long deviceId) throws SQLException {
+
+        if (queryGetLastSignal != null) {
+            Signal signal = new Signal();
+
+            queryGetLastSignal.prepare();
+            queryGetLastSignal.setLong("device_id", deviceId);
+
+            ResultSet result = queryGetLastSignal.executeQuery();
+            result.next();
+
+            signal.setAcc(result.getInt("acc"));
+            signal.setCharge(result.getInt("charge"));
+            signal.setGps(result.getInt("gps"));
+            signal.setGSensor(result.getFloat("g_sensor"));
+            signal.setNoiseValue(result.getDouble("noise_value"));
+            signal.setTimeFromTimeStamp(result.getLong("datetime"));
+
+            return signal;
+        }
+        return null;
+    }
+
+    @Override
+    public Position selectLastPosition(Long deviceId) throws SQLException {
+
+        if (queryGetLastPosition != null) {
+            Position position = new Position();
+
+            queryGetLastPosition.prepare();
+            queryGetLastPosition.setLong("device_id", deviceId);
+
+            ResultSet result = queryGetLastPosition.executeQuery();
+            result.next();
+
+            position.setLatitude(result.getDouble("latitude"));
+            position.setLongitude(result.getDouble("longitude"));
+            position.setTimeFromTimeStamp(result.getLong("time"));
+
+            return position;
+        }
+        return null;
     }
 
 
@@ -379,6 +439,7 @@ public class DatabaseDataManager implements DataManager {
     @Override
     public synchronized Long addSig(String hex,
                                     int active_sim,
+                                    int defence,
                                     String adds,
                                     String gps,
                                     int satellites,
@@ -410,6 +471,7 @@ public class DatabaseDataManager implements DataManager {
             queryAddSig.prepare(Statement.RETURN_GENERATED_KEYS);
             queryAddSig.setString("device_id", deviceID);
             queryAddSig.setInt("active_sim", active_sim);
+            queryAddSig.setInt("defence", defence);
             queryAddSig.setString("adds", adds);
             queryAddSig.setString("gps", gps);
             queryAddSig.setInt("satellites", satellites);

@@ -17,6 +17,7 @@ package org.traccar.model;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.sql.*;
 
 /**
  * Data manager
@@ -31,6 +32,9 @@ public interface DataManager {
     public Device getDeviceByImei(String imei) throws Exception;
     public Device getDeviceByID(Long id) throws Exception;
 
+    public Signal selectLastSignal(Long deviceId) throws SQLException;
+    public Position selectLastPosition(Long deviceId) throws SQLException;
+
     public ArrayList<BluetoothDevice> selectBluetoothBinded(Long deviceId) throws Exception;
 
     public void setDefenceValue(Long deviceId, int value) throws Exception;
@@ -44,6 +48,7 @@ public interface DataManager {
 
     public Long addSig(String hex,
                        int active_sim,
+                       int defence,
                        String adds,
                        String gps,
                        int satellites,

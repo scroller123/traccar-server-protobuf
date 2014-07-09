@@ -168,6 +168,9 @@ public class ServerManager {
         if (Boolean.valueOf(properties.getProperty("http.enable"))) {
             webServer = new WebServer(properties);
         }
+
+        SignalWatcher signalWatcher = new SignalWatcher(this);
+
     }
 
     public void start() {

@@ -108,6 +108,17 @@ public class Device {
     public float setting_gsensor_level;
     public int defence;
 
+    public long signalTime;
+    public int signalGps;
+    public int signalCharge;
+    public int signalAcc;
+    public int signalGSensor;
+    public int signalNoiseValue;
+
+    public int positionLatitude;
+    public int positionLongitude;
+    public int positionTime;
+
 
 
 

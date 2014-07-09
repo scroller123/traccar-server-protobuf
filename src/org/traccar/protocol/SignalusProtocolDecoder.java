@@ -108,6 +108,24 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 Device device = getDataManager().getDeviceByID(deviceId);
                 responsePacket.setDefence(device.defence);
                 prevDefence = device.defence;
+
+
+                getDataManager().addSig("id:"+String.valueOf(deviceId),
+                        loginPacket.getActiveSim(),
+                        device.defence,
+                        null,
+                        null,
+                        -1,
+                        -1,
+                        null,
+                        null,
+                        null,
+                        -1,
+                        -1,
+                        null,
+                        null,
+                        null);
+
             }else{
                 responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.INVALID_PACKET);
                 Log.info("Unknown device: imei1:"+deviceImei+", imei2:"+deviceImei2);
@@ -230,7 +248,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             }else{
                 responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
-                responsePacket.setMsg("< 3 sattelites");
+                //responsePacket.setMsg("< 3 sattelites or position not change");
 
                 Log.info("Device: "+deviceId+", "
                         +"index: "+dataPacket.getIndex()+", "
@@ -313,6 +331,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             getDataManager().addSig("id:"+String.valueOf(deviceId),
                     dataPacket.getActiveSim(),
+                    device.defence,
                     null,
                     dataPacket.getSatellitesInFix() > 2 ? "1" : "0",
                     dataPacket.getSatellitesInFix(),
