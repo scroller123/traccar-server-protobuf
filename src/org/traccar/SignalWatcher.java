@@ -41,8 +41,8 @@ public class SignalWatcher {
                 Timestamp signalTime = new Timestamp(signal.getTime().getTime());
                 Timestamp positionTime = new Timestamp(position.getTime().getTime());
 
-                if (signal.getGps()==0)
-                    Alarm(7233, dev);
+//                if (signal.getGps()==0)
+//                   Alarm(7233, dev);
 
                 if (signal.getCharge()==0)
                     Alarm(7235, dev);

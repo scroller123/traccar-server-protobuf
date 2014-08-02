@@ -123,13 +123,13 @@ public final class TerminalProtos {
      */
     long getImei();
 
-    // required int64 imei2 = 4;
+    // optional int64 imei2 = 4;
     /**
-     * <code>required int64 imei2 = 4;</code>
+     * <code>optional int64 imei2 = 4;</code>
      */
     boolean hasImei2();
     /**
-     * <code>required int64 imei2 = 4;</code>
+     * <code>optional int64 imei2 = 4;</code>
      */
     long getImei2();
 
@@ -142,6 +142,21 @@ public final class TerminalProtos {
      * <code>optional int32 activeSim = 5;</code>
      */
     int getActiveSim();
+
+    // optional string version = 6;
+    /**
+     * <code>optional string version = 6;</code>
+     */
+    boolean hasVersion();
+    /**
+     * <code>optional string version = 6;</code>
+     */
+    java.lang.String getVersion();
+    /**
+     * <code>optional string version = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getVersionBytes();
   }
   /**
    * Protobuf type {@code terminal.LoginPackage}
@@ -223,6 +238,11 @@ public final class TerminalProtos {
             case 40: {
               bitField0_ |= 0x00000010;
               activeSim_ = input.readInt32();
+              break;
+            }
+            case 50: {
+              bitField0_ |= 0x00000020;
+              version_ = input.readBytes();
               break;
             }
           }
@@ -313,17 +333,17 @@ public final class TerminalProtos {
       return imei_;
     }
 
-    // required int64 imei2 = 4;
+    // optional int64 imei2 = 4;
     public static final int IMEI2_FIELD_NUMBER = 4;
     private long imei2_;
     /**
-     * <code>required int64 imei2 = 4;</code>
+     * <code>optional int64 imei2 = 4;</code>
      */
     public boolean hasImei2() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required int64 imei2 = 4;</code>
+     * <code>optional int64 imei2 = 4;</code>
      */
     public long getImei2() {
       return imei2_;
@@ -345,12 +365,56 @@ public final class TerminalProtos {
       return activeSim_;
     }
 
+    // optional string version = 6;
+    public static final int VERSION_FIELD_NUMBER = 6;
+    private java.lang.Object version_;
+    /**
+     * <code>optional string version = 6;</code>
+     */
+    public boolean hasVersion() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional string version = 6;</code>
+     */
+    public java.lang.String getVersion() {
+      java.lang.Object ref = version_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          version_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string version = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getVersionBytes() {
+      java.lang.Object ref = version_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        version_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       type_ = com.example.signalus_terminal.TerminalProtos.PackageType.LOGIN;
       index_ = 0L;
       imei_ = 0L;
       imei2_ = 0L;
       activeSim_ = 0;
+      version_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -366,10 +430,6 @@ public final class TerminalProtos {
         return false;
       }
       if (!hasImei()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasImei2()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -394,6 +454,9 @@ public final class TerminalProtos {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeInt32(5, activeSim_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getVersionBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -423,6 +486,10 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(5, activeSim_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getVersionBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -550,6 +617,8 @@ public final class TerminalProtos {
         bitField0_ = (bitField0_ & ~0x00000008);
         activeSim_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
+        version_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -598,6 +667,10 @@ public final class TerminalProtos {
           to_bitField0_ |= 0x00000010;
         }
         result.activeSim_ = activeSim_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.version_ = version_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -629,6 +702,11 @@ public final class TerminalProtos {
         if (other.hasActiveSim()) {
           setActiveSim(other.getActiveSim());
         }
+        if (other.hasVersion()) {
+          bitField0_ |= 0x00000020;
+          version_ = other.version_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -643,10 +721,6 @@ public final class TerminalProtos {
           return false;
         }
         if (!hasImei()) {
-          
-          return false;
-        }
-        if (!hasImei2()) {
           
           return false;
         }
@@ -774,22 +848,22 @@ public final class TerminalProtos {
         return this;
       }
 
-      // required int64 imei2 = 4;
+      // optional int64 imei2 = 4;
       private long imei2_ ;
       /**
-       * <code>required int64 imei2 = 4;</code>
+       * <code>optional int64 imei2 = 4;</code>
        */
       public boolean hasImei2() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required int64 imei2 = 4;</code>
+       * <code>optional int64 imei2 = 4;</code>
        */
       public long getImei2() {
         return imei2_;
       }
       /**
-       * <code>required int64 imei2 = 4;</code>
+       * <code>optional int64 imei2 = 4;</code>
        */
       public Builder setImei2(long value) {
         bitField0_ |= 0x00000008;
@@ -798,7 +872,7 @@ public final class TerminalProtos {
         return this;
       }
       /**
-       * <code>required int64 imei2 = 4;</code>
+       * <code>optional int64 imei2 = 4;</code>
        */
       public Builder clearImei2() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -836,6 +910,80 @@ public final class TerminalProtos {
       public Builder clearActiveSim() {
         bitField0_ = (bitField0_ & ~0x00000010);
         activeSim_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional string version = 6;
+      private java.lang.Object version_ = "";
+      /**
+       * <code>optional string version = 6;</code>
+       */
+      public boolean hasVersion() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional string version = 6;</code>
+       */
+      public java.lang.String getVersion() {
+        java.lang.Object ref = version_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          version_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string version = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getVersionBytes() {
+        java.lang.Object ref = version_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          version_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string version = 6;</code>
+       */
+      public Builder setVersion(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        version_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string version = 6;</code>
+       */
+      public Builder clearVersion() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        version_ = getDefaultInstance().getVersion();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string version = 6;</code>
+       */
+      public Builder setVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        version_ = value;
         onChanged();
         return this;
       }
@@ -7247,15 +7395,15 @@ public final class TerminalProtos {
      */
     int getDoSearchingBluetooth();
 
-    // optional int32 do_scan_audio_noise = 8;
+    // optional int32 do_update_version = 8;
     /**
-     * <code>optional int32 do_scan_audio_noise = 8;</code>
+     * <code>optional int32 do_update_version = 8;</code>
      */
-    boolean hasDoScanAudioNoise();
+    boolean hasDoUpdateVersion();
     /**
-     * <code>optional int32 do_scan_audio_noise = 8;</code>
+     * <code>optional int32 do_update_version = 8;</code>
      */
-    int getDoScanAudioNoise();
+    int getDoUpdateVersion();
 
     // optional double setting_noise_volume_level = 9;
     /**
@@ -7395,7 +7543,7 @@ public final class TerminalProtos {
             }
             case 64: {
               bitField0_ |= 0x00000040;
-              doScanAudioNoise_ = input.readInt32();
+              doUpdateVersion_ = input.readInt32();
               break;
             }
             case 73: {
@@ -8340,20 +8488,20 @@ public final class TerminalProtos {
       return doSearchingBluetooth_;
     }
 
-    // optional int32 do_scan_audio_noise = 8;
-    public static final int DO_SCAN_AUDIO_NOISE_FIELD_NUMBER = 8;
-    private int doScanAudioNoise_;
+    // optional int32 do_update_version = 8;
+    public static final int DO_UPDATE_VERSION_FIELD_NUMBER = 8;
+    private int doUpdateVersion_;
     /**
-     * <code>optional int32 do_scan_audio_noise = 8;</code>
+     * <code>optional int32 do_update_version = 8;</code>
      */
-    public boolean hasDoScanAudioNoise() {
+    public boolean hasDoUpdateVersion() {
       return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>optional int32 do_scan_audio_noise = 8;</code>
+     * <code>optional int32 do_update_version = 8;</code>
      */
-    public int getDoScanAudioNoise() {
-      return doScanAudioNoise_;
+    public int getDoUpdateVersion() {
+      return doUpdateVersion_;
     }
 
     // optional double setting_noise_volume_level = 9;
@@ -8439,7 +8587,7 @@ public final class TerminalProtos {
       defence_ = 0;
       bluetoothDevice_ = java.util.Collections.emptyList();
       doSearchingBluetooth_ = 0;
-      doScanAudioNoise_ = 0;
+      doUpdateVersion_ = 0;
       settingNoiseVolumeLevel_ = 0D;
       settingIncomingNumbers_ = "";
       settingGsensorLevel_ = 0F;
@@ -8496,7 +8644,7 @@ public final class TerminalProtos {
         output.writeInt32(7, doSearchingBluetooth_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeInt32(8, doScanAudioNoise_);
+        output.writeInt32(8, doUpdateVersion_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         output.writeDouble(9, settingNoiseVolumeLevel_);
@@ -8546,7 +8694,7 @@ public final class TerminalProtos {
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(8, doScanAudioNoise_);
+          .computeInt32Size(8, doUpdateVersion_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
@@ -8695,7 +8843,7 @@ public final class TerminalProtos {
         }
         doSearchingBluetooth_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
-        doScanAudioNoise_ = 0;
+        doUpdateVersion_ = 0;
         bitField0_ = (bitField0_ & ~0x00000080);
         settingNoiseVolumeLevel_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000100);
@@ -8767,7 +8915,7 @@ public final class TerminalProtos {
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.doScanAudioNoise_ = doScanAudioNoise_;
+        result.doUpdateVersion_ = doUpdateVersion_;
         if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000080;
         }
@@ -8842,8 +8990,8 @@ public final class TerminalProtos {
         if (other.hasDoSearchingBluetooth()) {
           setDoSearchingBluetooth(other.getDoSearchingBluetooth());
         }
-        if (other.hasDoScanAudioNoise()) {
-          setDoScanAudioNoise(other.getDoScanAudioNoise());
+        if (other.hasDoUpdateVersion()) {
+          setDoUpdateVersion(other.getDoUpdateVersion());
         }
         if (other.hasSettingNoiseVolumeLevel()) {
           setSettingNoiseVolumeLevel(other.getSettingNoiseVolumeLevel());
@@ -9386,35 +9534,35 @@ public final class TerminalProtos {
         return this;
       }
 
-      // optional int32 do_scan_audio_noise = 8;
-      private int doScanAudioNoise_ ;
+      // optional int32 do_update_version = 8;
+      private int doUpdateVersion_ ;
       /**
-       * <code>optional int32 do_scan_audio_noise = 8;</code>
+       * <code>optional int32 do_update_version = 8;</code>
        */
-      public boolean hasDoScanAudioNoise() {
+      public boolean hasDoUpdateVersion() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>optional int32 do_scan_audio_noise = 8;</code>
+       * <code>optional int32 do_update_version = 8;</code>
        */
-      public int getDoScanAudioNoise() {
-        return doScanAudioNoise_;
+      public int getDoUpdateVersion() {
+        return doUpdateVersion_;
       }
       /**
-       * <code>optional int32 do_scan_audio_noise = 8;</code>
+       * <code>optional int32 do_update_version = 8;</code>
        */
-      public Builder setDoScanAudioNoise(int value) {
+      public Builder setDoUpdateVersion(int value) {
         bitField0_ |= 0x00000080;
-        doScanAudioNoise_ = value;
+        doUpdateVersion_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 do_scan_audio_noise = 8;</code>
+       * <code>optional int32 do_update_version = 8;</code>
        */
-      public Builder clearDoScanAudioNoise() {
+      public Builder clearDoUpdateVersion() {
         bitField0_ = (bitField0_ & ~0x00000080);
-        doScanAudioNoise_ = 0;
+        doUpdateVersion_ = 0;
         onChanged();
         return this;
       }
@@ -9624,48 +9772,48 @@ public final class TerminalProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016terminal.proto\022\010terminal\"r\n\014LoginPacka" +
-      "ge\022#\n\004type\030\001 \002(\0162\025.terminal.PackageType\022" +
-      "\r\n\005index\030\002 \002(\003\022\014\n\004imei\030\003 \002(\003\022\r\n\005imei2\030\004 " +
-      "\002(\003\022\021\n\tactiveSim\030\005 \001(\005\"\237\007\n\013DataPackage\022#" +
-      "\n\004type\030\001 \002(\0162\025.terminal.PackageType\022\r\n\005i" +
-      "ndex\030\002 \002(\003\022\017\n\007defence\030\003 \001(\005\022\021\n\tactiveSim" +
-      "\030\004 \001(\005\022\016\n\006charge\030\005 \001(\010\022\013\n\003acc\030\006 \001(\010\022\017\n\007v" +
-      "oltage\030\007 \001(\005\022\022\n\nsatellites\030\010 \001(\005\022\027\n\017sate" +
-      "llitesInFix\030\t \001(\005\022(\n\004cell\030\n \003(\0132\032.termin" +
-      "al.DataPackage.Cell\022>\n\017neighboringcell\030\013",
-      " \003(\0132%.terminal.DataPackage.NeighboringC" +
-      "ell\0220\n\010position\030\014 \001(\0132\036.terminal.DataPac" +
-      "kage.Position\022>\n\017bluetoothDevice\030\r \003(\0132%" +
-      ".terminal.DataPackage.BluetoothDevice\022\032\n" +
-      "\022noise_volume_level\030\016 \001(\001\022\025\n\rgsensor_lev" +
-      "el\030\017 \001(\002\032\320\001\n\004Cell\022\013\n\003mcc\030\001 \002(\005\022\013\n\003mnc\030\002 " +
-      "\002(\005\022\013\n\003lac\030\003 \002(\005\022\014\n\004cell\030\004 \002(\005\022\020\n\010streng" +
-      "th\030\005 \002(\005\0229\n\010position\030\006 \001(\0132\'.terminal.Da" +
-      "taPackage.Cell.CellPosition\032F\n\014CellPosit" +
-      "ion\022\021\n\ttimestamp\030\001 \002(\003\022\020\n\010latitude\030\002 \002(\001",
-      "\022\021\n\tlongitude\030\003 \002(\001\032X\n\017NeighboringCell\022\013" +
-      "\n\003mcc\030\001 \001(\005\022\013\n\003mnc\030\002 \001(\005\022\013\n\003lac\030\003 \001(\005\022\014\n" +
-      "\004cell\030\004 \001(\005\022\020\n\010strength\030\005 \001(\005\032s\n\010Positio" +
-      "n\022\021\n\ttimestamp\030\001 \002(\003\022\016\n\006course\030\002 \002(\005\022\020\n\010" +
-      "latitude\030\003 \002(\001\022\021\n\tlongitude\030\004 \002(\001\022\r\n\005spe" +
-      "ed\030\005 \002(\005\022\020\n\010altitude\030\006 \002(\005\032,\n\017BluetoothD" +
-      "evice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\"\351\003\n\023Dat" +
-      "aResponcePackage\022#\n\004type\030\001 \002(\0162\025.termina" +
-      "l.PackageType\022\r\n\005index\030\002 \002(\003\0228\n\006status\030\003" +
-      " \002(\0162(.terminal.DataResponcePackage.Stat",
-      "usType\022\013\n\003msg\030\004 \001(\t\022\017\n\007defence\030\005 \001(\005\022F\n\017" +
-      "bluetoothDevice\030\006 \003(\0132-.terminal.DataRes" +
-      "poncePackage.BluetoothDevice\022\036\n\026do_searc" +
-      "hing_bluetooth\030\007 \001(\005\022\033\n\023do_scan_audio_no" +
-      "ise\030\010 \001(\005\022\"\n\032setting_noise_volume_level\030" +
-      "\t \001(\001\022 \n\030setting_incoming_numbers\030\n \001(\t\022" +
-      "\035\n\025setting_gsensor_level\030\013 \001(\002\032,\n\017Blueto" +
-      "othDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\".\n\n" +
-      "StatusType\022\014\n\010NO_ERROR\020\000\022\022\n\016INVALID_PACK" +
-      "ET\020\001*\"\n\013PackageType\022\t\n\005LOGIN\020\000\022\010\n\004DATA\020\001",
-      "B/\n\035com.example.signalus_terminalB\016Termi" +
-      "nalProtos"
+      "\n\016terminal.proto\022\010terminal\"\203\001\n\014LoginPack" +
+      "age\022#\n\004type\030\001 \002(\0162\025.terminal.PackageType" +
+      "\022\r\n\005index\030\002 \002(\003\022\014\n\004imei\030\003 \002(\003\022\r\n\005imei2\030\004" +
+      " \001(\003\022\021\n\tactiveSim\030\005 \001(\005\022\017\n\007version\030\006 \001(\t" +
+      "\"\237\007\n\013DataPackage\022#\n\004type\030\001 \002(\0162\025.termina" +
+      "l.PackageType\022\r\n\005index\030\002 \002(\003\022\017\n\007defence\030" +
+      "\003 \001(\005\022\021\n\tactiveSim\030\004 \001(\005\022\016\n\006charge\030\005 \001(\010" +
+      "\022\013\n\003acc\030\006 \001(\010\022\017\n\007voltage\030\007 \001(\005\022\022\n\nsatell" +
+      "ites\030\010 \001(\005\022\027\n\017satellitesInFix\030\t \001(\005\022(\n\004c" +
+      "ell\030\n \003(\0132\032.terminal.DataPackage.Cell\022>\n",
+      "\017neighboringcell\030\013 \003(\0132%.terminal.DataPa" +
+      "ckage.NeighboringCell\0220\n\010position\030\014 \001(\0132" +
+      "\036.terminal.DataPackage.Position\022>\n\017bluet" +
+      "oothDevice\030\r \003(\0132%.terminal.DataPackage." +
+      "BluetoothDevice\022\032\n\022noise_volume_level\030\016 " +
+      "\001(\001\022\025\n\rgsensor_level\030\017 \001(\002\032\320\001\n\004Cell\022\013\n\003m" +
+      "cc\030\001 \002(\005\022\013\n\003mnc\030\002 \002(\005\022\013\n\003lac\030\003 \002(\005\022\014\n\004ce" +
+      "ll\030\004 \002(\005\022\020\n\010strength\030\005 \002(\005\0229\n\010position\030\006" +
+      " \001(\0132\'.terminal.DataPackage.Cell.CellPos" +
+      "ition\032F\n\014CellPosition\022\021\n\ttimestamp\030\001 \002(\003",
+      "\022\020\n\010latitude\030\002 \002(\001\022\021\n\tlongitude\030\003 \002(\001\032X\n" +
+      "\017NeighboringCell\022\013\n\003mcc\030\001 \001(\005\022\013\n\003mnc\030\002 \001" +
+      "(\005\022\013\n\003lac\030\003 \001(\005\022\014\n\004cell\030\004 \001(\005\022\020\n\010strengt" +
+      "h\030\005 \001(\005\032s\n\010Position\022\021\n\ttimestamp\030\001 \002(\003\022\016" +
+      "\n\006course\030\002 \002(\005\022\020\n\010latitude\030\003 \002(\001\022\021\n\tlong" +
+      "itude\030\004 \002(\001\022\r\n\005speed\030\005 \002(\005\022\020\n\010altitude\030\006" +
+      " \002(\005\032,\n\017BluetoothDevice\022\014\n\004name\030\001 \002(\t\022\013\n" +
+      "\003mac\030\002 \002(\t\"\347\003\n\023DataResponcePackage\022#\n\004ty" +
+      "pe\030\001 \002(\0162\025.terminal.PackageType\022\r\n\005index" +
+      "\030\002 \002(\003\0228\n\006status\030\003 \002(\0162(.terminal.DataRe",
+      "sponcePackage.StatusType\022\013\n\003msg\030\004 \001(\t\022\017\n" +
+      "\007defence\030\005 \001(\005\022F\n\017bluetoothDevice\030\006 \003(\0132" +
+      "-.terminal.DataResponcePackage.Bluetooth" +
+      "Device\022\036\n\026do_searching_bluetooth\030\007 \001(\005\022\031" +
+      "\n\021do_update_version\030\010 \001(\005\022\"\n\032setting_noi" +
+      "se_volume_level\030\t \001(\001\022 \n\030setting_incomin" +
+      "g_numbers\030\n \001(\t\022\035\n\025setting_gsensor_level" +
+      "\030\013 \001(\002\032,\n\017BluetoothDevice\022\014\n\004name\030\001 \002(\t\022" +
+      "\013\n\003mac\030\002 \002(\t\".\n\nStatusType\022\014\n\010NO_ERROR\020\000" +
+      "\022\022\n\016INVALID_PACKET\020\001*\"\n\013PackageType\022\t\n\005L",
+      "OGIN\020\000\022\010\n\004DATA\020\001B/\n\035com.example.signalus" +
+      "_terminalB\016TerminalProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -9677,7 +9825,7 @@ public final class TerminalProtos {
           internal_static_terminal_LoginPackage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_terminal_LoginPackage_descriptor,
-              new java.lang.String[] { "Type", "Index", "Imei", "Imei2", "ActiveSim", });
+              new java.lang.String[] { "Type", "Index", "Imei", "Imei2", "ActiveSim", "Version", });
           internal_static_terminal_DataPackage_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_terminal_DataPackage_fieldAccessorTable = new
@@ -9719,7 +9867,7 @@ public final class TerminalProtos {
           internal_static_terminal_DataResponcePackage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_terminal_DataResponcePackage_descriptor,
-              new java.lang.String[] { "Type", "Index", "Status", "Msg", "Defence", "BluetoothDevice", "DoSearchingBluetooth", "DoScanAudioNoise", "SettingNoiseVolumeLevel", "SettingIncomingNumbers", "SettingGsensorLevel", });
+              new java.lang.String[] { "Type", "Index", "Status", "Msg", "Defence", "BluetoothDevice", "DoSearchingBluetooth", "DoUpdateVersion", "SettingNoiseVolumeLevel", "SettingIncomingNumbers", "SettingGsensorLevel", });
           internal_static_terminal_DataResponcePackage_BluetoothDevice_descriptor =
             internal_static_terminal_DataResponcePackage_descriptor.getNestedTypes().get(0);
           internal_static_terminal_DataResponcePackage_BluetoothDevice_fieldAccessorTable = new

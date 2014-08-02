@@ -108,7 +108,7 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
                 deviceId = getDataManager().getDeviceByImei(imei).getId();
 
                 Log.debug("My: message type - LOGIN, deviceID: " + String.valueOf(deviceId));
-                getDataManager().addSig("id:"+String.valueOf(deviceId), -1, -1, "login", null, -1, -1, null, null, null, -1, -1, null, null, null);
+                getDataManager().addSig("id:"+String.valueOf(deviceId), -1, null, -1, "login", null, -1, -1, null, null, null, -1, -1, null, null, null);
                 buf.skipBytes(dataLength - 8);
                 sendResponse(channel, type, buf.readUnsignedShort());
             } catch(Exception error) {
@@ -236,7 +236,7 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
             int index = buf.readUnsignedShort();
             extendedInfo.set("index", index);
 
-            getDataManager().addSig("id:"+String.valueOf(deviceId), -1, -1, extendedInfo.toString(), gps.toString(), -1, -1, null, null, null, -1, -1, null, null, null);
+            getDataManager().addSig("id:"+String.valueOf(deviceId), -1, null, -1, extendedInfo.toString(), gps.toString(), -1, -1, null, null, null, -1, -1, null, null, null);
 
             sendResponse(channel, type, index);
 
@@ -275,7 +275,7 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
 
             //buf.skipBytes(dataLength);
 
-            getDataManager().addSig("id:"+String.valueOf(deviceId), -1, -1, extendedInfo.toString(), gps.toString(), -1, -1, charge.toString(), acc.toString(), voltage.toString(), -1, -1, null, null, signal.toString());
+            getDataManager().addSig("id:"+String.valueOf(deviceId), -1, null, -1, extendedInfo.toString(), gps.toString(), -1, -1, charge.toString(), acc.toString(), voltage.toString(), -1, -1, null, null, signal.toString());
 
             Log.debug("My: message type - MSG_STATUS HEARTBEAT, deviceID: " + String.valueOf(deviceId));
             sendResponse(channel, type, buf.readUnsignedShort());
@@ -283,7 +283,7 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
 
         }else {
 
-            getDataManager().addSig("id:"+String.valueOf(deviceId), -1, -1, "Unknow signal. Type:"+String.valueOf(type), null, -1, -1, null, null, null, -1, -1, null, null, null);
+            getDataManager().addSig("id:"+String.valueOf(deviceId), -1, null, -1, "Unknow signal. Type:"+String.valueOf(type), null, -1, -1, null, null, null, -1, -1, null, null, null);
             Log.debug("My: Unknow signal. Type:"+String.valueOf(type)+", deviceID: " + String.valueOf(deviceId));
 
             buf.skipBytes(dataLength);

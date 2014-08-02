@@ -109,9 +109,11 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 responsePacket.setDefence(device.defence);
                 prevDefence = device.defence;
 
+                getDataManager().setVersionValue(deviceId, Integer.valueOf(loginPacket.getVersion()));
 
                 getDataManager().addSig("id:"+String.valueOf(deviceId),
                         loginPacket.getActiveSim(),
+                        loginPacket.getVersion(),
                         device.defence,
                         null,
                         null,
@@ -328,9 +330,16 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 responsePacket.setSettingGsensorLevel(device.setting_gsensor_level);
             }
 
+            // update version
+            if (device.getDoUpdateVersion()==1){
+                getDataManager().setDoUpdateVersionValue(deviceId, 0);
+                responsePacket.setDoUpdateVersion(1);
+            }
+
 
             getDataManager().addSig("id:"+String.valueOf(deviceId),
                     dataPacket.getActiveSim(),
+                    null,
                     device.defence,
                     null,
                     dataPacket.getSatellitesInFix() > 2 ? "1" : "0",

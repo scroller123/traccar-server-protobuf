@@ -75,6 +75,19 @@ public class Device {
     }
 
 
+    /**
+     * Do Update Version
+     */
+    private int doUpdateVersion;
+
+    public int getDoUpdateVersion() {
+        return doUpdateVersion;
+    }
+
+    public void setDoUpdateVersion(String value) {
+        this.doUpdateVersion = Integer.valueOf(value);
+    }
+
 
     /**
      * Do Searching Bluetooth
@@ -85,8 +98,8 @@ public class Device {
         return doSearchingBluetooth;
     }
 
-    public void setDoSearchingBluetooth(String doSearchingBluetooth) {
-        this.doSearchingBluetooth = Integer.valueOf(doSearchingBluetooth);
+    public void setDoSearchingBluetooth(String value) {
+        this.doSearchingBluetooth = Integer.valueOf(value);
     }
 
     /**
@@ -98,8 +111,8 @@ public class Device {
         return doBindingBluetooth;
     }
 
-    public void setDoBindingBluetooth(String doBindingBluetooth) {
-        this.doBindingBluetooth = Integer.valueOf(doBindingBluetooth);
+    public void setDoBindingBluetooth(String value) {
+        this.doBindingBluetooth = Integer.valueOf(value);
     }
 
 

@@ -53,6 +53,8 @@ public class DatabaseDataManager implements DataManager {
     private NamedParameterStatement queryGetLastPosition;
     private NamedParameterStatement querySelectBluetoothBinded;
     private NamedParameterStatement querySetDefenceValue;
+    private NamedParameterStatement querySetVersionValue;
+    private NamedParameterStatement querySetDoUpdateVersionValue;
     private NamedParameterStatement querySetDoSearchingBluetoothValue;
     private NamedParameterStatement querySetDoBindingBluetoothValue;
     private NamedParameterStatement querySetDoSettingsUpdateValue;
@@ -124,6 +126,16 @@ public class DatabaseDataManager implements DataManager {
             querySetDefenceValue = new NamedParameterStatement(connection, query);
         }
 
+        query = properties.getProperty("database.setVersionValue");
+        if (query != null) {
+            querySetVersionValue = new NamedParameterStatement(connection, query);
+        }
+
+        query = properties.getProperty("database.setDoUpdateVersionValue");
+        if (query != null) {
+            querySetDoUpdateVersionValue = new NamedParameterStatement(connection, query);
+        }
+
         query = properties.getProperty("database.setDoSearchingBluetoothValue");
         if (query != null) {
             querySetDoSearchingBluetoothValue = new NamedParameterStatement(connection, query);
@@ -179,6 +191,7 @@ public class DatabaseDataManager implements DataManager {
                 Device device = new Device();
                 device.setId(result.getLong("id"));
                 device.setImei(result.getString("imei"));
+                device.setDoUpdateVersion(result.getString("do_update_version"));
                 device.setDoSearchingBluetooth(result.getString("do_searching_bluetooth"));
                 device.setDoBindingBluetooth(result.getString("do_binding_bluetooth"));
                 device.do_settings_update = result.getInt("do_settings_update");
@@ -330,6 +343,26 @@ public class DatabaseDataManager implements DataManager {
     }
 
     @Override
+    public void setVersionValue(Long deviceId, int value) throws SQLException {
+        if (querySetVersionValue != null) {
+            querySetVersionValue.prepare();
+            querySetVersionValue.setLong("device_id", deviceId);
+            querySetVersionValue.setInt("value", value);
+            querySetVersionValue.executeUpdate();
+        }
+    }
+
+    @Override
+    public void setDoUpdateVersionValue(Long deviceId, int value) throws SQLException {
+        if (querySetDoUpdateVersionValue != null) {
+            querySetDoUpdateVersionValue.prepare();
+            querySetDoUpdateVersionValue.setLong("device_id", deviceId);
+            querySetDoUpdateVersionValue.setInt("value", value);
+            querySetDoUpdateVersionValue.executeUpdate();
+        }
+    }
+
+    @Override
     public void setDoBindingBluetoothValue(Long deviceId, int value) throws SQLException {
         if (querySetDoBindingBluetoothValue != null) {
             querySetDoBindingBluetoothValue.prepare();
@@ -439,6 +472,7 @@ public class DatabaseDataManager implements DataManager {
     @Override
     public synchronized Long addSig(String hex,
                                     int active_sim,
+                                    String version,
                                     int defence,
                                     String adds,
                                     String gps,
@@ -484,6 +518,7 @@ public class DatabaseDataManager implements DataManager {
             queryAddSig.setString("cell1", cell1);
             queryAddSig.setString("cell2", cell2);
             queryAddSig.setString("signal", signal);
+            queryAddSig.setString("version", version);
             queryAddSig.executeUpdate();
 
             ResultSet result = queryAddSig.getGeneratedKeys();

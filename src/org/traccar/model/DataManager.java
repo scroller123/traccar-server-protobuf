@@ -38,7 +38,9 @@ public interface DataManager {
     public ArrayList<BluetoothDevice> selectBluetoothBinded(Long deviceId) throws Exception;
 
     public void setDefenceValue(Long deviceId, int value) throws Exception;
+    public void setVersionValue(Long deviceId, int value) throws Exception;
 
+    public void setDoUpdateVersionValue(Long deviceId, int value) throws Exception;
     public void setDoSearchingBluetoothValue(Long deviceId, int value) throws Exception;
     public void setDoBindingBluetoothValue(Long deviceId, int value) throws Exception;
     public void setDoSettingsUpdateValue(Long deviceId, int value) throws Exception;
@@ -48,6 +50,7 @@ public interface DataManager {
 
     public Long addSig(String hex,
                        int active_sim,
+                       String version,
                        int defence,
                        String adds,
                        String gps,

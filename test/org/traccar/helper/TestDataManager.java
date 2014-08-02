@@ -55,6 +55,12 @@ public class TestDataManager implements DataManager {
     public void setDefenceValue(Long deviceId, int value)  {}
 
     @Override
+    public void setVersionValue(Long deviceId, int value)  {}
+
+    @Override
+    public void setDoUpdateVersionValue(Long deviceId, int value) {}
+
+    @Override
     public void setDoSearchingBluetoothValue(Long deviceId, int value)  {}
 
     @Override
@@ -74,6 +80,7 @@ public class TestDataManager implements DataManager {
     @Override
     public Long addSig(String hex,
                        int active_sim,
+                       String version,
                        int defence,
                        String adds,
                        String gps,
