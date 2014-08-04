@@ -124,6 +124,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                         null,
                         -1,
                         -1,
+                        -1,
                         null,
                         null,
                         null);
@@ -151,16 +152,6 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 throw new Exception();
 
             Log.info("DATA PACKET, device: "+deviceId);
-
-            // temp  *#*#*#*#*#*#*#
-            if (dataPacket.hasNoiseVolumeLevel()){
-                Log.info("NOISE LEVEL: "+dataPacket.getNoiseVolumeLevel() +"");
-            }
-            if (dataPacket.hasGsensorLevel()){
-                Log.info("G LEVEL: "+dataPacket.getGsensorLevel() +"");
-            }
-            // temp  *#*#*#*#*#*#*#
-
 
             if (dataPacket.getBluetoothDeviceCount()>0) {
                 for(int i=0; i<dataPacket.getBluetoothDeviceCount(); i++) {
@@ -220,8 +211,8 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 extendedInfo.set("cell1strength", dataPacket.getCell(0).getStrength());
                 extendedInfo.set("cell2strength", dataPacket.getCell(1).getStrength());
 
-                extendedInfo.set("noiseValue", dataPacket.getNoiseVolumeLevel());
-                extendedInfo.set("gSensor", dataPacket.getGsensorLevel());
+//                extendedInfo.set("noiseValue", dataPacket.getNoiseVolumeLevel());
+//                extendedInfo.set("gSensor", dataPacket.getGsensorLevel());
 
 
                 position.setExtendedInfo(extendedInfo.toString());
@@ -229,20 +220,20 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 Log.info("Device: "+deviceId+", "
                             +"index: "+dataPacket.getIndex()+", "
                             +"position: "+dataPacket.getPosition().getLatitude()+","+dataPacket.getPosition().getLongitude()+", "
-                            +"timestamp: "+dataPacket.getPosition().getTimestamp()+", "
-                            +"speed: "+dataPacket.getPosition().getSpeed()+" km/h, "
-                            +"Altitude: "+dataPacket.getPosition().getAltitude()+" m, "
-                            +"Course: "+dataPacket.getPosition().getCourse()+", "
-                            +"Cell1ID: "+dataPacket.getCell(0).getMcc()+"." +dataPacket.getCell(0).getMnc()+"."+dataPacket.getCell(0).getLac()+"."+dataPacket.getCell(0).getCell()+", "
-                            +"Cell2ID: "+dataPacket.getCell(1).getMcc()+"." +dataPacket.getCell(1).getMnc()+"."+dataPacket.getCell(1).getLac()+"."+dataPacket.getCell(1).getCell()+", "
-                            +"Cell1 timestamp: "+dataPacket.getCell(0).getPosition().getTimestamp()+", "
-                            +"Cell1 strength: "+dataPacket.getCell(0).getStrength()+", "
-                            +"Cell2 strength: "+dataPacket.getCell(1).getStrength()+", "
-                            +"Cell1 position: "+dataPacket.getCell(0).getPosition().getLatitude()+","+dataPacket.getCell(0).getPosition().getLongitude()+", "
-                            +"Satellites: "+dataPacket.getSatellites()+", "
-                            +"Satellites in fix: "+dataPacket.getSatellitesInFix()+", "
-                            +"ACC: "+(dataPacket.getAcc() ? 1:0)+", "
-                            +"CHANGE: "+(dataPacket.getCharge() ? 1:0)+", "
+//                            +"timestamp: "+dataPacket.getPosition().getTimestamp()+", "
+//                            +"speed: "+dataPacket.getPosition().getSpeed()+" km/h, "
+//                            +"Altitude: "+dataPacket.getPosition().getAltitude()+" m, "
+//                            +"Course: "+dataPacket.getPosition().getCourse()+", "
+//                            +"Cell1ID: "+dataPacket.getCell(0).getMcc()+"." +dataPacket.getCell(0).getMnc()+"."+dataPacket.getCell(0).getLac()+"."+dataPacket.getCell(0).getCell()+", "
+//                            +"Cell2ID: "+dataPacket.getCell(1).getMcc()+"." +dataPacket.getCell(1).getMnc()+"."+dataPacket.getCell(1).getLac()+"."+dataPacket.getCell(1).getCell()+", "
+//                            +"Cell1 timestamp: "+dataPacket.getCell(0).getPosition().getTimestamp()+", "
+//                            +"Cell1 strength: "+dataPacket.getCell(0).getStrength()+", "
+//                            +"Cell2 strength: "+dataPacket.getCell(1).getStrength()+", "
+//                            +"Cell1 position: "+dataPacket.getCell(0).getPosition().getLatitude()+","+dataPacket.getCell(0).getPosition().getLongitude()+", "
+//                            +"Satellites: "+dataPacket.getSatellites()+", "
+//                            +"Satellites in fix: "+dataPacket.getSatellitesInFix()+", "
+//                            +"ACC: "+(dataPacket.getAcc() ? 1:0)+", "
+//                            +"CHANGE: "+(dataPacket.getCharge() ? 1:0)+", "
                         );
                 responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
 
@@ -255,20 +246,20 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 Log.info("Device: "+deviceId+", "
                         +"index: "+dataPacket.getIndex()+", "
                         +"position: "+dataPacket.getPosition().getLatitude()+","+dataPacket.getPosition().getLongitude()+", "
-                        +"timestamp: "+dataPacket.getPosition().getTimestamp()+", "
-                        +"speed: "+dataPacket.getPosition().getSpeed()+" km/h, "
-                        +"Altitude: "+dataPacket.getPosition().getAltitude()+" m, "
-                        +"Course: "+dataPacket.getPosition().getCourse()+", "
-                        +"Cell1ID: "+dataPacket.getCell(0).getMcc()+"." +dataPacket.getCell(0).getMnc()+"."+dataPacket.getCell(0).getLac()+"."+dataPacket.getCell(0).getCell()+", "
-                        +"Cell2ID: "+dataPacket.getCell(1).getMcc()+"." +dataPacket.getCell(1).getMnc()+"."+dataPacket.getCell(1).getLac()+"."+dataPacket.getCell(1).getCell()+", "
-                        +"Cell1 timestamp: "+dataPacket.getCell(0).getPosition().getTimestamp()+", "
-                        +"Cell1 strength: "+dataPacket.getCell(0).getStrength()+", "
-                        +"Cell2 strength: "+dataPacket.getCell(1).getStrength()+", "
-                        +"Cell1 position: "+dataPacket.getCell(0).getPosition().getLatitude()+","+dataPacket.getCell(0).getPosition().getLongitude()+", "
-                        +"Satellites: "+dataPacket.getSatellites()+", "
-                        +"Satellites in fix: "+dataPacket.getSatellitesInFix()+", "
-                        +"ACC: "+(dataPacket.getAcc() ? 1:0)+", "
-                        +"CHANGE: "+(dataPacket.getCharge() ? 1:0)+", "
+//                        +"timestamp: "+dataPacket.getPosition().getTimestamp()+", "
+//                        +"speed: "+dataPacket.getPosition().getSpeed()+" km/h, "
+//                        +"Altitude: "+dataPacket.getPosition().getAltitude()+" m, "
+//                        +"Course: "+dataPacket.getPosition().getCourse()+", "
+//                        +"Cell1ID: "+dataPacket.getCell(0).getMcc()+"." +dataPacket.getCell(0).getMnc()+"."+dataPacket.getCell(0).getLac()+"."+dataPacket.getCell(0).getCell()+", "
+//                        +"Cell2ID: "+dataPacket.getCell(1).getMcc()+"." +dataPacket.getCell(1).getMnc()+"."+dataPacket.getCell(1).getLac()+"."+dataPacket.getCell(1).getCell()+", "
+//                        +"Cell1 timestamp: "+dataPacket.getCell(0).getPosition().getTimestamp()+", "
+//                        +"Cell1 strength: "+dataPacket.getCell(0).getStrength()+", "
+//                        +"Cell2 strength: "+dataPacket.getCell(1).getStrength()+", "
+//                        +"Cell1 position: "+dataPacket.getCell(0).getPosition().getLatitude()+","+dataPacket.getCell(0).getPosition().getLongitude()+", "
+//                        +"Satellites: "+dataPacket.getSatellites()+", "
+//                        +"Satellites in fix: "+dataPacket.getSatellitesInFix()+", "
+//                        +"ACC: "+(dataPacket.getAcc() ? 1:0)+", "
+//                        +"CHANGE: "+(dataPacket.getCharge() ? 1:0)+", "
                 );
 
 
@@ -328,6 +319,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 responsePacket.setSettingNoiseVolumeLevel(device.setting_noise_volume_level);
                 responsePacket.setSettingIncomingNumbers(device.setting_incoming_numbers != null ? device.setting_incoming_numbers : "");
                 responsePacket.setSettingGsensorLevel(device.setting_gsensor_level);
+                responsePacket.setSettingOrientsensorLevel(device.setting_orientsensor_level);
             }
 
             // update version
@@ -349,6 +341,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                     dataPacket.getAcc() ? "1" : "0",
                     String.valueOf(dataPacket.getVoltage()),
                     dataPacket.getGsensorLevel(),
+                    dataPacket.getOrientsensorLevel(),
                     dataPacket.getNoiseVolumeLevel(),
                     dataPacket.getCell(0).getMcc()+":"+dataPacket.getCell(0).getMnc()+":"+dataPacket.getCell(0).getLac()+":"+dataPacket.getCell(0).getCell()+";"+dataPacket.getCell(0).getStrength(),
                     dataPacket.getCell(1).getMcc()+":"+dataPacket.getCell(1).getMnc()+":"+dataPacket.getCell(1).getLac()+":"+dataPacket.getCell(1).getCell()+";"+dataPacket.getCell(1).getStrength(),

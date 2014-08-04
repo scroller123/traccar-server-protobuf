@@ -60,7 +60,8 @@ public interface DataManager {
                        String acc,
                        String voltage,
                        double g_sensor,
-                       double  noise_value,
+                       double orient_sensor,
+                       double noise_value,
                        String cell1,
                        String cell2,
                        String signal) throws Exception;

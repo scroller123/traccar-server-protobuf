@@ -198,10 +198,9 @@ public class DatabaseDataManager implements DataManager {
                 device.setting_noise_volume_level = result.getDouble("setting_noise_volume_level");
                 device.setting_incoming_numbers = result.getString("setting_incoming_numbers");
                 device.setting_gsensor_level = result.getFloat("setting_gsensor_level");
+                device.setting_orientsensor_level = result.getFloat("setting_orientsensor_level");
                 device.defence = result.getInt("defence");
                 device.setPhoneNumber(result.getString("notification_number"));
-
-
 
                 deviceList.add(device);
             }
@@ -482,7 +481,8 @@ public class DatabaseDataManager implements DataManager {
                                     String acc,
                                     String voltage,
                                     double g_sensor,
-                                    double  noise_value,
+                                    double orient_sensor,
+                                    double noise_value,
                                     String cell1,
                                     String cell2,
                                     String signal) throws SQLException {
@@ -514,6 +514,7 @@ public class DatabaseDataManager implements DataManager {
             queryAddSig.setString("acc", acc);
             queryAddSig.setString("voltage", voltage);
             queryAddSig.setDouble("g_sensor", g_sensor);
+            queryAddSig.setDouble("orient_sensor", orient_sensor);
             queryAddSig.setDouble("noise_value", noise_value);
             queryAddSig.setString("cell1", cell1);
             queryAddSig.setString("cell2", cell2);

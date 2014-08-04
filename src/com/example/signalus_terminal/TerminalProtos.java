@@ -1200,6 +1200,16 @@ public final class TerminalProtos {
      * <code>optional float gsensor_level = 15;</code>
      */
     float getGsensorLevel();
+
+    // optional float orientsensor_level = 16;
+    /**
+     * <code>optional float orientsensor_level = 16;</code>
+     */
+    boolean hasOrientsensorLevel();
+    /**
+     * <code>optional float orientsensor_level = 16;</code>
+     */
+    float getOrientsensorLevel();
   }
   /**
    * Protobuf type {@code terminal.DataPackage}
@@ -1348,6 +1358,11 @@ public final class TerminalProtos {
             case 125: {
               bitField0_ |= 0x00000800;
               gsensorLevel_ = input.readFloat();
+              break;
+            }
+            case 133: {
+              bitField0_ |= 0x00001000;
+              orientsensorLevel_ = input.readFloat();
               break;
             }
           }
@@ -5463,6 +5478,22 @@ public final class TerminalProtos {
       return gsensorLevel_;
     }
 
+    // optional float orientsensor_level = 16;
+    public static final int ORIENTSENSOR_LEVEL_FIELD_NUMBER = 16;
+    private float orientsensorLevel_;
+    /**
+     * <code>optional float orientsensor_level = 16;</code>
+     */
+    public boolean hasOrientsensorLevel() {
+      return ((bitField0_ & 0x00001000) == 0x00001000);
+    }
+    /**
+     * <code>optional float orientsensor_level = 16;</code>
+     */
+    public float getOrientsensorLevel() {
+      return orientsensorLevel_;
+    }
+
     private void initFields() {
       type_ = com.example.signalus_terminal.TerminalProtos.PackageType.LOGIN;
       index_ = 0L;
@@ -5479,6 +5510,7 @@ public final class TerminalProtos {
       bluetoothDevice_ = java.util.Collections.emptyList();
       noiseVolumeLevel_ = 0D;
       gsensorLevel_ = 0F;
+      orientsensorLevel_ = 0F;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -5563,6 +5595,9 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         output.writeFloat(15, gsensorLevel_);
       }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeFloat(16, orientsensorLevel_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -5631,6 +5666,10 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(15, gsensorLevel_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(16, orientsensorLevel_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5798,6 +5837,8 @@ public final class TerminalProtos {
         bitField0_ = (bitField0_ & ~0x00002000);
         gsensorLevel_ = 0F;
         bitField0_ = (bitField0_ & ~0x00004000);
+        orientsensorLevel_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00008000);
         return this;
       }
 
@@ -5905,6 +5946,10 @@ public final class TerminalProtos {
           to_bitField0_ |= 0x00000800;
         }
         result.gsensorLevel_ = gsensorLevel_;
+        if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
+          to_bitField0_ |= 0x00001000;
+        }
+        result.orientsensorLevel_ = orientsensorLevel_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -6034,6 +6079,9 @@ public final class TerminalProtos {
         }
         if (other.hasGsensorLevel()) {
           setGsensorLevel(other.getGsensorLevel());
+        }
+        if (other.hasOrientsensorLevel()) {
+          setOrientsensorLevel(other.getOrientsensorLevel());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -7291,6 +7339,39 @@ public final class TerminalProtos {
         return this;
       }
 
+      // optional float orientsensor_level = 16;
+      private float orientsensorLevel_ ;
+      /**
+       * <code>optional float orientsensor_level = 16;</code>
+       */
+      public boolean hasOrientsensorLevel() {
+        return ((bitField0_ & 0x00008000) == 0x00008000);
+      }
+      /**
+       * <code>optional float orientsensor_level = 16;</code>
+       */
+      public float getOrientsensorLevel() {
+        return orientsensorLevel_;
+      }
+      /**
+       * <code>optional float orientsensor_level = 16;</code>
+       */
+      public Builder setOrientsensorLevel(float value) {
+        bitField0_ |= 0x00008000;
+        orientsensorLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float orientsensor_level = 16;</code>
+       */
+      public Builder clearOrientsensorLevel() {
+        bitField0_ = (bitField0_ & ~0x00008000);
+        orientsensorLevel_ = 0F;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:terminal.DataPackage)
     }
 
@@ -7439,6 +7520,16 @@ public final class TerminalProtos {
      * <code>optional float setting_gsensor_level = 11;</code>
      */
     float getSettingGsensorLevel();
+
+    // optional float setting_orientsensor_level = 12;
+    /**
+     * <code>optional float setting_orientsensor_level = 12;</code>
+     */
+    boolean hasSettingOrientsensorLevel();
+    /**
+     * <code>optional float setting_orientsensor_level = 12;</code>
+     */
+    float getSettingOrientsensorLevel();
   }
   /**
    * Protobuf type {@code terminal.DataResponcePackage}
@@ -7559,6 +7650,11 @@ public final class TerminalProtos {
             case 93: {
               bitField0_ |= 0x00000200;
               settingGsensorLevel_ = input.readFloat();
+              break;
+            }
+            case 101: {
+              bitField0_ |= 0x00000400;
+              settingOrientsensorLevel_ = input.readFloat();
               break;
             }
           }
@@ -8579,6 +8675,22 @@ public final class TerminalProtos {
       return settingGsensorLevel_;
     }
 
+    // optional float setting_orientsensor_level = 12;
+    public static final int SETTING_ORIENTSENSOR_LEVEL_FIELD_NUMBER = 12;
+    private float settingOrientsensorLevel_;
+    /**
+     * <code>optional float setting_orientsensor_level = 12;</code>
+     */
+    public boolean hasSettingOrientsensorLevel() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    /**
+     * <code>optional float setting_orientsensor_level = 12;</code>
+     */
+    public float getSettingOrientsensorLevel() {
+      return settingOrientsensorLevel_;
+    }
+
     private void initFields() {
       type_ = com.example.signalus_terminal.TerminalProtos.PackageType.LOGIN;
       index_ = 0L;
@@ -8591,6 +8703,7 @@ public final class TerminalProtos {
       settingNoiseVolumeLevel_ = 0D;
       settingIncomingNumbers_ = "";
       settingGsensorLevel_ = 0F;
+      settingOrientsensorLevel_ = 0F;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -8655,6 +8768,9 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         output.writeFloat(11, settingGsensorLevel_);
       }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeFloat(12, settingOrientsensorLevel_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -8707,6 +8823,10 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(11, settingGsensorLevel_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(12, settingOrientsensorLevel_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8851,6 +8971,8 @@ public final class TerminalProtos {
         bitField0_ = (bitField0_ & ~0x00000200);
         settingGsensorLevel_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000400);
+        settingOrientsensorLevel_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000800);
         return this;
       }
 
@@ -8928,6 +9050,10 @@ public final class TerminalProtos {
           to_bitField0_ |= 0x00000200;
         }
         result.settingGsensorLevel_ = settingGsensorLevel_;
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.settingOrientsensorLevel_ = settingOrientsensorLevel_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -9003,6 +9129,9 @@ public final class TerminalProtos {
         }
         if (other.hasSettingGsensorLevel()) {
           setSettingGsensorLevel(other.getSettingGsensorLevel());
+        }
+        if (other.hasSettingOrientsensorLevel()) {
+          setSettingOrientsensorLevel(other.getSettingOrientsensorLevel());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -9707,6 +9836,39 @@ public final class TerminalProtos {
         return this;
       }
 
+      // optional float setting_orientsensor_level = 12;
+      private float settingOrientsensorLevel_ ;
+      /**
+       * <code>optional float setting_orientsensor_level = 12;</code>
+       */
+      public boolean hasSettingOrientsensorLevel() {
+        return ((bitField0_ & 0x00000800) == 0x00000800);
+      }
+      /**
+       * <code>optional float setting_orientsensor_level = 12;</code>
+       */
+      public float getSettingOrientsensorLevel() {
+        return settingOrientsensorLevel_;
+      }
+      /**
+       * <code>optional float setting_orientsensor_level = 12;</code>
+       */
+      public Builder setSettingOrientsensorLevel(float value) {
+        bitField0_ |= 0x00000800;
+        settingOrientsensorLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float setting_orientsensor_level = 12;</code>
+       */
+      public Builder clearSettingOrientsensorLevel() {
+        bitField0_ = (bitField0_ & ~0x00000800);
+        settingOrientsensorLevel_ = 0F;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:terminal.DataResponcePackage)
     }
 
@@ -9776,7 +9938,7 @@ public final class TerminalProtos {
       "age\022#\n\004type\030\001 \002(\0162\025.terminal.PackageType" +
       "\022\r\n\005index\030\002 \002(\003\022\014\n\004imei\030\003 \002(\003\022\r\n\005imei2\030\004" +
       " \001(\003\022\021\n\tactiveSim\030\005 \001(\005\022\017\n\007version\030\006 \001(\t" +
-      "\"\237\007\n\013DataPackage\022#\n\004type\030\001 \002(\0162\025.termina" +
+      "\"\273\007\n\013DataPackage\022#\n\004type\030\001 \002(\0162\025.termina" +
       "l.PackageType\022\r\n\005index\030\002 \002(\003\022\017\n\007defence\030" +
       "\003 \001(\005\022\021\n\tactiveSim\030\004 \001(\005\022\016\n\006charge\030\005 \001(\010" +
       "\022\013\n\003acc\030\006 \001(\010\022\017\n\007voltage\030\007 \001(\005\022\022\n\nsatell" +
@@ -9787,33 +9949,35 @@ public final class TerminalProtos {
       "\036.terminal.DataPackage.Position\022>\n\017bluet" +
       "oothDevice\030\r \003(\0132%.terminal.DataPackage." +
       "BluetoothDevice\022\032\n\022noise_volume_level\030\016 " +
-      "\001(\001\022\025\n\rgsensor_level\030\017 \001(\002\032\320\001\n\004Cell\022\013\n\003m" +
-      "cc\030\001 \002(\005\022\013\n\003mnc\030\002 \002(\005\022\013\n\003lac\030\003 \002(\005\022\014\n\004ce" +
-      "ll\030\004 \002(\005\022\020\n\010strength\030\005 \002(\005\0229\n\010position\030\006" +
-      " \001(\0132\'.terminal.DataPackage.Cell.CellPos" +
-      "ition\032F\n\014CellPosition\022\021\n\ttimestamp\030\001 \002(\003",
-      "\022\020\n\010latitude\030\002 \002(\001\022\021\n\tlongitude\030\003 \002(\001\032X\n" +
-      "\017NeighboringCell\022\013\n\003mcc\030\001 \001(\005\022\013\n\003mnc\030\002 \001" +
-      "(\005\022\013\n\003lac\030\003 \001(\005\022\014\n\004cell\030\004 \001(\005\022\020\n\010strengt" +
-      "h\030\005 \001(\005\032s\n\010Position\022\021\n\ttimestamp\030\001 \002(\003\022\016" +
-      "\n\006course\030\002 \002(\005\022\020\n\010latitude\030\003 \002(\001\022\021\n\tlong" +
-      "itude\030\004 \002(\001\022\r\n\005speed\030\005 \002(\005\022\020\n\010altitude\030\006" +
-      " \002(\005\032,\n\017BluetoothDevice\022\014\n\004name\030\001 \002(\t\022\013\n" +
-      "\003mac\030\002 \002(\t\"\347\003\n\023DataResponcePackage\022#\n\004ty" +
-      "pe\030\001 \002(\0162\025.terminal.PackageType\022\r\n\005index" +
-      "\030\002 \002(\003\0228\n\006status\030\003 \002(\0162(.terminal.DataRe",
-      "sponcePackage.StatusType\022\013\n\003msg\030\004 \001(\t\022\017\n" +
-      "\007defence\030\005 \001(\005\022F\n\017bluetoothDevice\030\006 \003(\0132" +
-      "-.terminal.DataResponcePackage.Bluetooth" +
-      "Device\022\036\n\026do_searching_bluetooth\030\007 \001(\005\022\031" +
-      "\n\021do_update_version\030\010 \001(\005\022\"\n\032setting_noi" +
-      "se_volume_level\030\t \001(\001\022 \n\030setting_incomin" +
-      "g_numbers\030\n \001(\t\022\035\n\025setting_gsensor_level" +
-      "\030\013 \001(\002\032,\n\017BluetoothDevice\022\014\n\004name\030\001 \002(\t\022" +
-      "\013\n\003mac\030\002 \002(\t\".\n\nStatusType\022\014\n\010NO_ERROR\020\000" +
-      "\022\022\n\016INVALID_PACKET\020\001*\"\n\013PackageType\022\t\n\005L",
-      "OGIN\020\000\022\010\n\004DATA\020\001B/\n\035com.example.signalus" +
-      "_terminalB\016TerminalProtos"
+      "\001(\001\022\025\n\rgsensor_level\030\017 \001(\002\022\032\n\022orientsens" +
+      "or_level\030\020 \001(\002\032\320\001\n\004Cell\022\013\n\003mcc\030\001 \002(\005\022\013\n\003" +
+      "mnc\030\002 \002(\005\022\013\n\003lac\030\003 \002(\005\022\014\n\004cell\030\004 \002(\005\022\020\n\010" +
+      "strength\030\005 \002(\005\0229\n\010position\030\006 \001(\0132\'.termi" +
+      "nal.DataPackage.Cell.CellPosition\032F\n\014Cel",
+      "lPosition\022\021\n\ttimestamp\030\001 \002(\003\022\020\n\010latitude" +
+      "\030\002 \002(\001\022\021\n\tlongitude\030\003 \002(\001\032X\n\017Neighboring" +
+      "Cell\022\013\n\003mcc\030\001 \001(\005\022\013\n\003mnc\030\002 \001(\005\022\013\n\003lac\030\003 " +
+      "\001(\005\022\014\n\004cell\030\004 \001(\005\022\020\n\010strength\030\005 \001(\005\032s\n\010P" +
+      "osition\022\021\n\ttimestamp\030\001 \002(\003\022\016\n\006course\030\002 \002" +
+      "(\005\022\020\n\010latitude\030\003 \002(\001\022\021\n\tlongitude\030\004 \002(\001\022" +
+      "\r\n\005speed\030\005 \002(\005\022\020\n\010altitude\030\006 \002(\005\032,\n\017Blue" +
+      "toothDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\"\213" +
+      "\004\n\023DataResponcePackage\022#\n\004type\030\001 \002(\0162\025.t" +
+      "erminal.PackageType\022\r\n\005index\030\002 \002(\003\0228\n\006st",
+      "atus\030\003 \002(\0162(.terminal.DataResponcePackag" +
+      "e.StatusType\022\013\n\003msg\030\004 \001(\t\022\017\n\007defence\030\005 \001" +
+      "(\005\022F\n\017bluetoothDevice\030\006 \003(\0132-.terminal.D" +
+      "ataResponcePackage.BluetoothDevice\022\036\n\026do" +
+      "_searching_bluetooth\030\007 \001(\005\022\031\n\021do_update_" +
+      "version\030\010 \001(\005\022\"\n\032setting_noise_volume_le" +
+      "vel\030\t \001(\001\022 \n\030setting_incoming_numbers\030\n " +
+      "\001(\t\022\035\n\025setting_gsensor_level\030\013 \001(\002\022\"\n\032se" +
+      "tting_orientsensor_level\030\014 \001(\002\032,\n\017Blueto" +
+      "othDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\".\n\n",
+      "StatusType\022\014\n\010NO_ERROR\020\000\022\022\n\016INVALID_PACK" +
+      "ET\020\001*\"\n\013PackageType\022\t\n\005LOGIN\020\000\022\010\n\004DATA\020\001" +
+      "B/\n\035com.example.signalus_terminalB\016Termi" +
+      "nalProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -9831,7 +9995,7 @@ public final class TerminalProtos {
           internal_static_terminal_DataPackage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_terminal_DataPackage_descriptor,
-              new java.lang.String[] { "Type", "Index", "Defence", "ActiveSim", "Charge", "Acc", "Voltage", "Satellites", "SatellitesInFix", "Cell", "Neighboringcell", "Position", "BluetoothDevice", "NoiseVolumeLevel", "GsensorLevel", });
+              new java.lang.String[] { "Type", "Index", "Defence", "ActiveSim", "Charge", "Acc", "Voltage", "Satellites", "SatellitesInFix", "Cell", "Neighboringcell", "Position", "BluetoothDevice", "NoiseVolumeLevel", "GsensorLevel", "OrientsensorLevel", });
           internal_static_terminal_DataPackage_Cell_descriptor =
             internal_static_terminal_DataPackage_descriptor.getNestedTypes().get(0);
           internal_static_terminal_DataPackage_Cell_fieldAccessorTable = new
@@ -9867,7 +10031,7 @@ public final class TerminalProtos {
           internal_static_terminal_DataResponcePackage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_terminal_DataResponcePackage_descriptor,
-              new java.lang.String[] { "Type", "Index", "Status", "Msg", "Defence", "BluetoothDevice", "DoSearchingBluetooth", "DoUpdateVersion", "SettingNoiseVolumeLevel", "SettingIncomingNumbers", "SettingGsensorLevel", });
+              new java.lang.String[] { "Type", "Index", "Status", "Msg", "Defence", "BluetoothDevice", "DoSearchingBluetooth", "DoUpdateVersion", "SettingNoiseVolumeLevel", "SettingIncomingNumbers", "SettingGsensorLevel", "SettingOrientsensorLevel", });
           internal_static_terminal_DataResponcePackage_BluetoothDevice_descriptor =
             internal_static_terminal_DataResponcePackage_descriptor.getNestedTypes().get(0);
           internal_static_terminal_DataResponcePackage_BluetoothDevice_fieldAccessorTable = new
