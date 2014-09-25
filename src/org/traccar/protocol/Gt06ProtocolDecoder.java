@@ -113,6 +113,7 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
                 sendResponse(channel, type, buf.readUnsignedShort());
             } catch(Exception error) {
                 Log.debug("Unknown device - " + imei);
+                Log.error(error.getMessage());
             }
         }
 
@@ -151,6 +152,9 @@ public class Gt06ProtocolDecoder extends BaseProtocolDecoder {
             time.set(Calendar.MINUTE, buf.readUnsignedByte());
             time.set(Calendar.SECOND, buf.readUnsignedByte());
             position.setTime(time.getTime());
+
+//            Log.info("Device: "+deviceId+", "
+//                    +"timestamp: "+position.getTime().getTime()+"");
 
             // GPS length and Satellites count
             int gpsLength = buf.readUnsignedByte();

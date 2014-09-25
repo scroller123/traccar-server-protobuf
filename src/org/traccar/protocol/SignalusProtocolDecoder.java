@@ -38,6 +38,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -177,6 +178,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 Calendar time = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 time.clear();
                 time.setTimeInMillis(dataPacket.getPosition().getTimestamp());
+                time.setTimeZone(TimeZone.getTimeZone("UTC"));
                 position.setTime(time.getTime());
 
                 extendedInfo.set("acc", dataPacket.getAcc() ? 1 : 0);
@@ -217,9 +219,9 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
                 position.setExtendedInfo(extendedInfo.toString());
 
-                Log.info("Device: "+deviceId+", "
-                            +"index: "+dataPacket.getIndex()+", "
-                            +"position: "+dataPacket.getPosition().getLatitude()+","+dataPacket.getPosition().getLongitude()+", "
+//                Log.info("Device: "+deviceId+", "
+//                            +"index: "+dataPacket.getIndex()+", "
+//                            +"position: "+dataPacket.getPosition().getLatitude()+","+dataPacket.getPosition().getLongitude()+", "
 //                            +"timestamp: "+dataPacket.getPosition().getTimestamp()+", "
 //                            +"speed: "+dataPacket.getPosition().getSpeed()+" km/h, "
 //                            +"Altitude: "+dataPacket.getPosition().getAltitude()+" m, "
@@ -234,7 +236,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 //                            +"Satellites in fix: "+dataPacket.getSatellitesInFix()+", "
 //                            +"ACC: "+(dataPacket.getAcc() ? 1:0)+", "
 //                            +"CHANGE: "+(dataPacket.getCharge() ? 1:0)+", "
-                        );
+//                        );
                 responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
 
 
@@ -243,24 +245,24 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
                 //responsePacket.setMsg("< 3 sattelites or position not change");
 
-                Log.info("Device: "+deviceId+", "
-                        +"index: "+dataPacket.getIndex()+", "
-                        +"position: "+dataPacket.getPosition().getLatitude()+","+dataPacket.getPosition().getLongitude()+", "
+//                Log.info("Device: "+deviceId+", "
+//                        +"index: "+dataPacket.getIndex()+", "
+//                        +"position: "+dataPacket.getPosition().getLatitude()+","+dataPacket.getPosition().getLongitude()+", "
 //                        +"timestamp: "+dataPacket.getPosition().getTimestamp()+", "
-//                        +"speed: "+dataPacket.getPosition().getSpeed()+" km/h, "
-//                        +"Altitude: "+dataPacket.getPosition().getAltitude()+" m, "
-//                        +"Course: "+dataPacket.getPosition().getCourse()+", "
-//                        +"Cell1ID: "+dataPacket.getCell(0).getMcc()+"." +dataPacket.getCell(0).getMnc()+"."+dataPacket.getCell(0).getLac()+"."+dataPacket.getCell(0).getCell()+", "
-//                        +"Cell2ID: "+dataPacket.getCell(1).getMcc()+"." +dataPacket.getCell(1).getMnc()+"."+dataPacket.getCell(1).getLac()+"."+dataPacket.getCell(1).getCell()+", "
-//                        +"Cell1 timestamp: "+dataPacket.getCell(0).getPosition().getTimestamp()+", "
-//                        +"Cell1 strength: "+dataPacket.getCell(0).getStrength()+", "
-//                        +"Cell2 strength: "+dataPacket.getCell(1).getStrength()+", "
-//                        +"Cell1 position: "+dataPacket.getCell(0).getPosition().getLatitude()+","+dataPacket.getCell(0).getPosition().getLongitude()+", "
-//                        +"Satellites: "+dataPacket.getSatellites()+", "
-//                        +"Satellites in fix: "+dataPacket.getSatellitesInFix()+", "
-//                        +"ACC: "+(dataPacket.getAcc() ? 1:0)+", "
-//                        +"CHANGE: "+(dataPacket.getCharge() ? 1:0)+", "
-                );
+////                        +"speed: "+dataPacket.getPosition().getSpeed()+" km/h, "
+////                        +"Altitude: "+dataPacket.getPosition().getAltitude()+" m, "
+////                        +"Course: "+dataPacket.getPosition().getCourse()+", "
+////                        +"Cell1ID: "+dataPacket.getCell(0).getMcc()+"." +dataPacket.getCell(0).getMnc()+"."+dataPacket.getCell(0).getLac()+"."+dataPacket.getCell(0).getCell()+", "
+////                        +"Cell2ID: "+dataPacket.getCell(1).getMcc()+"." +dataPacket.getCell(1).getMnc()+"."+dataPacket.getCell(1).getLac()+"."+dataPacket.getCell(1).getCell()+", "
+////                        +"Cell1 timestamp: "+dataPacket.getCell(0).getPosition().getTimestamp()+", "
+////                        +"Cell1 strength: "+dataPacket.getCell(0).getStrength()+", "
+////                        +"Cell2 strength: "+dataPacket.getCell(1).getStrength()+", "
+////                        +"Cell1 position: "+dataPacket.getCell(0).getPosition().getLatitude()+","+dataPacket.getCell(0).getPosition().getLongitude()+", "
+////                        +"Satellites: "+dataPacket.getSatellites()+", "
+////                        +"Satellites in fix: "+dataPacket.getSatellitesInFix()+", "
+////                        +"ACC: "+(dataPacket.getAcc() ? 1:0)+", "
+////                        +"CHANGE: "+(dataPacket.getCharge() ? 1:0)+", "
+//                );
 
 
             }

@@ -233,6 +233,10 @@ public class NamedParameterStatement {
         List<Integer> indexList = indexMap.get(name);
         if (indexList != null) for (Integer index: indexList) {
             if (value != null) {
+                //Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                //c.setTimeInMillis(value.getTime());
+                //TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+                //statement.setTimestamp(index, new Timestamp(value.getTime()), c);
                 statement.setTimestamp(index, new Timestamp(value.getTime()));
             } else {
                 statement.setNull(index, Types.TIMESTAMP);

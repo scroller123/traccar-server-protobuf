@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +30,7 @@ public class SignalWatcher {
 
     public SignalWatcher(ServerManager serverManager) throws Exception {
         this.serverManager = serverManager;
+        //TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Tick();
     }
 
@@ -73,6 +75,8 @@ public class SignalWatcher {
     private void Alarm(int alarmType, Device dev) throws Exception {
         serverManager.getDataManager().setDefenceValue(dev.getId(), 0);
 
+        Log.info("Onverify alarm. Type: "+alarmType+", device: "+dev.getId()+", phone: "+dev.getPhoneNumber());
+
         StringBuilder url = new StringBuilder();
         url.append("http://www.onverify.com/call.php?userid=5226&apipass=1837&template_id="+alarmType+"&number="+dev.getPhoneNumber());
 
@@ -111,8 +115,10 @@ public class SignalWatcher {
 
                 in.close();
 
+                Log.info("Onverify event sended");
+
             }catch (Exception e){
-                Log.error("HTTP GET Exception: " + e.getMessage() + ", " + e.getCause().getMessage());
+                Log.error("Onverify HTTP GET Exception: " + e.getMessage() + ", " + e.getCause().getMessage());
             }
 
             return null;

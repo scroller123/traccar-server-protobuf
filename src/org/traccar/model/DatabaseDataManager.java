@@ -48,6 +48,7 @@ public class DatabaseDataManager implements DataManager {
     /**
      * Database statements
      */
+    private NamedParameterStatement querySetTimeZone;
     private NamedParameterStatement queryGetDevices;
     private NamedParameterStatement queryGetLastSignal;
     private NamedParameterStatement queryGetLastPosition;
@@ -100,6 +101,11 @@ public class DatabaseDataManager implements DataManager {
 
         // Load statements from configuration
         String query;
+
+        query = properties.getProperty("database.setTimeZone");
+        if (query != null) {
+            querySetTimeZone = new NamedParameterStatement(connection, query);
+        }
 
         query = properties.getProperty("database.selectDevice");
         if (query != null) {
@@ -182,12 +188,16 @@ public class DatabaseDataManager implements DataManager {
     @Override
     public synchronized List<Device> getDevices() throws SQLException {
 
+        setTimeZone();
+
         List<Device> deviceList = new LinkedList<Device>();
 
         if (queryGetDevices != null) {
             queryGetDevices.prepare();
             ResultSet result = queryGetDevices.executeQuery();
             while (result.next()) {
+                //Log.info("REFRESH DEVICES, ID: "+result.getLong("id")+", IMEI: "+result.getString("imei"));
+
                 Device device = new Device();
                 device.setId(result.getLong("id"));
                 device.setImei(result.getString("imei"));
@@ -250,13 +260,16 @@ public class DatabaseDataManager implements DataManager {
         }
         devicesLastUpdate = Calendar.getInstance();
 
+        System.setProperty("user.timezone", "UTC");
+        TimeZone.setDefault(null);
+
         return;
     }
 
 
     @Override
     public Signal selectLastSignal(Long deviceId) throws SQLException {
-
+        setTimeZone();
         if (queryGetLastSignal != null) {
             Signal signal = new Signal();
 
@@ -280,7 +293,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public Position selectLastPosition(Long deviceId) throws SQLException {
-
+        setTimeZone();
         if (queryGetLastPosition != null) {
             Position position = new Position();
 
@@ -302,6 +315,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public ArrayList<BluetoothDevice> selectBluetoothBinded(Long deviceId) throws SQLException {
+        setTimeZone();
         ArrayList<BluetoothDevice> list = new ArrayList<BluetoothDevice>();
         if (querySelectBluetoothBinded != null) {
             querySelectBluetoothBinded.prepare();
@@ -323,6 +337,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDoSearchingBluetoothValue(Long deviceId, int value) throws SQLException {
+        setTimeZone();
         if (querySetDoSearchingBluetoothValue != null) {
             querySetDoSearchingBluetoothValue.prepare();
             querySetDoSearchingBluetoothValue.setLong("device_id", deviceId);
@@ -333,6 +348,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDefenceValue(Long deviceId, int value) throws SQLException {
+        setTimeZone();
         if (querySetDefenceValue != null) {
             querySetDefenceValue.prepare();
             querySetDefenceValue.setLong("device_id", deviceId);
@@ -343,6 +359,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setVersionValue(Long deviceId, int value) throws SQLException {
+        setTimeZone();
         if (querySetVersionValue != null) {
             querySetVersionValue.prepare();
             querySetVersionValue.setLong("device_id", deviceId);
@@ -353,6 +370,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDoUpdateVersionValue(Long deviceId, int value) throws SQLException {
+        setTimeZone();
         if (querySetDoUpdateVersionValue != null) {
             querySetDoUpdateVersionValue.prepare();
             querySetDoUpdateVersionValue.setLong("device_id", deviceId);
@@ -363,6 +381,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDoBindingBluetoothValue(Long deviceId, int value) throws SQLException {
+        setTimeZone();
         if (querySetDoBindingBluetoothValue != null) {
             querySetDoBindingBluetoothValue.prepare();
             querySetDoBindingBluetoothValue.setLong("device_id", deviceId);
@@ -373,6 +392,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDoSettingsUpdateValue(Long deviceId, int value) throws SQLException {
+        setTimeZone();
         if (querySetDoSettingsUpdateValue != null) {
             querySetDoSettingsUpdateValue.prepare();
             querySetDoSettingsUpdateValue.setLong("device_id", deviceId);
@@ -383,6 +403,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void deleteBluetoothSearchResult(Long deviceId) throws SQLException {
+        setTimeZone();
         if (queryDeleteBluetoothSearchResult != null) {
             queryDeleteBluetoothSearchResult.prepare();
             queryDeleteBluetoothSearchResult.setLong("device_id", deviceId);
@@ -392,6 +413,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void insertBluetoothSearchResult(Long deviceId, String name, String mac) throws SQLException {
+        setTimeZone();
         if (queryInsertBluetoothSearchResult != null) {
             queryInsertBluetoothSearchResult.prepare();
             queryInsertBluetoothSearchResult.setLong("device_id", deviceId);
@@ -402,11 +424,19 @@ public class DatabaseDataManager implements DataManager {
     }
 
 
+    @Override
+    public void setTimeZone() throws SQLException {
+        if (querySetTimeZone != null) {
+            querySetTimeZone.prepare();
+            querySetTimeZone.executeUpdate();
+        }
+    }
+
 
 
     @Override
     public synchronized Long addPosition(Position position) throws SQLException {
-
+        setTimeZone();
         if (queryAddPosition != null) {
             queryAddPosition.prepare(Statement.RETURN_GENERATED_KEYS);
 
@@ -457,7 +487,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void updateLatestPosition(Long deviceId, Long positionId) throws SQLException {
-        
+        setTimeZone();
         if (queryUpdateLatestPosition != null) {
             queryUpdateLatestPosition.prepare();
 
@@ -486,6 +516,9 @@ public class DatabaseDataManager implements DataManager {
                                     String cell1,
                                     String cell2,
                                     String signal) throws SQLException {
+
+        setTimeZone();
+
         String deviceID = null;
         String sentence = (String) hex;
         Pattern pattern = Pattern.compile("(id|imei)\\:(\\d+)");

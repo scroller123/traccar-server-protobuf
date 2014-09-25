@@ -21,6 +21,7 @@ public class TestDataManager implements DataManager {
     }
 
 
+
     @Override
     public void refreshDevices(){
     }
@@ -29,6 +30,9 @@ public class TestDataManager implements DataManager {
     public Device getDeviceByID(Long id){
         return null;
     }
+
+    @Override
+    public void setTimeZone(){}
 
     @Override
     public void deleteBluetoothSearchResult(Long deviceId){}

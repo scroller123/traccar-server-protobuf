@@ -16,12 +16,17 @@
 package org.traccar;
 
 import java.util.Locale;
+import java.util.TimeZone;
+
 import org.traccar.helper.Log;
 
 public class Main {
     
     public static void main(String[] args) throws Exception {
         Locale.setDefault(Locale.ENGLISH);
+
+        System.setProperty("user.timezone", "UTC");
+        TimeZone.setDefault(null);
 
         final ServerManager service = new ServerManager();
         service.init(args);

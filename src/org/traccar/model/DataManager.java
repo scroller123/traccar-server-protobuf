@@ -32,6 +32,8 @@ public interface DataManager {
     public Device getDeviceByImei(String imei) throws Exception;
     public Device getDeviceByID(Long id) throws Exception;
 
+    public void setTimeZone() throws SQLException;
+
     public Signal selectLastSignal(Long deviceId) throws SQLException;
     public Position selectLastPosition(Long deviceId) throws SQLException;
 
