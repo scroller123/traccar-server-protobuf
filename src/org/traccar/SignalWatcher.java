@@ -27,6 +27,7 @@ import java.util.TimerTask;
 public class SignalWatcher {
     private ServerManager serverManager;
     private static long SIGNAL_EMPTY_ALARM_INTERVAL = 5L * 60 * 1000;
+    private static long TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL = 90 * 1000; // 90 sec
 
     public SignalWatcher(ServerManager serverManager) throws Exception {
         this.serverManager = serverManager;
@@ -53,8 +54,25 @@ public class SignalWatcher {
                     Alarm(8624, dev);
 
                 //Log.info("ALARM! System current time: "+System.currentTimeMillis()+", signal time: "+signalTime.getTime());
-                if (System.currentTimeMillis() - signalTime.getTime()*1000 > SIGNAL_EMPTY_ALARM_INTERVAL)
+
+                if (dev.getId()==15 &&
+                        System.currentTimeMillis() - signalTime.getTime()*1000 > TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL+1*1000 &&
+                        System.currentTimeMillis() - signalTime.getTime()*1000 <= TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL+2*1000){
+
                     Alarm(8627, dev);
+
+//                    StringBuilder url = new StringBuilder();
+//                    url.append("http://www.signalus.ru/outer/sendmail?subject=Device"+dev.getId()+"&msg=");
+//                    url.append("lost_signal_>"+TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL+",signalTS:"+signalTime.getTime()+",current:"+System.currentTimeMillis());
+//                    SendEmailProcess process = new SendEmailProcess(url.toString());
+//                    try {
+//                        process.execute();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+                }else if (System.currentTimeMillis() - signalTime.getTime()*1000 > SIGNAL_EMPTY_ALARM_INTERVAL){
+                    Alarm(8627, dev);
+                }
             }
         }
 
@@ -83,6 +101,16 @@ public class SignalWatcher {
         SendCallAlarmProcess process = new SendCallAlarmProcess(url.toString());
         try {
             process.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder urlx = new StringBuilder();
+        urlx.append("http://www.signalus.ru/outer/sendmail?subject=Device"+dev.getId()+"&msg=");
+        urlx.append("template_id="+alarmType);
+        SendEmailProcess processx = new SendEmailProcess(urlx.toString());
+        try {
+            processx.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,6 +147,42 @@ public class SignalWatcher {
 
             }catch (Exception e){
                 Log.error("Onverify HTTP GET Exception: " + e.getMessage() + ", " + e.getCause().getMessage());
+            }
+
+            return null;
+        }
+    }
+
+    public class SendEmailProcess extends SwingWorker {
+        String url;
+
+        public SendEmailProcess (String url){
+            this.url = url;
+        }
+        /**
+         * @throws Exception
+         */
+        protected Object doInBackground() throws Exception {
+            final String USER_AGENT = "Mozilla/5.0";
+
+            try{
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                con.setConnectTimeout(5000);
+                con.setReadTimeout(5000);
+                con.setRequestMethod("GET");
+                con.setRequestProperty("User-Agent", USER_AGENT);
+                int responseCode = con.getResponseCode();
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                in.close();
+
+            }catch (Exception e){
+                Log.error("HTTP GET Exception: "+e.getMessage()+", "+e.getCause().getMessage());
             }
 
             return null;

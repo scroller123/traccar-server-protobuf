@@ -52,6 +52,7 @@ import java.io.InputStreamReader;
 
 import javax.swing.*;
 
+
 import com.google.protobuf.*;
 import com.example.signalus_terminal.TerminalProtos;
 
@@ -128,7 +129,9 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                         -1,
                         null,
                         null,
-                        null);
+                        null,
+                        null,
+                        -1);
 
             }else{
                 responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.INVALID_PACKET);
@@ -269,19 +272,24 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
 
             // Neighhooding Cells
-            if (dataPacket.getNeighboringcellCount() >= 3) {
+
+            if (dataPacket.getNeighboringcellCount() >= 1) {
                 StringBuilder url = new StringBuilder();
                 url.append("http://www.signalus.ru/outer/setLBSPosition?deviceID="+deviceId);
                 for(TerminalProtos.DataPackage.NeighboringCell nhCell : dataPacket.getNeighboringcellList())
                     url.append("&cellinfo[]="+dataPacket.getCell(0).getMcc()+":"+nhCell.getMnc()+":"+nhCell.getLac()+":"+nhCell.getCell()+"&cellrssi[]="+nhCell.getStrength());
                 url.append("&position="+dataPacket.getPosition().getLatitude()+","+dataPacket.getPosition().getLongitude());
 
+
+
+                Log.info("Neighhooding Cells url: "+url.toString());
                 SendLBSPositionProcess process = new SendLBSPositionProcess(url.toString());
                 try {
                     process.execute();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
 
             // device parameters
@@ -322,6 +330,11 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 responsePacket.setSettingIncomingNumbers(device.setting_incoming_numbers != null ? device.setting_incoming_numbers : "");
                 responsePacket.setSettingGsensorLevel(device.setting_gsensor_level);
                 responsePacket.setSettingOrientsensorLevel(device.setting_orientsensor_level);
+                responsePacket.setSettingConnectTimeout(device.setting_connect_timeout);
+                responsePacket.setSettingMaxWaitTimeToChangeSim(device.setting_max_wait_time_to_change_sim);
+                responsePacket.setSettingMaxFailTimeInDefenceToChangeSim(device.setting_max_fail_time_in_defence_to_change_sim);
+                responsePacket.setSettingMaxWaitTimeInDefenceToChangeSim(device.setting_max_wait_time_in_defence_to_change_sim);
+                responsePacket.setSettingMaxResponseWaitTime(device.setting_max_response_wait_time);
             }
 
             // update version
@@ -330,12 +343,43 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 responsePacket.setDoUpdateVersion(1);
             }
 
+            if (dataPacket.getGsensorLevel()>0 || dataPacket.getNoiseVolumeLevel()>0 || dataPacket.getOrientsensorLevel()>0) {
+                StringBuilder url = new StringBuilder();
+                url.append("http://www.signalus.ru/outer/sendmail?subject=Device"+deviceId+"&msg=");
+                if (dataPacket.getGsensorLevel()>0)
+                    url.append("GsensorLevel:"+dataPacket.getGsensorLevel()+",");
+                if (dataPacket.getNoiseVolumeLevel()>0)
+                    url.append("NoiseVolumeLevel:"+dataPacket.getNoiseVolumeLevel()+",");
+                if (dataPacket.getOrientsensorLevel()>0)
+                    url.append("OrientsensorLevel:"+dataPacket.getOrientsensorLevel()+",");
+
+                SendEmailProcess process = new SendEmailProcess(url.toString());
+                try {
+                    process.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            /*
+            free commands from terminal
+             */
+            int updateStatus = -1;
+            StringBuilder addsMessage = new StringBuilder();
+            for(String message : dataPacket.getMessagesList()) {
+                addsMessage.append(message+";");
+                String[] split = message.split(":");
+                if (split[0].equals("update")) {
+                    updateStatus = Integer.parseInt(split[1]);
+                }
+            }
 
             getDataManager().addSig("id:"+String.valueOf(deviceId),
                     dataPacket.getActiveSim(),
                     null,
                     device.defence,
-                    null,
+                    addsMessage.toString(),
                     dataPacket.getSatellitesInFix() > 2 ? "1" : "0",
                     dataPacket.getSatellitesInFix(),
                     dataPacket.getSatellites(),
@@ -347,7 +391,9 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                     dataPacket.getNoiseVolumeLevel(),
                     dataPacket.getCell(0).getMcc()+":"+dataPacket.getCell(0).getMnc()+":"+dataPacket.getCell(0).getLac()+":"+dataPacket.getCell(0).getCell()+";"+dataPacket.getCell(0).getStrength(),
                     dataPacket.getCell(1).getMcc()+":"+dataPacket.getCell(1).getMnc()+":"+dataPacket.getCell(1).getLac()+":"+dataPacket.getCell(1).getCell()+";"+dataPacket.getCell(1).getStrength(),
-                    null);
+                    null,
+                    dataPacket.getBluetooth() ? "1" : "0",
+                    updateStatus);
 
 
             byte[] packetBytes = responsePacket.build().toByteArray();
@@ -367,6 +413,42 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
         }catch (Exception e){}
 
         return null;
+    }
+
+    public class SendEmailProcess extends SwingWorker {
+        String url;
+
+        public SendEmailProcess (String url){
+            this.url = url;
+        }
+        /**
+         * @throws Exception
+         */
+        protected Object doInBackground() throws Exception {
+            final String USER_AGENT = "Mozilla/5.0";
+
+            try{
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                con.setConnectTimeout(5000);
+                con.setReadTimeout(5000);
+                con.setRequestMethod("GET");
+                con.setRequestProperty("User-Agent", USER_AGENT);
+                int responseCode = con.getResponseCode();
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                in.close();
+
+            }catch (Exception e){
+                Log.error("HTTP GET Exception: "+e.getMessage()+", "+e.getCause().getMessage());
+            }
+
+            return null;
+        }
     }
 
     public class SendLBSPositionProcess extends SwingWorker {

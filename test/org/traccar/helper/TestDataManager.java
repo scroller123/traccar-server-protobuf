@@ -98,7 +98,9 @@ public class TestDataManager implements DataManager {
                        double noise_value,
                        String cell1,
                        String cell2,
-                       String signal) {
+                       String signal,
+                       String bluetooth,
+                       int update_status) {
         return null;
     }
 }

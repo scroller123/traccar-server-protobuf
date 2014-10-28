@@ -120,6 +120,12 @@ public class Device {
     public String setting_incoming_numbers;
     public float setting_gsensor_level;
     public float setting_orientsensor_level;
+    public int setting_connect_timeout;
+    public int setting_max_wait_time_to_change_sim;
+    public int setting_max_fail_time_in_defence_to_change_sim;
+    public int setting_max_wait_time_in_defence_to_change_sim;
+    public int setting_max_response_wait_time;
+
     public int defence;
 
     public long signalTime;

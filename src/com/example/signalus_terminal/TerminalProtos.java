@@ -1210,6 +1210,36 @@ public final class TerminalProtos {
      * <code>optional float orientsensor_level = 16;</code>
      */
     float getOrientsensorLevel();
+
+    // optional bool bluetooth = 17;
+    /**
+     * <code>optional bool bluetooth = 17;</code>
+     */
+    boolean hasBluetooth();
+    /**
+     * <code>optional bool bluetooth = 17;</code>
+     */
+    boolean getBluetooth();
+
+    // repeated string messages = 18;
+    /**
+     * <code>repeated string messages = 18;</code>
+     */
+    java.util.List<java.lang.String>
+    getMessagesList();
+    /**
+     * <code>repeated string messages = 18;</code>
+     */
+    int getMessagesCount();
+    /**
+     * <code>repeated string messages = 18;</code>
+     */
+    java.lang.String getMessages(int index);
+    /**
+     * <code>repeated string messages = 18;</code>
+     */
+    com.google.protobuf.ByteString
+        getMessagesBytes(int index);
   }
   /**
    * Protobuf type {@code terminal.DataPackage}
@@ -1365,6 +1395,19 @@ public final class TerminalProtos {
               orientsensorLevel_ = input.readFloat();
               break;
             }
+            case 136: {
+              bitField0_ |= 0x00002000;
+              bluetooth_ = input.readBool();
+              break;
+            }
+            case 146: {
+              if (!((mutable_bitField0_ & 0x00020000) == 0x00020000)) {
+                messages_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00020000;
+              }
+              messages_.add(input.readBytes());
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1381,6 +1424,9 @@ public final class TerminalProtos {
         }
         if (((mutable_bitField0_ & 0x00001000) == 0x00001000)) {
           bluetoothDevice_ = java.util.Collections.unmodifiableList(bluetoothDevice_);
+        }
+        if (((mutable_bitField0_ & 0x00020000) == 0x00020000)) {
+          messages_ = new com.google.protobuf.UnmodifiableLazyStringList(messages_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -5494,6 +5540,52 @@ public final class TerminalProtos {
       return orientsensorLevel_;
     }
 
+    // optional bool bluetooth = 17;
+    public static final int BLUETOOTH_FIELD_NUMBER = 17;
+    private boolean bluetooth_;
+    /**
+     * <code>optional bool bluetooth = 17;</code>
+     */
+    public boolean hasBluetooth() {
+      return ((bitField0_ & 0x00002000) == 0x00002000);
+    }
+    /**
+     * <code>optional bool bluetooth = 17;</code>
+     */
+    public boolean getBluetooth() {
+      return bluetooth_;
+    }
+
+    // repeated string messages = 18;
+    public static final int MESSAGES_FIELD_NUMBER = 18;
+    private com.google.protobuf.LazyStringList messages_;
+    /**
+     * <code>repeated string messages = 18;</code>
+     */
+    public java.util.List<java.lang.String>
+        getMessagesList() {
+      return messages_;
+    }
+    /**
+     * <code>repeated string messages = 18;</code>
+     */
+    public int getMessagesCount() {
+      return messages_.size();
+    }
+    /**
+     * <code>repeated string messages = 18;</code>
+     */
+    public java.lang.String getMessages(int index) {
+      return messages_.get(index);
+    }
+    /**
+     * <code>repeated string messages = 18;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMessagesBytes(int index) {
+      return messages_.getByteString(index);
+    }
+
     private void initFields() {
       type_ = com.example.signalus_terminal.TerminalProtos.PackageType.LOGIN;
       index_ = 0L;
@@ -5511,6 +5603,8 @@ public final class TerminalProtos {
       noiseVolumeLevel_ = 0D;
       gsensorLevel_ = 0F;
       orientsensorLevel_ = 0F;
+      bluetooth_ = false;
+      messages_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -5598,6 +5692,12 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
         output.writeFloat(16, orientsensorLevel_);
       }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        output.writeBool(17, bluetooth_);
+      }
+      for (int i = 0; i < messages_.size(); i++) {
+        output.writeBytes(18, messages_.getByteString(i));
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -5670,6 +5770,19 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(16, orientsensorLevel_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(17, bluetooth_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < messages_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeBytesSizeNoTag(messages_.getByteString(i));
+        }
+        size += dataSize;
+        size += 2 * getMessagesList().size();
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5839,6 +5952,10 @@ public final class TerminalProtos {
         bitField0_ = (bitField0_ & ~0x00004000);
         orientsensorLevel_ = 0F;
         bitField0_ = (bitField0_ & ~0x00008000);
+        bluetooth_ = false;
+        bitField0_ = (bitField0_ & ~0x00010000);
+        messages_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00020000);
         return this;
       }
 
@@ -5950,6 +6067,16 @@ public final class TerminalProtos {
           to_bitField0_ |= 0x00001000;
         }
         result.orientsensorLevel_ = orientsensorLevel_;
+        if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
+          to_bitField0_ |= 0x00002000;
+        }
+        result.bluetooth_ = bluetooth_;
+        if (((bitField0_ & 0x00020000) == 0x00020000)) {
+          messages_ = new com.google.protobuf.UnmodifiableLazyStringList(
+              messages_);
+          bitField0_ = (bitField0_ & ~0x00020000);
+        }
+        result.messages_ = messages_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -6082,6 +6209,19 @@ public final class TerminalProtos {
         }
         if (other.hasOrientsensorLevel()) {
           setOrientsensorLevel(other.getOrientsensorLevel());
+        }
+        if (other.hasBluetooth()) {
+          setBluetooth(other.getBluetooth());
+        }
+        if (!other.messages_.isEmpty()) {
+          if (messages_.isEmpty()) {
+            messages_ = other.messages_;
+            bitField0_ = (bitField0_ & ~0x00020000);
+          } else {
+            ensureMessagesIsMutable();
+            messages_.addAll(other.messages_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -7372,6 +7512,132 @@ public final class TerminalProtos {
         return this;
       }
 
+      // optional bool bluetooth = 17;
+      private boolean bluetooth_ ;
+      /**
+       * <code>optional bool bluetooth = 17;</code>
+       */
+      public boolean hasBluetooth() {
+        return ((bitField0_ & 0x00010000) == 0x00010000);
+      }
+      /**
+       * <code>optional bool bluetooth = 17;</code>
+       */
+      public boolean getBluetooth() {
+        return bluetooth_;
+      }
+      /**
+       * <code>optional bool bluetooth = 17;</code>
+       */
+      public Builder setBluetooth(boolean value) {
+        bitField0_ |= 0x00010000;
+        bluetooth_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool bluetooth = 17;</code>
+       */
+      public Builder clearBluetooth() {
+        bitField0_ = (bitField0_ & ~0x00010000);
+        bluetooth_ = false;
+        onChanged();
+        return this;
+      }
+
+      // repeated string messages = 18;
+      private com.google.protobuf.LazyStringList messages_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureMessagesIsMutable() {
+        if (!((bitField0_ & 0x00020000) == 0x00020000)) {
+          messages_ = new com.google.protobuf.LazyStringArrayList(messages_);
+          bitField0_ |= 0x00020000;
+         }
+      }
+      /**
+       * <code>repeated string messages = 18;</code>
+       */
+      public java.util.List<java.lang.String>
+          getMessagesList() {
+        return java.util.Collections.unmodifiableList(messages_);
+      }
+      /**
+       * <code>repeated string messages = 18;</code>
+       */
+      public int getMessagesCount() {
+        return messages_.size();
+      }
+      /**
+       * <code>repeated string messages = 18;</code>
+       */
+      public java.lang.String getMessages(int index) {
+        return messages_.get(index);
+      }
+      /**
+       * <code>repeated string messages = 18;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMessagesBytes(int index) {
+        return messages_.getByteString(index);
+      }
+      /**
+       * <code>repeated string messages = 18;</code>
+       */
+      public Builder setMessages(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureMessagesIsMutable();
+        messages_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string messages = 18;</code>
+       */
+      public Builder addMessages(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureMessagesIsMutable();
+        messages_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string messages = 18;</code>
+       */
+      public Builder addAllMessages(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureMessagesIsMutable();
+        super.addAll(values, messages_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string messages = 18;</code>
+       */
+      public Builder clearMessages() {
+        messages_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00020000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string messages = 18;</code>
+       */
+      public Builder addMessagesBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureMessagesIsMutable();
+        messages_.add(value);
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:terminal.DataPackage)
     }
 
@@ -7530,6 +7796,76 @@ public final class TerminalProtos {
      * <code>optional float setting_orientsensor_level = 12;</code>
      */
     float getSettingOrientsensorLevel();
+
+    // optional int32 setting_connect_timeout = 13;
+    /**
+     * <code>optional int32 setting_connect_timeout = 13;</code>
+     */
+    boolean hasSettingConnectTimeout();
+    /**
+     * <code>optional int32 setting_connect_timeout = 13;</code>
+     */
+    int getSettingConnectTimeout();
+
+    // optional int32 setting_max_wait_time_to_change_sim = 14;
+    /**
+     * <code>optional int32 setting_max_wait_time_to_change_sim = 14;</code>
+     */
+    boolean hasSettingMaxWaitTimeToChangeSim();
+    /**
+     * <code>optional int32 setting_max_wait_time_to_change_sim = 14;</code>
+     */
+    int getSettingMaxWaitTimeToChangeSim();
+
+    // optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;
+    /**
+     * <code>optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;</code>
+     */
+    boolean hasSettingMaxFailTimeInDefenceToChangeSim();
+    /**
+     * <code>optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;</code>
+     */
+    int getSettingMaxFailTimeInDefenceToChangeSim();
+
+    // optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;
+    /**
+     * <code>optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;</code>
+     */
+    boolean hasSettingMaxWaitTimeInDefenceToChangeSim();
+    /**
+     * <code>optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;</code>
+     */
+    int getSettingMaxWaitTimeInDefenceToChangeSim();
+
+    // optional int32 setting_max_response_wait_time = 17;
+    /**
+     * <code>optional int32 setting_max_response_wait_time = 17;</code>
+     */
+    boolean hasSettingMaxResponseWaitTime();
+    /**
+     * <code>optional int32 setting_max_response_wait_time = 17;</code>
+     */
+    int getSettingMaxResponseWaitTime();
+
+    // repeated string commands = 18;
+    /**
+     * <code>repeated string commands = 18;</code>
+     */
+    java.util.List<java.lang.String>
+    getCommandsList();
+    /**
+     * <code>repeated string commands = 18;</code>
+     */
+    int getCommandsCount();
+    /**
+     * <code>repeated string commands = 18;</code>
+     */
+    java.lang.String getCommands(int index);
+    /**
+     * <code>repeated string commands = 18;</code>
+     */
+    com.google.protobuf.ByteString
+        getCommandsBytes(int index);
   }
   /**
    * Protobuf type {@code terminal.DataResponcePackage}
@@ -7657,6 +7993,39 @@ public final class TerminalProtos {
               settingOrientsensorLevel_ = input.readFloat();
               break;
             }
+            case 104: {
+              bitField0_ |= 0x00000800;
+              settingConnectTimeout_ = input.readInt32();
+              break;
+            }
+            case 112: {
+              bitField0_ |= 0x00001000;
+              settingMaxWaitTimeToChangeSim_ = input.readInt32();
+              break;
+            }
+            case 120: {
+              bitField0_ |= 0x00002000;
+              settingMaxFailTimeInDefenceToChangeSim_ = input.readInt32();
+              break;
+            }
+            case 128: {
+              bitField0_ |= 0x00004000;
+              settingMaxWaitTimeInDefenceToChangeSim_ = input.readInt32();
+              break;
+            }
+            case 136: {
+              bitField0_ |= 0x00008000;
+              settingMaxResponseWaitTime_ = input.readInt32();
+              break;
+            }
+            case 146: {
+              if (!((mutable_bitField0_ & 0x00020000) == 0x00020000)) {
+                commands_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00020000;
+              }
+              commands_.add(input.readBytes());
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -7667,6 +8036,9 @@ public final class TerminalProtos {
       } finally {
         if (((mutable_bitField0_ & 0x00000020) == 0x00000020)) {
           bluetoothDevice_ = java.util.Collections.unmodifiableList(bluetoothDevice_);
+        }
+        if (((mutable_bitField0_ & 0x00020000) == 0x00020000)) {
+          commands_ = new com.google.protobuf.UnmodifiableLazyStringList(commands_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -8691,6 +9063,116 @@ public final class TerminalProtos {
       return settingOrientsensorLevel_;
     }
 
+    // optional int32 setting_connect_timeout = 13;
+    public static final int SETTING_CONNECT_TIMEOUT_FIELD_NUMBER = 13;
+    private int settingConnectTimeout_;
+    /**
+     * <code>optional int32 setting_connect_timeout = 13;</code>
+     */
+    public boolean hasSettingConnectTimeout() {
+      return ((bitField0_ & 0x00000800) == 0x00000800);
+    }
+    /**
+     * <code>optional int32 setting_connect_timeout = 13;</code>
+     */
+    public int getSettingConnectTimeout() {
+      return settingConnectTimeout_;
+    }
+
+    // optional int32 setting_max_wait_time_to_change_sim = 14;
+    public static final int SETTING_MAX_WAIT_TIME_TO_CHANGE_SIM_FIELD_NUMBER = 14;
+    private int settingMaxWaitTimeToChangeSim_;
+    /**
+     * <code>optional int32 setting_max_wait_time_to_change_sim = 14;</code>
+     */
+    public boolean hasSettingMaxWaitTimeToChangeSim() {
+      return ((bitField0_ & 0x00001000) == 0x00001000);
+    }
+    /**
+     * <code>optional int32 setting_max_wait_time_to_change_sim = 14;</code>
+     */
+    public int getSettingMaxWaitTimeToChangeSim() {
+      return settingMaxWaitTimeToChangeSim_;
+    }
+
+    // optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;
+    public static final int SETTING_MAX_FAIL_TIME_IN_DEFENCE_TO_CHANGE_SIM_FIELD_NUMBER = 15;
+    private int settingMaxFailTimeInDefenceToChangeSim_;
+    /**
+     * <code>optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;</code>
+     */
+    public boolean hasSettingMaxFailTimeInDefenceToChangeSim() {
+      return ((bitField0_ & 0x00002000) == 0x00002000);
+    }
+    /**
+     * <code>optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;</code>
+     */
+    public int getSettingMaxFailTimeInDefenceToChangeSim() {
+      return settingMaxFailTimeInDefenceToChangeSim_;
+    }
+
+    // optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;
+    public static final int SETTING_MAX_WAIT_TIME_IN_DEFENCE_TO_CHANGE_SIM_FIELD_NUMBER = 16;
+    private int settingMaxWaitTimeInDefenceToChangeSim_;
+    /**
+     * <code>optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;</code>
+     */
+    public boolean hasSettingMaxWaitTimeInDefenceToChangeSim() {
+      return ((bitField0_ & 0x00004000) == 0x00004000);
+    }
+    /**
+     * <code>optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;</code>
+     */
+    public int getSettingMaxWaitTimeInDefenceToChangeSim() {
+      return settingMaxWaitTimeInDefenceToChangeSim_;
+    }
+
+    // optional int32 setting_max_response_wait_time = 17;
+    public static final int SETTING_MAX_RESPONSE_WAIT_TIME_FIELD_NUMBER = 17;
+    private int settingMaxResponseWaitTime_;
+    /**
+     * <code>optional int32 setting_max_response_wait_time = 17;</code>
+     */
+    public boolean hasSettingMaxResponseWaitTime() {
+      return ((bitField0_ & 0x00008000) == 0x00008000);
+    }
+    /**
+     * <code>optional int32 setting_max_response_wait_time = 17;</code>
+     */
+    public int getSettingMaxResponseWaitTime() {
+      return settingMaxResponseWaitTime_;
+    }
+
+    // repeated string commands = 18;
+    public static final int COMMANDS_FIELD_NUMBER = 18;
+    private com.google.protobuf.LazyStringList commands_;
+    /**
+     * <code>repeated string commands = 18;</code>
+     */
+    public java.util.List<java.lang.String>
+        getCommandsList() {
+      return commands_;
+    }
+    /**
+     * <code>repeated string commands = 18;</code>
+     */
+    public int getCommandsCount() {
+      return commands_.size();
+    }
+    /**
+     * <code>repeated string commands = 18;</code>
+     */
+    public java.lang.String getCommands(int index) {
+      return commands_.get(index);
+    }
+    /**
+     * <code>repeated string commands = 18;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCommandsBytes(int index) {
+      return commands_.getByteString(index);
+    }
+
     private void initFields() {
       type_ = com.example.signalus_terminal.TerminalProtos.PackageType.LOGIN;
       index_ = 0L;
@@ -8704,6 +9186,12 @@ public final class TerminalProtos {
       settingIncomingNumbers_ = "";
       settingGsensorLevel_ = 0F;
       settingOrientsensorLevel_ = 0F;
+      settingConnectTimeout_ = 0;
+      settingMaxWaitTimeToChangeSim_ = 0;
+      settingMaxFailTimeInDefenceToChangeSim_ = 0;
+      settingMaxWaitTimeInDefenceToChangeSim_ = 0;
+      settingMaxResponseWaitTime_ = 0;
+      commands_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -8771,6 +9259,24 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         output.writeFloat(12, settingOrientsensorLevel_);
       }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeInt32(13, settingConnectTimeout_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeInt32(14, settingMaxWaitTimeToChangeSim_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        output.writeInt32(15, settingMaxFailTimeInDefenceToChangeSim_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        output.writeInt32(16, settingMaxWaitTimeInDefenceToChangeSim_);
+      }
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        output.writeInt32(17, settingMaxResponseWaitTime_);
+      }
+      for (int i = 0; i < commands_.size(); i++) {
+        output.writeBytes(18, commands_.getByteString(i));
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -8827,6 +9333,35 @@ public final class TerminalProtos {
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(12, settingOrientsensorLevel_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(13, settingConnectTimeout_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(14, settingMaxWaitTimeToChangeSim_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(15, settingMaxFailTimeInDefenceToChangeSim_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(16, settingMaxWaitTimeInDefenceToChangeSim_);
+      }
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(17, settingMaxResponseWaitTime_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < commands_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeBytesSizeNoTag(commands_.getByteString(i));
+        }
+        size += dataSize;
+        size += 2 * getCommandsList().size();
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8973,6 +9508,18 @@ public final class TerminalProtos {
         bitField0_ = (bitField0_ & ~0x00000400);
         settingOrientsensorLevel_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000800);
+        settingConnectTimeout_ = 0;
+        bitField0_ = (bitField0_ & ~0x00001000);
+        settingMaxWaitTimeToChangeSim_ = 0;
+        bitField0_ = (bitField0_ & ~0x00002000);
+        settingMaxFailTimeInDefenceToChangeSim_ = 0;
+        bitField0_ = (bitField0_ & ~0x00004000);
+        settingMaxWaitTimeInDefenceToChangeSim_ = 0;
+        bitField0_ = (bitField0_ & ~0x00008000);
+        settingMaxResponseWaitTime_ = 0;
+        bitField0_ = (bitField0_ & ~0x00010000);
+        commands_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00020000);
         return this;
       }
 
@@ -9054,6 +9601,32 @@ public final class TerminalProtos {
           to_bitField0_ |= 0x00000400;
         }
         result.settingOrientsensorLevel_ = settingOrientsensorLevel_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00000800;
+        }
+        result.settingConnectTimeout_ = settingConnectTimeout_;
+        if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
+          to_bitField0_ |= 0x00001000;
+        }
+        result.settingMaxWaitTimeToChangeSim_ = settingMaxWaitTimeToChangeSim_;
+        if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
+          to_bitField0_ |= 0x00002000;
+        }
+        result.settingMaxFailTimeInDefenceToChangeSim_ = settingMaxFailTimeInDefenceToChangeSim_;
+        if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
+          to_bitField0_ |= 0x00004000;
+        }
+        result.settingMaxWaitTimeInDefenceToChangeSim_ = settingMaxWaitTimeInDefenceToChangeSim_;
+        if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
+          to_bitField0_ |= 0x00008000;
+        }
+        result.settingMaxResponseWaitTime_ = settingMaxResponseWaitTime_;
+        if (((bitField0_ & 0x00020000) == 0x00020000)) {
+          commands_ = new com.google.protobuf.UnmodifiableLazyStringList(
+              commands_);
+          bitField0_ = (bitField0_ & ~0x00020000);
+        }
+        result.commands_ = commands_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -9132,6 +9705,31 @@ public final class TerminalProtos {
         }
         if (other.hasSettingOrientsensorLevel()) {
           setSettingOrientsensorLevel(other.getSettingOrientsensorLevel());
+        }
+        if (other.hasSettingConnectTimeout()) {
+          setSettingConnectTimeout(other.getSettingConnectTimeout());
+        }
+        if (other.hasSettingMaxWaitTimeToChangeSim()) {
+          setSettingMaxWaitTimeToChangeSim(other.getSettingMaxWaitTimeToChangeSim());
+        }
+        if (other.hasSettingMaxFailTimeInDefenceToChangeSim()) {
+          setSettingMaxFailTimeInDefenceToChangeSim(other.getSettingMaxFailTimeInDefenceToChangeSim());
+        }
+        if (other.hasSettingMaxWaitTimeInDefenceToChangeSim()) {
+          setSettingMaxWaitTimeInDefenceToChangeSim(other.getSettingMaxWaitTimeInDefenceToChangeSim());
+        }
+        if (other.hasSettingMaxResponseWaitTime()) {
+          setSettingMaxResponseWaitTime(other.getSettingMaxResponseWaitTime());
+        }
+        if (!other.commands_.isEmpty()) {
+          if (commands_.isEmpty()) {
+            commands_ = other.commands_;
+            bitField0_ = (bitField0_ & ~0x00020000);
+          } else {
+            ensureCommandsIsMutable();
+            commands_.addAll(other.commands_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -9869,6 +10467,264 @@ public final class TerminalProtos {
         return this;
       }
 
+      // optional int32 setting_connect_timeout = 13;
+      private int settingConnectTimeout_ ;
+      /**
+       * <code>optional int32 setting_connect_timeout = 13;</code>
+       */
+      public boolean hasSettingConnectTimeout() {
+        return ((bitField0_ & 0x00001000) == 0x00001000);
+      }
+      /**
+       * <code>optional int32 setting_connect_timeout = 13;</code>
+       */
+      public int getSettingConnectTimeout() {
+        return settingConnectTimeout_;
+      }
+      /**
+       * <code>optional int32 setting_connect_timeout = 13;</code>
+       */
+      public Builder setSettingConnectTimeout(int value) {
+        bitField0_ |= 0x00001000;
+        settingConnectTimeout_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 setting_connect_timeout = 13;</code>
+       */
+      public Builder clearSettingConnectTimeout() {
+        bitField0_ = (bitField0_ & ~0x00001000);
+        settingConnectTimeout_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 setting_max_wait_time_to_change_sim = 14;
+      private int settingMaxWaitTimeToChangeSim_ ;
+      /**
+       * <code>optional int32 setting_max_wait_time_to_change_sim = 14;</code>
+       */
+      public boolean hasSettingMaxWaitTimeToChangeSim() {
+        return ((bitField0_ & 0x00002000) == 0x00002000);
+      }
+      /**
+       * <code>optional int32 setting_max_wait_time_to_change_sim = 14;</code>
+       */
+      public int getSettingMaxWaitTimeToChangeSim() {
+        return settingMaxWaitTimeToChangeSim_;
+      }
+      /**
+       * <code>optional int32 setting_max_wait_time_to_change_sim = 14;</code>
+       */
+      public Builder setSettingMaxWaitTimeToChangeSim(int value) {
+        bitField0_ |= 0x00002000;
+        settingMaxWaitTimeToChangeSim_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 setting_max_wait_time_to_change_sim = 14;</code>
+       */
+      public Builder clearSettingMaxWaitTimeToChangeSim() {
+        bitField0_ = (bitField0_ & ~0x00002000);
+        settingMaxWaitTimeToChangeSim_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;
+      private int settingMaxFailTimeInDefenceToChangeSim_ ;
+      /**
+       * <code>optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;</code>
+       */
+      public boolean hasSettingMaxFailTimeInDefenceToChangeSim() {
+        return ((bitField0_ & 0x00004000) == 0x00004000);
+      }
+      /**
+       * <code>optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;</code>
+       */
+      public int getSettingMaxFailTimeInDefenceToChangeSim() {
+        return settingMaxFailTimeInDefenceToChangeSim_;
+      }
+      /**
+       * <code>optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;</code>
+       */
+      public Builder setSettingMaxFailTimeInDefenceToChangeSim(int value) {
+        bitField0_ |= 0x00004000;
+        settingMaxFailTimeInDefenceToChangeSim_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 setting_max_fail_time_in_defence_to_change_sim = 15;</code>
+       */
+      public Builder clearSettingMaxFailTimeInDefenceToChangeSim() {
+        bitField0_ = (bitField0_ & ~0x00004000);
+        settingMaxFailTimeInDefenceToChangeSim_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;
+      private int settingMaxWaitTimeInDefenceToChangeSim_ ;
+      /**
+       * <code>optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;</code>
+       */
+      public boolean hasSettingMaxWaitTimeInDefenceToChangeSim() {
+        return ((bitField0_ & 0x00008000) == 0x00008000);
+      }
+      /**
+       * <code>optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;</code>
+       */
+      public int getSettingMaxWaitTimeInDefenceToChangeSim() {
+        return settingMaxWaitTimeInDefenceToChangeSim_;
+      }
+      /**
+       * <code>optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;</code>
+       */
+      public Builder setSettingMaxWaitTimeInDefenceToChangeSim(int value) {
+        bitField0_ |= 0x00008000;
+        settingMaxWaitTimeInDefenceToChangeSim_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 setting_max_wait_time_in_defence_to_change_sim = 16;</code>
+       */
+      public Builder clearSettingMaxWaitTimeInDefenceToChangeSim() {
+        bitField0_ = (bitField0_ & ~0x00008000);
+        settingMaxWaitTimeInDefenceToChangeSim_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 setting_max_response_wait_time = 17;
+      private int settingMaxResponseWaitTime_ ;
+      /**
+       * <code>optional int32 setting_max_response_wait_time = 17;</code>
+       */
+      public boolean hasSettingMaxResponseWaitTime() {
+        return ((bitField0_ & 0x00010000) == 0x00010000);
+      }
+      /**
+       * <code>optional int32 setting_max_response_wait_time = 17;</code>
+       */
+      public int getSettingMaxResponseWaitTime() {
+        return settingMaxResponseWaitTime_;
+      }
+      /**
+       * <code>optional int32 setting_max_response_wait_time = 17;</code>
+       */
+      public Builder setSettingMaxResponseWaitTime(int value) {
+        bitField0_ |= 0x00010000;
+        settingMaxResponseWaitTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 setting_max_response_wait_time = 17;</code>
+       */
+      public Builder clearSettingMaxResponseWaitTime() {
+        bitField0_ = (bitField0_ & ~0x00010000);
+        settingMaxResponseWaitTime_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // repeated string commands = 18;
+      private com.google.protobuf.LazyStringList commands_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureCommandsIsMutable() {
+        if (!((bitField0_ & 0x00020000) == 0x00020000)) {
+          commands_ = new com.google.protobuf.LazyStringArrayList(commands_);
+          bitField0_ |= 0x00020000;
+         }
+      }
+      /**
+       * <code>repeated string commands = 18;</code>
+       */
+      public java.util.List<java.lang.String>
+          getCommandsList() {
+        return java.util.Collections.unmodifiableList(commands_);
+      }
+      /**
+       * <code>repeated string commands = 18;</code>
+       */
+      public int getCommandsCount() {
+        return commands_.size();
+      }
+      /**
+       * <code>repeated string commands = 18;</code>
+       */
+      public java.lang.String getCommands(int index) {
+        return commands_.get(index);
+      }
+      /**
+       * <code>repeated string commands = 18;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCommandsBytes(int index) {
+        return commands_.getByteString(index);
+      }
+      /**
+       * <code>repeated string commands = 18;</code>
+       */
+      public Builder setCommands(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureCommandsIsMutable();
+        commands_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string commands = 18;</code>
+       */
+      public Builder addCommands(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureCommandsIsMutable();
+        commands_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string commands = 18;</code>
+       */
+      public Builder addAllCommands(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureCommandsIsMutable();
+        super.addAll(values, commands_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string commands = 18;</code>
+       */
+      public Builder clearCommands() {
+        commands_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00020000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string commands = 18;</code>
+       */
+      public Builder addCommandsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureCommandsIsMutable();
+        commands_.add(value);
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:terminal.DataResponcePackage)
     }
 
@@ -9938,7 +10794,7 @@ public final class TerminalProtos {
       "age\022#\n\004type\030\001 \002(\0162\025.terminal.PackageType" +
       "\022\r\n\005index\030\002 \002(\003\022\014\n\004imei\030\003 \002(\003\022\r\n\005imei2\030\004" +
       " \001(\003\022\021\n\tactiveSim\030\005 \001(\005\022\017\n\007version\030\006 \001(\t" +
-      "\"\273\007\n\013DataPackage\022#\n\004type\030\001 \002(\0162\025.termina" +
+      "\"\340\007\n\013DataPackage\022#\n\004type\030\001 \002(\0162\025.termina" +
       "l.PackageType\022\r\n\005index\030\002 \002(\003\022\017\n\007defence\030" +
       "\003 \001(\005\022\021\n\tactiveSim\030\004 \001(\005\022\016\n\006charge\030\005 \001(\010" +
       "\022\013\n\003acc\030\006 \001(\010\022\017\n\007voltage\030\007 \001(\005\022\022\n\nsatell" +
@@ -9950,34 +10806,41 @@ public final class TerminalProtos {
       "oothDevice\030\r \003(\0132%.terminal.DataPackage." +
       "BluetoothDevice\022\032\n\022noise_volume_level\030\016 " +
       "\001(\001\022\025\n\rgsensor_level\030\017 \001(\002\022\032\n\022orientsens" +
-      "or_level\030\020 \001(\002\032\320\001\n\004Cell\022\013\n\003mcc\030\001 \002(\005\022\013\n\003" +
-      "mnc\030\002 \002(\005\022\013\n\003lac\030\003 \002(\005\022\014\n\004cell\030\004 \002(\005\022\020\n\010" +
-      "strength\030\005 \002(\005\0229\n\010position\030\006 \001(\0132\'.termi" +
-      "nal.DataPackage.Cell.CellPosition\032F\n\014Cel",
-      "lPosition\022\021\n\ttimestamp\030\001 \002(\003\022\020\n\010latitude" +
-      "\030\002 \002(\001\022\021\n\tlongitude\030\003 \002(\001\032X\n\017Neighboring" +
-      "Cell\022\013\n\003mcc\030\001 \001(\005\022\013\n\003mnc\030\002 \001(\005\022\013\n\003lac\030\003 " +
-      "\001(\005\022\014\n\004cell\030\004 \001(\005\022\020\n\010strength\030\005 \001(\005\032s\n\010P" +
-      "osition\022\021\n\ttimestamp\030\001 \002(\003\022\016\n\006course\030\002 \002" +
-      "(\005\022\020\n\010latitude\030\003 \002(\001\022\021\n\tlongitude\030\004 \002(\001\022" +
-      "\r\n\005speed\030\005 \002(\005\022\020\n\010altitude\030\006 \002(\005\032,\n\017Blue" +
-      "toothDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\"\213" +
-      "\004\n\023DataResponcePackage\022#\n\004type\030\001 \002(\0162\025.t" +
-      "erminal.PackageType\022\r\n\005index\030\002 \002(\003\0228\n\006st",
-      "atus\030\003 \002(\0162(.terminal.DataResponcePackag" +
-      "e.StatusType\022\013\n\003msg\030\004 \001(\t\022\017\n\007defence\030\005 \001" +
-      "(\005\022F\n\017bluetoothDevice\030\006 \003(\0132-.terminal.D" +
-      "ataResponcePackage.BluetoothDevice\022\036\n\026do" +
-      "_searching_bluetooth\030\007 \001(\005\022\031\n\021do_update_" +
-      "version\030\010 \001(\005\022\"\n\032setting_noise_volume_le" +
-      "vel\030\t \001(\001\022 \n\030setting_incoming_numbers\030\n " +
-      "\001(\t\022\035\n\025setting_gsensor_level\030\013 \001(\002\022\"\n\032se" +
-      "tting_orientsensor_level\030\014 \001(\002\032,\n\017Blueto" +
-      "othDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\".\n\n",
-      "StatusType\022\014\n\010NO_ERROR\020\000\022\022\n\016INVALID_PACK" +
-      "ET\020\001*\"\n\013PackageType\022\t\n\005LOGIN\020\000\022\010\n\004DATA\020\001" +
-      "B/\n\035com.example.signalus_terminalB\016Termi" +
-      "nalProtos"
+      "or_level\030\020 \001(\002\022\021\n\tbluetooth\030\021 \001(\010\022\020\n\010mes" +
+      "sages\030\022 \003(\t\032\320\001\n\004Cell\022\013\n\003mcc\030\001 \002(\005\022\013\n\003mnc" +
+      "\030\002 \002(\005\022\013\n\003lac\030\003 \002(\005\022\014\n\004cell\030\004 \002(\005\022\020\n\010str" +
+      "ength\030\005 \002(\005\0229\n\010position\030\006 \001(\0132\'.terminal",
+      ".DataPackage.Cell.CellPosition\032F\n\014CellPo" +
+      "sition\022\021\n\ttimestamp\030\001 \002(\003\022\020\n\010latitude\030\002 " +
+      "\002(\001\022\021\n\tlongitude\030\003 \002(\001\032X\n\017NeighboringCel" +
+      "l\022\013\n\003mcc\030\001 \001(\005\022\013\n\003mnc\030\002 \001(\005\022\013\n\003lac\030\003 \001(\005" +
+      "\022\014\n\004cell\030\004 \001(\005\022\020\n\010strength\030\005 \001(\005\032s\n\010Posi" +
+      "tion\022\021\n\ttimestamp\030\001 \002(\003\022\016\n\006course\030\002 \002(\005\022" +
+      "\020\n\010latitude\030\003 \002(\001\022\021\n\tlongitude\030\004 \002(\001\022\r\n\005" +
+      "speed\030\005 \002(\005\022\020\n\010altitude\030\006 \002(\005\032,\n\017Bluetoo" +
+      "thDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(\t\"\203\006\n\023" +
+      "DataResponcePackage\022#\n\004type\030\001 \002(\0162\025.term",
+      "inal.PackageType\022\r\n\005index\030\002 \002(\003\0228\n\006statu" +
+      "s\030\003 \002(\0162(.terminal.DataResponcePackage.S" +
+      "tatusType\022\013\n\003msg\030\004 \001(\t\022\017\n\007defence\030\005 \001(\005\022" +
+      "F\n\017bluetoothDevice\030\006 \003(\0132-.terminal.Data" +
+      "ResponcePackage.BluetoothDevice\022\036\n\026do_se" +
+      "arching_bluetooth\030\007 \001(\005\022\031\n\021do_update_ver" +
+      "sion\030\010 \001(\005\022\"\n\032setting_noise_volume_level" +
+      "\030\t \001(\001\022 \n\030setting_incoming_numbers\030\n \001(\t" +
+      "\022\035\n\025setting_gsensor_level\030\013 \001(\002\022\"\n\032setti" +
+      "ng_orientsensor_level\030\014 \001(\002\022\037\n\027setting_c",
+      "onnect_timeout\030\r \001(\005\022+\n#setting_max_wait" +
+      "_time_to_change_sim\030\016 \001(\005\0226\n.setting_max" +
+      "_fail_time_in_defence_to_change_sim\030\017 \001(" +
+      "\005\0226\n.setting_max_wait_time_in_defence_to" +
+      "_change_sim\030\020 \001(\005\022&\n\036setting_max_respons" +
+      "e_wait_time\030\021 \001(\005\022\020\n\010commands\030\022 \003(\t\032,\n\017B" +
+      "luetoothDevice\022\014\n\004name\030\001 \002(\t\022\013\n\003mac\030\002 \002(" +
+      "\t\".\n\nStatusType\022\014\n\010NO_ERROR\020\000\022\022\n\016INVALID" +
+      "_PACKET\020\001*\"\n\013PackageType\022\t\n\005LOGIN\020\000\022\010\n\004D" +
+      "ATA\020\001B/\n\035com.example.signalus_terminalB\016",
+      "TerminalProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -9995,7 +10858,7 @@ public final class TerminalProtos {
           internal_static_terminal_DataPackage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_terminal_DataPackage_descriptor,
-              new java.lang.String[] { "Type", "Index", "Defence", "ActiveSim", "Charge", "Acc", "Voltage", "Satellites", "SatellitesInFix", "Cell", "Neighboringcell", "Position", "BluetoothDevice", "NoiseVolumeLevel", "GsensorLevel", "OrientsensorLevel", });
+              new java.lang.String[] { "Type", "Index", "Defence", "ActiveSim", "Charge", "Acc", "Voltage", "Satellites", "SatellitesInFix", "Cell", "Neighboringcell", "Position", "BluetoothDevice", "NoiseVolumeLevel", "GsensorLevel", "OrientsensorLevel", "Bluetooth", "Messages", });
           internal_static_terminal_DataPackage_Cell_descriptor =
             internal_static_terminal_DataPackage_descriptor.getNestedTypes().get(0);
           internal_static_terminal_DataPackage_Cell_fieldAccessorTable = new
@@ -10031,7 +10894,7 @@ public final class TerminalProtos {
           internal_static_terminal_DataResponcePackage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_terminal_DataResponcePackage_descriptor,
-              new java.lang.String[] { "Type", "Index", "Status", "Msg", "Defence", "BluetoothDevice", "DoSearchingBluetooth", "DoUpdateVersion", "SettingNoiseVolumeLevel", "SettingIncomingNumbers", "SettingGsensorLevel", "SettingOrientsensorLevel", });
+              new java.lang.String[] { "Type", "Index", "Status", "Msg", "Defence", "BluetoothDevice", "DoSearchingBluetooth", "DoUpdateVersion", "SettingNoiseVolumeLevel", "SettingIncomingNumbers", "SettingGsensorLevel", "SettingOrientsensorLevel", "SettingConnectTimeout", "SettingMaxWaitTimeToChangeSim", "SettingMaxFailTimeInDefenceToChangeSim", "SettingMaxWaitTimeInDefenceToChangeSim", "SettingMaxResponseWaitTime", "Commands", });
           internal_static_terminal_DataResponcePackage_BluetoothDevice_descriptor =
             internal_static_terminal_DataResponcePackage_descriptor.getNestedTypes().get(0);
           internal_static_terminal_DataResponcePackage_BluetoothDevice_fieldAccessorTable = new

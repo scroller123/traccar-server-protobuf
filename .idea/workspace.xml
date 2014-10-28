@@ -67,10 +67,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SignalWatcher.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SignalWatcher.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="17" selection-start="957" selection-end="957" vertical-scroll-proportion="0.0">
+            <state line="29" column="83" selection-start="841" selection-end="841" vertical-scroll-proportion="0.24843423">
               <folding />
             </state>
           </provider>
@@ -79,7 +79,16 @@
       <file leaf-file-name="DatabaseDataManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="263" column="34" selection-start="10078" selection-end="10078" vertical-scroll-proportion="0.0">
+            <state line="213" column="133" selection-start="8871" selection-end="8871" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DataManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="52" column="16" selection-start="2037" selection-end="2037" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -88,7 +97,7 @@
       <file leaf-file-name="Device.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Device.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="18" selection-start="1426" selection-end="1426" vertical-scroll-proportion="0.0">
+            <state line="126" column="85" selection-start="2847" selection-end="2847" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -97,16 +106,25 @@
       <file leaf-file-name="NamedParameterStatement.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/helper/NamedParameterStatement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="239" column="76" selection-start="7160" selection-end="7160" vertical-scroll-proportion="0.0">
+            <state line="228" column="41" selection-start="6566" selection-end="6566" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/traccar/Main.java">
+      <file leaf-file-name="Data.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Data.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="38" selection-start="870" selection-end="956" vertical-scroll-proportion="0.19258496">
+            <state line="22" column="13" selection-start="723" selection-end="723" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServerManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/traccar/ServerManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="13" selection-start="1953" selection-end="1953" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -115,7 +133,7 @@
       <file leaf-file-name="SignalusProtocolDecoder.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="181" column="49" selection-start="6861" selection-end="6861" vertical-scroll-proportion="0.0">
+            <state line="381" column="42" selection-start="18200" selection-end="18210" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -124,7 +142,7 @@
       <file leaf-file-name="Gt06ProtocolDecoder.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/Gt06ProtocolDecoder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="110" column="36" selection-start="4121" selection-end="4121" vertical-scroll-proportion="0.0">
+            <state line="110" column="16" selection-start="4101" selection-end="4101" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -153,15 +171,15 @@
         <option value="$PROJECT_DIR$/src/org/traccar/ServerManager.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/model/Position.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/model/Signal.java" />
-        <option value="$PROJECT_DIR$/src/org/traccar/model/Device.java" />
-        <option value="$PROJECT_DIR$/src/org/traccar/model/DataManager.java" />
-        <option value="$PROJECT_DIR$/test/org/traccar/helper/TestDataManager.java" />
-        <option value="$PROJECT_DIR$/src/org/traccar/SignalWatcher.java" />
-        <option value="$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java" />
-        <option value="$PROJECT_DIR$/src/org/traccar/protocol/Gt06ProtocolDecoder.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/helper/NamedParameterStatement.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/Main.java" />
+        <option value="$PROJECT_DIR$/src/org/traccar/model/DataManager.java" />
+        <option value="$PROJECT_DIR$/test/org/traccar/helper/TestDataManager.java" />
+        <option value="$PROJECT_DIR$/src/org/traccar/protocol/Gt06ProtocolDecoder.java" />
+        <option value="$PROJECT_DIR$/src/org/traccar/model/Device.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java" />
+        <option value="$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java" />
+        <option value="$PROJECT_DIR$/src/org/traccar/SignalWatcher.java" />
       </list>
     </option>
   </component>
@@ -212,6 +230,20 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -227,6 +259,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="helper" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -261,6 +333,28 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -278,20 +372,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="com" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="traccar-master-2014" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Traccar-master-2014" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -511,7 +591,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.871063" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -524,6 +604,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.871063" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297244" sideWeight="0.4957265" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297244" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17895299" sideWeight="0.67027557" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.871063" order="8" side_tool="false" content_ui="tabs" />
@@ -533,7 +614,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3297244" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297244" sideWeight="0.4957265" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -597,26 +677,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/org/traccar/helper/TestDataManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="4" selection-start="631" selection-end="631" vertical-scroll-proportion="0.507724" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/TrackerEventHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="65" selection-start="1472" selection-end="1798" vertical-scroll-proportion="0.507724" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Position.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="16" selection-start="855" selection-end="855" vertical-scroll-proportion="0.26261586" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.6.0_38/src.zip!/java/util/Date.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="864" column="16" selection-start="37265" selection-end="37265" vertical-scroll-proportion="0.33264676" />
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.6.0_38/src.zip!/java/sql/PreparedStatement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="646" column="9" selection-start="31775" selection-end="31775" vertical-scroll-proportion="0.38516992" />
@@ -632,51 +692,71 @@
         <state line="176" column="6" selection-start="8646" selection-end="8646" vertical-scroll-proportion="0.33264676" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DataManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="16" selection-start="2037" selection-end="2037" vertical-scroll-proportion="0.45726055" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Signal.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="8" selection-start="997" selection-end="997" vertical-scroll-proportion="0.017507724" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java">
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="17" selection-start="957" selection-end="957" vertical-scroll-proportion="0.0" />
+        <state line="29" column="66" selection-start="957" selection-end="957" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Device.java">
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/BluetoothDevice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="18" selection-start="1426" selection-end="1426" vertical-scroll-proportion="0.0" />
+        <state line="20" column="13" selection-start="684" selection-end="684" vertical-scroll-proportion="0.10504635" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/helper/NamedParameterStatement.java">
+    <entry file="file://$PROJECT_DIR$/test/org/traccar/helper/TestDataManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="239" column="76" selection-start="7160" selection-end="7160" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="181" column="49" selection-start="6861" selection-end="6861" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/Gt06ProtocolDecoder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="36" selection-start="4121" selection-end="4121" vertical-scroll-proportion="0.0" />
+        <state line="102" column="40" selection-start="2616" selection-end="2616" vertical-scroll-proportion="0.8599382" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="263" column="34" selection-start="10078" selection-end="10078" vertical-scroll-proportion="0.0">
+        <state line="213" column="133" selection-start="8871" selection-end="8871" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DataManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="16" selection-start="2037" selection-end="2037" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Device.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="85" selection-start="2847" selection-end="2847" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/helper/NamedParameterStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="228" column="41" selection-start="6566" selection-end="6566" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Data.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="13" selection-start="723" selection-end="723" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/ServerManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="13" selection-start="1953" selection-end="1953" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/Gt06ProtocolDecoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="110" column="16" selection-start="4101" selection-end="4101" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="381" column="42" selection-start="18200" selection-end="18210" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="38" selection-start="870" selection-end="956" vertical-scroll-proportion="0.19258496">
+        <state line="29" column="83" selection-start="841" selection-end="841" vertical-scroll-proportion="0.24843423">
           <folding />
         </state>
       </provider>

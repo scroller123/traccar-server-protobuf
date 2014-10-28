@@ -209,6 +209,11 @@ public class DatabaseDataManager implements DataManager {
                 device.setting_incoming_numbers = result.getString("setting_incoming_numbers");
                 device.setting_gsensor_level = result.getFloat("setting_gsensor_level");
                 device.setting_orientsensor_level = result.getFloat("setting_orientsensor_level");
+                device.setting_connect_timeout = result.getInt("setting_connect_timeout");
+                device.setting_max_wait_time_to_change_sim = result.getInt("setting_max_wait_time_to_change_sim");
+                device.setting_max_fail_time_in_defence_to_change_sim = result.getInt("setting_max_fail_time_in_defence_to_change_sim");
+                device.setting_max_wait_time_in_defence_to_change_sim = result.getInt("setting_max_wait_time_in_defence_to_change_sim");
+                device.setting_max_response_wait_time = result.getInt("setting_max_response_wait_time");
                 device.defence = result.getInt("defence");
                 device.setPhoneNumber(result.getString("notification_number"));
 
@@ -515,7 +520,9 @@ public class DatabaseDataManager implements DataManager {
                                     double noise_value,
                                     String cell1,
                                     String cell2,
-                                    String signal) throws SQLException {
+                                    String signal,
+                                    String bluetooth,
+                                    int update_status) throws SQLException {
 
         setTimeZone();
 
@@ -553,6 +560,8 @@ public class DatabaseDataManager implements DataManager {
             queryAddSig.setString("cell2", cell2);
             queryAddSig.setString("signal", signal);
             queryAddSig.setString("version", version);
+            queryAddSig.setString("bluetooth", bluetooth);
+            queryAddSig.setInt("update_status", update_status);
             queryAddSig.executeUpdate();
 
             ResultSet result = queryAddSig.getGeneratedKeys();

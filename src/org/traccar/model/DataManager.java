@@ -66,7 +66,9 @@ public interface DataManager {
                        double noise_value,
                        String cell1,
                        String cell2,
-                       String signal) throws Exception;
+                       String signal,
+                       String bluetooth,
+                       int update_status) throws Exception;
 
     /**
      * Manage positions
