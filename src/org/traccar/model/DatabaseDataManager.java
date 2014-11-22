@@ -30,6 +30,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
+import org.traccar.SignalWatcher;
 import org.traccar.helper.AdvancedConnection;
 import org.traccar.helper.DriverDelegate;
 import org.traccar.helper.Log;
@@ -59,11 +61,15 @@ public class DatabaseDataManager implements DataManager {
     private NamedParameterStatement querySetDoSearchingBluetoothValue;
     private NamedParameterStatement querySetDoBindingBluetoothValue;
     private NamedParameterStatement querySetDoSettingsUpdateValue;
+    private NamedParameterStatement querySetCommandsValue;
     private NamedParameterStatement queryDeleteBluetoothSearchResult;
     private NamedParameterStatement queryInsertBluetoothSearchResult;
     private NamedParameterStatement queryAddPosition;
     private NamedParameterStatement queryUpdateLatestPosition;
     private NamedParameterStatement queryAddSig;
+
+
+    public SignalWatcher signalWatcher;
 
     /**
      * Initialize database
@@ -157,6 +163,11 @@ public class DatabaseDataManager implements DataManager {
             querySetDoSettingsUpdateValue = new NamedParameterStatement(connection, query);
         }
 
+        query = properties.getProperty("database.setCommandsValue");
+        if (query != null) {
+            querySetCommandsValue = new NamedParameterStatement(connection, query);
+        }
+
         query = properties.getProperty("database.deleteBluetoothSearchResult");
         if (query != null) {
             queryDeleteBluetoothSearchResult = new NamedParameterStatement(connection, query);
@@ -183,6 +194,11 @@ public class DatabaseDataManager implements DataManager {
         if (query != null) {
             queryAddSig = new NamedParameterStatement(connection, query);
         }
+
+
+        signalWatcher = new SignalWatcher(this);
+
+
     }
 
     @Override
@@ -214,6 +230,7 @@ public class DatabaseDataManager implements DataManager {
                 device.setting_max_fail_time_in_defence_to_change_sim = result.getInt("setting_max_fail_time_in_defence_to_change_sim");
                 device.setting_max_wait_time_in_defence_to_change_sim = result.getInt("setting_max_wait_time_in_defence_to_change_sim");
                 device.setting_max_response_wait_time = result.getInt("setting_max_response_wait_time");
+                device.setCommands(result.getString("commands"));
                 device.defence = result.getInt("defence");
                 device.setPhoneNumber(result.getString("notification_number"));
 
@@ -229,13 +246,13 @@ public class DatabaseDataManager implements DataManager {
      */
     private Map<String, Device> devices;
     private Map<Long, Device> devicesIDs;
-    private Calendar devicesLastUpdate;
+    private Long devicesLastUpdateTS;
     private Long devicesRefreshDelay;
 
     @Override
     public Device getDeviceByImei(String imei) throws SQLException {
 
-        if ((devices == null) || (Calendar.getInstance().getTimeInMillis() - devicesLastUpdate.getTimeInMillis() > devicesRefreshDelay)) {
+        if ((devices == null) || (Calendar.getInstance().getTimeInMillis() - devicesLastUpdateTS > devicesRefreshDelay)) {
             refreshDevices();
         }
 
@@ -245,7 +262,8 @@ public class DatabaseDataManager implements DataManager {
     @Override
     public Device getDeviceByID(Long id) throws SQLException {
 
-        if ((devicesIDs == null) || (Calendar.getInstance().getTimeInMillis() - devicesLastUpdate.getTimeInMillis() > devicesRefreshDelay)) {
+
+        if ((devicesIDs == null) || (Calendar.getInstance().getTimeInMillis() - devicesLastUpdateTS > devicesRefreshDelay)) {
             refreshDevices();
         }
 
@@ -256,6 +274,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void refreshDevices() throws SQLException {
+
         List<Device> list = getDevices();
         devices = new HashMap<String, Device>();
         devicesIDs = new HashMap<Long, Device>();
@@ -263,7 +282,7 @@ public class DatabaseDataManager implements DataManager {
             devices.put(device.getImei(), device);
             devicesIDs.put(device.getId(), device);
         }
-        devicesLastUpdate = Calendar.getInstance();
+        devicesLastUpdateTS = Calendar.getInstance().getTimeInMillis();
 
         System.setProperty("user.timezone", "UTC");
         TimeZone.setDefault(null);
@@ -403,6 +422,17 @@ public class DatabaseDataManager implements DataManager {
             querySetDoSettingsUpdateValue.setLong("device_id", deviceId);
             querySetDoSettingsUpdateValue.setInt("value", value);
             querySetDoSettingsUpdateValue.executeUpdate();
+        }
+    }
+
+    @Override
+    public void setCommandValue(Long deviceId, String value) throws SQLException {
+        setTimeZone();
+        if (querySetCommandsValue != null) {
+            querySetCommandsValue.prepare();
+            querySetCommandsValue.setLong("device_id", deviceId);
+            querySetCommandsValue.setString("value", value);
+            querySetCommandsValue.executeUpdate();
         }
     }
 

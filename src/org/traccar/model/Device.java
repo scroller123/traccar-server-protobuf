@@ -88,6 +88,19 @@ public class Device {
         this.doUpdateVersion = Integer.valueOf(value);
     }
 
+    /**
+     * Commands to device
+     */
+    private String commands;
+
+    public String getCommands() {
+        return this.commands;
+    }
+
+    public void setCommands(String value) {
+        this.commands = value;
+    }
+
 
     /**
      * Do Searching Bluetooth

@@ -1,10 +1,7 @@
 package org.traccar;
 
 import org.traccar.helper.Log;
-import org.traccar.model.DataManager;
-import org.traccar.model.Device;
-import org.traccar.model.Position;
-import org.traccar.model.Signal;
+import org.traccar.model.*;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -25,55 +22,66 @@ import java.util.TimerTask;
  * To change this template use File | Settings | File Templates.
  */
 public class SignalWatcher {
-    private ServerManager serverManager;
+    private DatabaseDataManager dbDataManager;
     private static long SIGNAL_EMPTY_ALARM_INTERVAL = 5L * 60 * 1000;
     private static long TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL = 90 * 1000; // 90 sec
 
-    public SignalWatcher(ServerManager serverManager) throws Exception {
-        this.serverManager = serverManager;
+    public SignalWatcher(DatabaseDataManager dbDataManager) throws Exception {
+        this.dbDataManager = dbDataManager;
         //TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Tick();
     }
 
+    public void setDataManager(DatabaseDataManager dbDataManager) {
+        this.dbDataManager = dbDataManager;
+    }
+
     public void Tick() throws Exception {
-        for (Device dev : serverManager.getDataManager().getDevices()) {
-            if (dev.defence==1) {
-                Signal signal = serverManager.getDataManager().selectLastSignal(dev.getId());
-                Position position = serverManager.getDataManager().selectLastPosition(dev.getId());
+        try {
+            for (Device dev : dbDataManager.getDevices()) {
+                if (dev.defence==1) {
+                    Signal signal = dbDataManager.selectLastSignal(dev.getId());
+                    Position position = dbDataManager.selectLastPosition(dev.getId());
 
-                Timestamp signalTime = new Timestamp(signal.getTime().getTime());
-                Timestamp positionTime = new Timestamp(position.getTime().getTime());
+                    Timestamp signalTime = new Timestamp(signal.getTime().getTime());
+                    Timestamp positionTime = new Timestamp(position.getTime().getTime());
 
-//                if (signal.getGps()==0)
-//                   Alarm(7233, dev);
+    //                if (signal.getGps()==0)
+    //                   Alarm(7233, dev);
 
-                if (signal.getCharge()==0)
-                    Alarm(7235, dev);
+                    if (signal.getCharge()==0)
+                        Alarm(7235, dev);
 
-                if (signal.getAcc()==1)
-                    Alarm(8624, dev);
+                    if (signal.getAcc()==1)
+                        Alarm(8624, dev);
 
-                //Log.info("ALARM! System current time: "+System.currentTimeMillis()+", signal time: "+signalTime.getTime());
+                    //Log.info("ALARM! System current time: "+System.currentTimeMillis()+", signal time: "+signalTime.getTime());
 
-                if (dev.getId()==15 &&
-                        System.currentTimeMillis() - signalTime.getTime()*1000 > TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL+1*1000 &&
-                        System.currentTimeMillis() - signalTime.getTime()*1000 <= TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL+2*1000){
+                    if (dev.getId()==15 &&
+                            System.currentTimeMillis() - signalTime.getTime()*1000 > TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL){
 
-                    Alarm(8627, dev);
+                        Log.info("SignalTime TS: "+signalTime.getTime());
+                        Log.info("Current TS: "+System.currentTimeMillis());
 
-//                    StringBuilder url = new StringBuilder();
-//                    url.append("http://www.signalus.ru/outer/sendmail?subject=Device"+dev.getId()+"&msg=");
-//                    url.append("lost_signal_>"+TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL+",signalTS:"+signalTime.getTime()+",current:"+System.currentTimeMillis());
-//                    SendEmailProcess process = new SendEmailProcess(url.toString());
-//                    try {
-//                        process.execute();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-                }else if (System.currentTimeMillis() - signalTime.getTime()*1000 > SIGNAL_EMPTY_ALARM_INTERVAL){
-                    Alarm(8627, dev);
+                        Alarm(8627, dev);
+
+    //                    StringBuilder url = new StringBuilder();
+    //                    url.append("http://www.signalus.ru/outer/sendmail?subject=Device"+dev.getId()+"&msg=");
+    //                    url.append("lost_signal_>"+TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL+",signalTS:"+signalTime.getTime()+",current:"+System.currentTimeMillis());
+    //                    SendEmailProcess process = new SendEmailProcess(url.toString());
+    //                    try {
+    //                        process.execute();
+    //                    } catch (Exception e) {
+    //                        e.printStackTrace();
+    //                    }
+                    }else if (System.currentTimeMillis() - signalTime.getTime()*1000 > SIGNAL_EMPTY_ALARM_INTERVAL){
+                        Alarm(8627, dev);
+                    }
                 }
             }
+        } catch (Exception error) {
+            Log.debug("Tick warn->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+            Log.warning(error);
         }
 
         Timer timer = new Timer();
@@ -86,14 +94,19 @@ public class SignalWatcher {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
             }
-        }, 1000);
-
+        }, 500);
     }
 
     private void Alarm(int alarmType, Device dev) throws Exception {
-        serverManager.getDataManager().setDefenceValue(dev.getId(), 0);
 
-        Log.info("Onverify alarm. Type: "+alarmType+", device: "+dev.getId()+", phone: "+dev.getPhoneNumber());
+        Log.info("Device "+dev.getId()+" alarm "+alarmType);
+
+        dbDataManager.setDefenceValue(dev.getId(), 0);
+
+        Signal signal = dbDataManager.selectLastSignal(dev.getId());
+        Position position = dbDataManager.selectLastPosition(dev.getId());
+
+        Log.info("Onverify alarm. Type: "+alarmType+", device: "+dev.getId()+", phone: "+dev.getPhoneNumber()+", last signal: "+signal.getTime().getTime()+", now: "+System.currentTimeMillis());
 
         StringBuilder url = new StringBuilder();
         url.append("http://www.onverify.com/call.php?userid=5226&apipass=1837&template_id="+alarmType+"&number="+dev.getPhoneNumber());
@@ -105,9 +118,34 @@ public class SignalWatcher {
             e.printStackTrace();
         }
 
+        String typeText;
+        if (alarmType==7235)
+            typeText = "Charge";
+        else if (alarmType==8624)
+            typeText = "Acc";
+        else if (alarmType==8627)
+            typeText = "GSM";
+        else if (alarmType==7233)
+            typeText = "GPS";
+        else
+            typeText = String.valueOf(alarmType);
+
+
+
+
+        StringBuilder urlsms = new StringBuilder();
+        urlsms.append("http://smspilot.ru/api.php?apikey=M16IZE9COK1G29J02S8ZXAJ7GSCA4B2Q43IC5BG80WMLW66QP4JE671L0324314D&to="+dev.getPhoneNumber()+"&send=Device"+dev.getId()+",Car_alarm_type_"+typeText);
+        SendCallAlarmProcess processsms = new SendCallAlarmProcess(urlsms.toString());
+        try {
+            processsms.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         StringBuilder urlx = new StringBuilder();
         urlx.append("http://www.signalus.ru/outer/sendmail?subject=Device"+dev.getId()+"&msg=");
-        urlx.append("template_id="+alarmType);
+        urlx.append("alarm:"+typeText+",lastsig:"+signal.getTime().getTime()+",now:"+System.currentTimeMillis());
         SendEmailProcess processx = new SendEmailProcess(urlx.toString());
         try {
             processx.execute();

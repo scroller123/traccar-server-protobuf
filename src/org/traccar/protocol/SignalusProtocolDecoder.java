@@ -343,6 +343,12 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 responsePacket.setDoUpdateVersion(1);
             }
 
+            if (device!=null && device.getCommands()!=null && device.getCommands().length()>1) {
+                responsePacket.addCommands(device.getCommands());
+                Log.info("Send commands to device: "+device.getCommands());
+                getDataManager().setCommandValue(deviceId, "");
+            }
+
             if (dataPacket.getGsensorLevel()>0 || dataPacket.getNoiseVolumeLevel()>0 || dataPacket.getOrientsensorLevel()>0) {
                 StringBuilder url = new StringBuilder();
                 url.append("http://www.signalus.ru/outer/sendmail?subject=Device"+deviceId+"&msg=");

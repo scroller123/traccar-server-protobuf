@@ -74,6 +74,9 @@ public class TestDataManager implements DataManager {
     public void setDoSettingsUpdateValue(Long deviceId, int value)  {}
 
     @Override
+    public void setCommandValue(Long deviceId, String value) {}
+
+    @Override
     public Long addPosition(Position position) {
         return null;
     }

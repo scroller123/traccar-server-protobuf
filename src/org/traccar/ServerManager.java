@@ -48,6 +48,8 @@ import org.traccar.protocol.*;
  */
 public class ServerManager {
 
+
+
     private final List<TrackerServer> serverList = new LinkedList<TrackerServer>();
 
     public void addTrackerServer(TrackerServer trackerServer) {
@@ -169,7 +171,7 @@ public class ServerManager {
             webServer = new WebServer(properties);
         }
 
-        SignalWatcher signalWatcher = new SignalWatcher(this);
+
 
     }
 

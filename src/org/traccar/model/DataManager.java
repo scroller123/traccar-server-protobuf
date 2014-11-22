@@ -46,6 +46,7 @@ public interface DataManager {
     public void setDoSearchingBluetoothValue(Long deviceId, int value) throws Exception;
     public void setDoBindingBluetoothValue(Long deviceId, int value) throws Exception;
     public void setDoSettingsUpdateValue(Long deviceId, int value) throws Exception;
+    public void setCommandValue(Long deviceId, String value) throws SQLException;
 
     public void deleteBluetoothSearchResult(Long deviceId) throws Exception;
     public void insertBluetoothSearchResult(Long deviceId, String name, String mac) throws Exception;
