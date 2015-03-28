@@ -50,6 +50,11 @@ public class TestDataManager implements DataManager {
     }
 
     @Override
+    public Signal selectLastSignalRaw(Long deviceId){
+        return null;
+    }
+
+    @Override
     public Position selectLastPosition(Long deviceId){
         return null;
     }
@@ -57,6 +62,9 @@ public class TestDataManager implements DataManager {
 
     @Override
     public void setDefenceValue(Long deviceId, int value)  {}
+
+    @Override
+    public void setDefenceCoordsValue(Long deviceId, String value) {}
 
     @Override
     public void setVersionValue(Long deviceId, int value)  {}

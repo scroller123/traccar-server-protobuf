@@ -35,6 +35,7 @@ public class Signal  {
     public void setTimeFromTimeStamp(long timestamp) {
         Timestamp timeStamp = new Timestamp(timestamp);
         this.time = new Date(timeStamp.getTime());
+
     }
 
 
@@ -91,6 +92,31 @@ public class Signal  {
     public void setNoiseValue(double noiseValue) {
         this.noiseValue = noiseValue;
     }
+
+    private double orientSensor;
+
+    public double getOrientSensorValue() {
+        return orientSensor;
+    }
+
+    public void setOrientSensorValue(double orientSensor) {
+        this.orientSensor = orientSensor;
+    }
+
+    private long updateStatus;
+
+    public double getUpdateStatus() {
+        return updateStatus;
+    }
+
+    public void setUpdateStatus(long updateStatus) {
+        this.updateStatus = updateStatus;
+    }
+
+
+
+
+
 
 
 }

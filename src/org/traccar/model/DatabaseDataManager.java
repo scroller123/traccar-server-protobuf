@@ -53,9 +53,11 @@ public class DatabaseDataManager implements DataManager {
     private NamedParameterStatement querySetTimeZone;
     private NamedParameterStatement queryGetDevices;
     private NamedParameterStatement queryGetLastSignal;
+    private NamedParameterStatement queryGetLastSignalRaw;
     private NamedParameterStatement queryGetLastPosition;
     private NamedParameterStatement querySelectBluetoothBinded;
     private NamedParameterStatement querySetDefenceValue;
+    private NamedParameterStatement querySetDefenceCoordsValue;
     private NamedParameterStatement querySetVersionValue;
     private NamedParameterStatement querySetDoUpdateVersionValue;
     private NamedParameterStatement querySetDoSearchingBluetoothValue;
@@ -93,11 +95,12 @@ public class DatabaseDataManager implements DataManager {
 
         // Refresh delay
         String refreshDelay = properties.getProperty("database.refreshDelay");
-        if (refreshDelay != null) {
-            devicesRefreshDelay = Long.valueOf(refreshDelay) * 1000;
-        } else {
-            devicesRefreshDelay = new Long(300) * 1000; // Magic number
-        }
+        devicesRefreshDelay = new Long(0);
+//        if (refreshDelay != null) {
+//            devicesRefreshDelay = Long.valueOf(refreshDelay) * 1000;
+//        } else {
+//            devicesRefreshDelay = new Long(0) * 1000; // Magic number
+//        }
 
         // Connect database
         String url = properties.getProperty("database.url");
@@ -122,6 +125,12 @@ public class DatabaseDataManager implements DataManager {
         if (query != null) {
             queryGetLastSignal = new NamedParameterStatement(connection, query);
         }
+
+        query = properties.getProperty("database.selectLastSignalRaw");
+        if (query != null) {
+            queryGetLastSignalRaw = new NamedParameterStatement(connection, query);
+        }
+
         query = properties.getProperty("database.selectLastPosition");
         if (query != null) {
             queryGetLastPosition = new NamedParameterStatement(connection, query);
@@ -136,6 +145,11 @@ public class DatabaseDataManager implements DataManager {
         query = properties.getProperty("database.setDefenceValue");
         if (query != null) {
             querySetDefenceValue = new NamedParameterStatement(connection, query);
+        }
+
+        query = properties.getProperty("database.setDefenceCoordsValue");
+        if (query != null) {
+            querySetDefenceCoordsValue = new NamedParameterStatement(connection, query);
         }
 
         query = properties.getProperty("database.setVersionValue");
@@ -204,7 +218,7 @@ public class DatabaseDataManager implements DataManager {
     @Override
     public synchronized List<Device> getDevices() throws SQLException {
 
-        setTimeZone();
+//        setTimeZone();
 
         List<Device> deviceList = new LinkedList<Device>();
 
@@ -217,6 +231,7 @@ public class DatabaseDataManager implements DataManager {
                 Device device = new Device();
                 device.setId(result.getLong("id"));
                 device.setImei(result.getString("imei"));
+                device.setImei2(result.getString("imei2"));
                 device.setDoUpdateVersion(result.getString("do_update_version"));
                 device.setDoSearchingBluetooth(result.getString("do_searching_bluetooth"));
                 device.setDoBindingBluetooth(result.getString("do_binding_bluetooth"));
@@ -232,6 +247,7 @@ public class DatabaseDataManager implements DataManager {
                 device.setting_max_response_wait_time = result.getInt("setting_max_response_wait_time");
                 device.setCommands(result.getString("commands"));
                 device.defence = result.getInt("defence");
+                device.defenceCoords = result.getString("defence_coords");
                 device.setPhoneNumber(result.getString("notification_number"));
 
                 deviceList.add(device);
@@ -280,6 +296,11 @@ public class DatabaseDataManager implements DataManager {
         devicesIDs = new HashMap<Long, Device>();
         for (Device device: list) {
             devices.put(device.getImei(), device);
+
+//            if (device.getImei()!=device.getImei2() && device.getImei2().length()>0){
+//                devices.put(device.getImei2(), device);
+//            }
+
             devicesIDs.put(device.getId(), device);
         }
         devicesLastUpdateTS = Calendar.getInstance().getTimeInMillis();
@@ -293,7 +314,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public Signal selectLastSignal(Long deviceId) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (queryGetLastSignal != null) {
             Signal signal = new Signal();
 
@@ -308,7 +329,35 @@ public class DatabaseDataManager implements DataManager {
             signal.setGps(result.getInt("gps"));
             signal.setGSensor(result.getFloat("g_sensor"));
             signal.setNoiseValue(result.getDouble("noise_value"));
+            signal.setOrientSensorValue(result.getDouble("orient_sensor"));
             signal.setTimeFromTimeStamp(result.getLong("datetime"));
+            signal.setUpdateStatus(result.getLong("update_status"));
+
+            return signal;
+        }
+        return null;
+    }
+
+    @Override
+    public Signal selectLastSignalRaw(Long deviceId) throws SQLException {
+//        setTimeZone();
+        if (queryGetLastSignalRaw != null) {
+            Signal signal = new Signal();
+
+            queryGetLastSignalRaw.prepare();
+            queryGetLastSignalRaw.setLong("device_id", deviceId);
+
+            ResultSet result = queryGetLastSignalRaw.executeQuery();
+            result.next();
+
+            signal.setAcc(result.getInt("acc"));
+            signal.setCharge(result.getInt("charge"));
+            signal.setGps(result.getInt("gps"));
+            signal.setGSensor(result.getFloat("g_sensor"));
+            signal.setNoiseValue(result.getDouble("noise_value"));
+            signal.setOrientSensorValue(result.getDouble("orient_sensor"));
+            signal.setTimeFromTimeStamp(result.getLong("datetime"));
+            signal.setUpdateStatus(result.getLong("update_status"));
 
             return signal;
         }
@@ -317,7 +366,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public Position selectLastPosition(Long deviceId) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (queryGetLastPosition != null) {
             Position position = new Position();
 
@@ -339,7 +388,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public ArrayList<BluetoothDevice> selectBluetoothBinded(Long deviceId) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         ArrayList<BluetoothDevice> list = new ArrayList<BluetoothDevice>();
         if (querySelectBluetoothBinded != null) {
             querySelectBluetoothBinded.prepare();
@@ -361,7 +410,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDoSearchingBluetoothValue(Long deviceId, int value) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (querySetDoSearchingBluetoothValue != null) {
             querySetDoSearchingBluetoothValue.prepare();
             querySetDoSearchingBluetoothValue.setLong("device_id", deviceId);
@@ -372,7 +421,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDefenceValue(Long deviceId, int value) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (querySetDefenceValue != null) {
             querySetDefenceValue.prepare();
             querySetDefenceValue.setLong("device_id", deviceId);
@@ -382,8 +431,19 @@ public class DatabaseDataManager implements DataManager {
     }
 
     @Override
+    public void setDefenceCoordsValue(Long deviceId, String value) throws SQLException {
+//        setTimeZone();
+        if (querySetDefenceCoordsValue != null) {
+            querySetDefenceCoordsValue.prepare();
+            querySetDefenceCoordsValue.setLong("device_id", deviceId);
+            querySetDefenceCoordsValue.setString("value", value);
+            querySetDefenceCoordsValue.executeUpdate();
+        }
+    }
+
+    @Override
     public void setVersionValue(Long deviceId, int value) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (querySetVersionValue != null) {
             querySetVersionValue.prepare();
             querySetVersionValue.setLong("device_id", deviceId);
@@ -394,7 +454,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDoUpdateVersionValue(Long deviceId, int value) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (querySetDoUpdateVersionValue != null) {
             querySetDoUpdateVersionValue.prepare();
             querySetDoUpdateVersionValue.setLong("device_id", deviceId);
@@ -405,7 +465,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDoBindingBluetoothValue(Long deviceId, int value) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (querySetDoBindingBluetoothValue != null) {
             querySetDoBindingBluetoothValue.prepare();
             querySetDoBindingBluetoothValue.setLong("device_id", deviceId);
@@ -416,7 +476,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setDoSettingsUpdateValue(Long deviceId, int value) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (querySetDoSettingsUpdateValue != null) {
             querySetDoSettingsUpdateValue.prepare();
             querySetDoSettingsUpdateValue.setLong("device_id", deviceId);
@@ -427,7 +487,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void setCommandValue(Long deviceId, String value) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (querySetCommandsValue != null) {
             querySetCommandsValue.prepare();
             querySetCommandsValue.setLong("device_id", deviceId);
@@ -438,7 +498,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void deleteBluetoothSearchResult(Long deviceId) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (queryDeleteBluetoothSearchResult != null) {
             queryDeleteBluetoothSearchResult.prepare();
             queryDeleteBluetoothSearchResult.setLong("device_id", deviceId);
@@ -448,7 +508,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void insertBluetoothSearchResult(Long deviceId, String name, String mac) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (queryInsertBluetoothSearchResult != null) {
             queryInsertBluetoothSearchResult.prepare();
             queryInsertBluetoothSearchResult.setLong("device_id", deviceId);
@@ -471,7 +531,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public synchronized Long addPosition(Position position) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (queryAddPosition != null) {
             queryAddPosition.prepare(Statement.RETURN_GENERATED_KEYS);
 
@@ -522,7 +582,7 @@ public class DatabaseDataManager implements DataManager {
 
     @Override
     public void updateLatestPosition(Long deviceId, Long positionId) throws SQLException {
-        setTimeZone();
+//        setTimeZone();
         if (queryUpdateLatestPosition != null) {
             queryUpdateLatestPosition.prepare();
 
@@ -554,7 +614,7 @@ public class DatabaseDataManager implements DataManager {
                                     String bluetooth,
                                     int update_status) throws SQLException {
 
-        setTimeZone();
+//        setTimeZone();
 
         String deviceID = null;
         String sentence = (String) hex;

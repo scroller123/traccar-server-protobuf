@@ -35,11 +35,13 @@ public interface DataManager {
     public void setTimeZone() throws SQLException;
 
     public Signal selectLastSignal(Long deviceId) throws SQLException;
+    public Signal selectLastSignalRaw(Long deviceId) throws SQLException;
     public Position selectLastPosition(Long deviceId) throws SQLException;
 
     public ArrayList<BluetoothDevice> selectBluetoothBinded(Long deviceId) throws Exception;
 
     public void setDefenceValue(Long deviceId, int value) throws Exception;
+    public void setDefenceCoordsValue(Long deviceId, String value) throws Exception;
     public void setVersionValue(Long deviceId, int value) throws Exception;
 
     public void setDoUpdateVersionValue(Long deviceId, int value) throws Exception;

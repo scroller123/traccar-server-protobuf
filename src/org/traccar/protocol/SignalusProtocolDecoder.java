@@ -62,7 +62,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
     private Long deviceImei;
     private Long deviceImei2;
 
-    private int prevDefence;
+    private int prevDefence = -1;
 
     public SignalusProtocolDecoder(ServerManager serverManager) {
         super(serverManager);
@@ -92,12 +92,16 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
 
             try {
                 deviceId = getDataManager().getDeviceByImei(String.valueOf(deviceImei)).getId();
-            }catch (Exception e) {}
+            }catch (Exception e) {
+                Log.info("imei1 not found");
+            }
 
             if (deviceId == null){
                 try {
                     deviceId = getDataManager().getDeviceByImei(String.valueOf(deviceImei2)).getId();
-                }catch (Exception e) {}
+                }catch (Exception e) {
+                    Log.info("imei2 not found");
+                }
             }
 
             TerminalProtos.DataResponcePackage.Builder responsePacket = TerminalProtos.DataResponcePackage.newBuilder();
@@ -108,8 +112,8 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 responsePacket.setStatus(TerminalProtos.DataResponcePackage.StatusType.NO_ERROR);
 
                 Device device = getDataManager().getDeviceByID(deviceId);
-                responsePacket.setDefence(device.defence);
-                prevDefence = device.defence;
+//                responsePacket.setDefence(device.defence);
+//                prevDefence = device.defence;
 
                 getDataManager().setVersionValue(deviceId, Integer.valueOf(loginPacket.getVersion()));
 
@@ -295,15 +299,14 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
             // device parameters
             Device device = getDataManager().getDeviceByID(deviceId);
 
-            if (prevDefence != device.defence) {
-                prevDefence = device.defence;
-                responsePacket.setDefence(device.defence);
-            }
-
-            if (dataPacket.hasDefence() && dataPacket.getDefence()>=0) {
-                prevDefence = dataPacket.getDefence();
-                getDataManager().setDefenceValue(deviceId, dataPacket.getDefence());
-            }
+//            if (prevDefence != device.defence) {
+//                Position lastPosition = getDataManager().selectLastPosition(device.getId());
+//                getDataManager().setDefenceCoordsValue(device.getId(), lastPosition.getLatitude()+","+lastPosition.getLongitude());
+//                device.defenceCoords = lastPosition.getLatitude()+","+lastPosition.getLongitude();
+//
+//                prevDefence = device.defence;
+//                responsePacket.setDefence(device.defence);
+//            }
 
             // bluetooth searching
             if (device.getDoSearchingBluetooth()==1){
@@ -349,7 +352,8 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 getDataManager().setCommandValue(deviceId, "");
             }
 
-            if (dataPacket.getGsensorLevel()>0 || dataPacket.getNoiseVolumeLevel()>0 || dataPacket.getOrientsensorLevel()>0) {
+            if ((dataPacket.getGsensorLevel()>0 || dataPacket.getNoiseVolumeLevel()>0 || dataPacket.getOrientsensorLevel()>0)
+                   && dataPacket.hasAcc() && !dataPacket.getAcc()) {
                 StringBuilder url = new StringBuilder();
                 url.append("http://www.signalus.ru/outer/sendmail?subject=Device"+deviceId+"&msg=");
                 if (dataPacket.getGsensorLevel()>0)
@@ -359,12 +363,12 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 if (dataPacket.getOrientsensorLevel()>0)
                     url.append("OrientsensorLevel:"+dataPacket.getOrientsensorLevel()+",");
 
-                SendEmailProcess process = new SendEmailProcess(url.toString());
-                try {
-                    process.execute();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                SendEmailProcess process = new SendEmailProcess(url.toString());
+//                try {
+//                    process.execute();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
             }
 
 
@@ -379,6 +383,19 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 if (split[0].equals("update")) {
                     updateStatus = Integer.parseInt(split[1]);
                 }
+            }
+
+            if (updateStatus == -1 && dataPacket.hasDefence()) {
+                if (prevDefence != dataPacket.getDefence()) {
+                    if (dataPacket.getDefence()==1) {
+                        Position lastPosition = getDataManager().selectLastPosition(device.getId());
+                        getDataManager().setDefenceCoordsValue(device.getId(), lastPosition.getLatitude()+","+lastPosition.getLongitude());
+                        device.defenceCoords = lastPosition.getLatitude()+","+lastPosition.getLongitude();
+                    }
+                    prevDefence = dataPacket.getDefence();
+                }
+
+                getDataManager().setDefenceValue(deviceId, dataPacket.getDefence());
             }
 
             getDataManager().addSig("id:"+String.valueOf(deviceId),

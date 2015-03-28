@@ -49,6 +49,19 @@ public class Device {
     }
 
     /**
+     * International mobile equipment identity (IMEI)
+     */
+    private String imei2;
+
+    public String getImei2() {
+        return imei2;
+    }
+
+    public void setImei2(String imei) {
+        this.imei2 = imei;
+    }
+
+    /**
      * Phone number
      */
     private String phoneNumber;
@@ -129,6 +142,26 @@ public class Device {
     }
 
 
+    public double getDistance(Position position){
+        String[] defCoords = defenceCoords.split(",");
+        String[] curCoords = {String.valueOf(position.getLatitude()), String.valueOf(position.getLongitude())};
+
+        if (defCoords[0].equals(curCoords[0]) && defCoords[1].equals(curCoords[1]))
+            return 0;
+
+        double R = 6371.210;
+
+
+        Double defCLat = Math.abs(Double.valueOf(defCoords[0]))*Math.PI/180;
+        Double defCLon = Math.abs(Double.valueOf(defCoords[1]))*Math.PI/180;
+
+        Double curCLat = Math.abs(Double.valueOf(curCoords[0]))*Math.PI/180;
+        Double curCLon = Math.abs(Double.valueOf(curCoords[1]))*Math.PI/180;
+
+        return Math.acos( Math.sin(defCLon)*Math.sin(curCLon) + Math.cos(defCLon)*Math.cos(curCLon)*Math.cos(curCLat-defCLat) ) * R;
+    }
+
+
     public double setting_noise_volume_level;
     public String setting_incoming_numbers;
     public float setting_gsensor_level;
@@ -140,6 +173,7 @@ public class Device {
     public int setting_max_response_wait_time;
 
     public int defence;
+    public String defenceCoords;
 
     public long signalTime;
     public int signalGps;
