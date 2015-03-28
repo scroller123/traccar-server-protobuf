@@ -2,9 +2,9 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java" line="523" />
-    <bookmark url="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java" line="74" />
+    <bookmark url="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java" line="216" />
     <bookmark url="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java" line="352" />
-    <bookmark url="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java" line="94" />
+    <bookmark url="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java" line="236" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c427c62-10f0-41bf-b930-2218d282fdda" name="Default" comment="" />
@@ -73,31 +73,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SignalusProtocolDecoder.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SignalusProtocolDecoder.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="32" selection-start="2019" selection-end="2019" vertical-scroll-proportion="0.0">
+            <state line="172" column="20" selection-start="6285" selection-end="6285" vertical-scroll-proportion="-2.5112474">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SignalWatcher.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SignalWatcher.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="221" column="33" selection-start="10863" selection-end="10863" vertical-scroll-proportion="0.7126789">
+            <state line="100" column="10" selection-start="3156" selection-end="3156" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3322#4549#0" expanded="true" />
-                <element signature="e#4522#4523#0" expanded="true" />
-                <element signature="e#5114#6142#0" expanded="true" />
-                <element signature="e#6115#6116#0" expanded="true" />
-                <element signature="e#6497#7646#0" expanded="true" />
-                <element signature="e#7619#7620#0" expanded="true" />
-                <element signature="e#7981#9138#0" expanded="true" />
-                <element signature="e#9111#9112#0" expanded="true" />
-                <element signature="e#9513#10821#0" expanded="true" />
-                <element signature="e#10794#10795#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -181,6 +171,20 @@
             <PATH_ELEMENT USER_OBJECT="Root">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Traccar-master-2014" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -295,20 +299,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="signalus_terminal" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="traccar-master-2014" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Traccar-master-2014" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -541,9 +531,8 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.871063" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297244" sideWeight="0.4957265" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297244" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11752137" sideWeight="0.67027557" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17521368" sideWeight="0.67027557" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.871063" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14797008" sideWeight="0.67027557" order="0" side_tool="false" content_ui="combo" />
@@ -551,6 +540,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3297244" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297244" sideWeight="0.4957265" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -681,34 +671,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="357" column="75" selection-start="13722" selection-end="13722" vertical-scroll-proportion="0.7790111">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="32" selection-start="2019" selection-end="2019" vertical-scroll-proportion="0.0">
+        <state line="149" column="70" selection-start="5707" selection-end="5728" vertical-scroll-proportion="0.38446015">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="221" column="33" selection-start="10863" selection-end="10863" vertical-scroll-proportion="0.7126789">
+        <state line="100" column="10" selection-start="3156" selection-end="3156" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3322#4549#0" expanded="true" />
-            <element signature="e#4522#4523#0" expanded="true" />
-            <element signature="e#5114#6142#0" expanded="true" />
-            <element signature="e#6115#6116#0" expanded="true" />
-            <element signature="e#6497#7646#0" expanded="true" />
-            <element signature="e#7619#7620#0" expanded="true" />
-            <element signature="e#7981#9138#0" expanded="true" />
-            <element signature="e#9111#9112#0" expanded="true" />
-            <element signature="e#9513#10821#0" expanded="true" />
-            <element signature="e#10794#10795#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="172" column="20" selection-start="6285" selection-end="6285" vertical-scroll-proportion="-2.5112474">
+          <folding />
         </state>
       </provider>
     </entry>

@@ -69,6 +69,148 @@ public class SignalWatcher {
         this.dbDataManager = dbDataManager;
     }
 
+    class DeviceAccTimer extends TimerTask {
+        private final long deviceId;
+        private final Timer timer;
+
+        DeviceAccTimer ( long deviceId, Timer timer ) {
+            this.deviceId = deviceId;
+            this.timer = timer;
+        }
+
+        public void run() {
+            Log.info("DEV:"+deviceId+", accTimer END");
+            try {
+                Device checkDev = dbDataManager.getDeviceByID(deviceId);
+                Timestamp checkSignalTime = new Timestamp(dbDataManager.selectLastSignal(deviceId).getTime().getTime());
+                if (checkDev.defence==1 && System.currentTimeMillis()-checkSignalTime.getTime()*1000 < 15*1000)  {
+                    Alarm(8624, checkDev);
+
+                    timer.cancel();
+                    accTimer.remove(deviceId);
+                }else if (checkDev.defence==0) {
+                    timer.cancel();
+                    accTimer.remove(deviceId);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class DevicePositionTimer extends TimerTask {
+        private final long deviceId;
+        private final Timer timer;
+
+        DevicePositionTimer ( long deviceId, Timer timer ) {
+            this.deviceId = deviceId;
+            this.timer = timer;
+        }
+
+        public void run() {
+            Log.info("DEV:"+deviceId+", positionTimer END");
+            try {
+                Device checkDev = dbDataManager.getDeviceByID(deviceId);
+                Position checkPosition = dbDataManager.selectLastPosition(deviceId);
+
+                if (checkDev.defence==1 && checkDev.getDistance(checkPosition) > 0.45) {
+                    dbDataManager.setDefenceCoordsValue(checkDev.getId(), String.valueOf(checkPosition.getLatitude()) + "," + String.valueOf(checkPosition.getLongitude()));
+                    Alarm(9999, checkDev);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            timer.cancel();
+            positionTimer.remove(deviceId);
+        }
+    }
+
+    class DeviceNoiseTimer extends TimerTask {
+        private final long deviceId;
+        private final Timer timer;
+
+        DeviceNoiseTimer ( long deviceId, Timer timer ) {
+            this.deviceId = deviceId;
+            this.timer = timer;
+        }
+
+        public void run() {
+            Log.info("DEV:"+deviceId+", noiseTimer END");
+            try {
+                Device checkDev = dbDataManager.getDeviceByID(deviceId);
+                Timestamp checkSignalTime = new Timestamp(dbDataManager.selectLastSignal(deviceId).getTime().getTime());
+                if (checkDev.defence==1 && System.currentTimeMillis()-checkSignalTime.getTime()*1000 < 15*1000)  {
+                    Alarm(5551, dbDataManager.getDeviceByID(deviceId));
+                    timer.cancel();
+                    noiseTimer.remove(deviceId);
+                }else if (checkDev.defence==0) {
+                    timer.cancel();
+                    noiseTimer.remove(deviceId);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class DeviceGSensorTimer extends TimerTask {
+        private final long deviceId;
+        private final Timer timer;
+
+        DeviceGSensorTimer ( long deviceId, Timer timer ) {
+            this.deviceId = deviceId;
+            this.timer = timer;
+        }
+
+        public void run() {
+            Log.info("DEV:"+deviceId+", gsensorTimer END");
+            try {
+                Device checkDev = dbDataManager.getDeviceByID(deviceId);
+                Timestamp checkSignalTime = new Timestamp(dbDataManager.selectLastSignal(deviceId).getTime().getTime());
+                if (checkDev.defence==1 && System.currentTimeMillis()-checkSignalTime.getTime()*1000 < 15*1000)  {
+                    Alarm(5552, dbDataManager.getDeviceByID(deviceId));
+                    timer.cancel();
+                    gsensorTimer.remove(deviceId);
+                }else if (checkDev.defence==0) {
+                    timer.cancel();
+                    gsensorTimer.remove(deviceId);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class DeviceOrientSensorTimer extends TimerTask {
+        private final long deviceId;
+        private final Timer timer;
+
+        DeviceOrientSensorTimer ( long deviceId, Timer timer ) {
+            this.deviceId = deviceId;
+            this.timer = timer;
+        }
+
+        public void run() {
+            Log.info("DEV:"+deviceId+", orientsensorTimer END");
+            try {
+                Device checkDev = dbDataManager.getDeviceByID(deviceId);
+                Timestamp checkSignalTime = new Timestamp(dbDataManager.selectLastSignal(deviceId).getTime().getTime());
+                if (checkDev.defence==1 && System.currentTimeMillis()-checkSignalTime.getTime()*1000 < 15*1000)  {
+                    Alarm(5553, dbDataManager.getDeviceByID(deviceId));
+                    timer.cancel();
+                    orientSensorTimer.remove(deviceId);
+                }else if (checkDev.defence==0) {
+                    timer.cancel();
+                    orientSensorTimer.remove(deviceId);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            timer.cancel();
+//            orientSensorTimer.remove(deviceId));
+        }
+    }
+
     public void Tick() throws Exception {
         try {
             for (final Device dev : dbDataManager.getDevices()) {
@@ -95,29 +237,8 @@ public class SignalWatcher {
                     if (signal.getAcc()==1 && accTimer.get(dev.getId())==null) {
                         Log.info("DEV:"+dev.getId()+", accTimer START");
                         final Timer accDelay = new Timer();
+                        accDelay.schedule(new DeviceAccTimer(dev.getId(), accDelay), 10*1000, 1*1000);
                         accTimer.put(dev.getId(), accDelay);
-                        accDelay.schedule(new TimerTask(){
-                            @Override
-                            public void run() {
-                                Log.info("DEV:"+dev.getId()+", accTimer END");
-                                try {
-                                    Device checkDev = dbDataManager.getDeviceByID(dev.getId());
-                                    Timestamp checkSignalTime = new Timestamp(dbDataManager.selectLastSignal(dev.getId()).getTime().getTime());
-                                    if (checkDev.defence==1 && System.currentTimeMillis()-checkSignalTime.getTime()*1000 < 15*1000)  {
-                                        Alarm(8624, checkDev);
-
-                                        accDelay.cancel();
-                                        accTimer.remove(dev.getId());
-                                    }else if (checkDev.defence==0) {
-                                        accDelay.cancel();
-                                        accTimer.remove(dev.getId());
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        }, 15*1000, 5*1000);
                     }
 
 
@@ -127,97 +248,27 @@ public class SignalWatcher {
                     if (positionTimer.get(dev.getId())==null && dev.getDistance(position)>0.45) {
                         Log.info("DEV:"+dev.getId()+", positionTimer START");
                         final Timer defPosDelay = new Timer();
+                        defPosDelay.schedule(new DevicePositionTimer(dev.getId(), defPosDelay), 5*1000);
                         positionTimer.put(dev.getId(), defPosDelay);
-                        defPosDelay.schedule(new TimerTask(){
-                            @Override
-                            public void run() {
-                                Log.info("DEV:"+dev.getId()+", positionTimer END");
-                                try {
-                                    Device checkDev = dbDataManager.getDeviceByID(dev.getId());
-                                    if (checkDev.defence==1 && checkDev.getDistance(position) > 0.45) {
-                                        dbDataManager.setDefenceCoordsValue(checkDev.getId(), String.valueOf(position.getLatitude())+","+String.valueOf(position.getLongitude()));
-                                        Alarm(9999, checkDev);
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                defPosDelay.cancel();
-                                positionTimer.remove(dev.getId());
-                            }
-                        }, 5*1000);
                     }
 
                     //sensors
                     if (signal.getNoiseValue() > dev.setting_noise_volume_level && noiseTimer.get(dev.getId())==null) {
+                        Log.info("DEV:"+dev.getId()+", noiseTimer START");
                         final Timer noiseDelay = new Timer();
+                        noiseDelay.schedule(new DeviceNoiseTimer(dev.getId(), noiseDelay), 15*1000, 5*1000);
                         noiseTimer.put(dev.getId(), noiseDelay);
-                        noiseDelay.schedule(new TimerTask(){
-                            @Override
-                            public void run() {
-                                try {
-                                    Device checkDev = dbDataManager.getDeviceByID(dev.getId());
-                                    Timestamp checkSignalTime = new Timestamp(dbDataManager.selectLastSignal(dev.getId()).getTime().getTime());
-                                    if (checkDev.defence==1 && System.currentTimeMillis()-checkSignalTime.getTime()*1000 < 15*1000)  {
-                                        Alarm(5551, dev);
-                                        noiseDelay.cancel();
-                                        noiseTimer.remove(dev.getId());
-                                    }else if (checkDev.defence==0) {
-                                        noiseDelay.cancel();
-                                        noiseTimer.remove(dev.getId());
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, 15*1000, 5*1000);
                     }
                     if (signal.getGSensor() > dev.setting_gsensor_level && gsensorTimer.get(dev.getId())==null) {
+                        Log.info("DEV:"+dev.getId()+", gsensorTimer START");
                         final Timer gsensorDelay = new Timer();
+                        gsensorDelay.schedule(new DeviceGSensorTimer(dev.getId(), gsensorDelay), 15*1000, 5*1000);
                         gsensorTimer.put(dev.getId(), gsensorDelay);
-                        gsensorDelay.schedule(new TimerTask(){
-                            @Override
-                            public void run() {
-                                try {
-                                    Device checkDev = dbDataManager.getDeviceByID(dev.getId());
-                                    Timestamp checkSignalTime = new Timestamp(dbDataManager.selectLastSignal(dev.getId()).getTime().getTime());
-                                    if (checkDev.defence==1 && System.currentTimeMillis()-checkSignalTime.getTime()*1000 < 15*1000)  {
-                                        Alarm(5552, dev);
-                                        gsensorDelay.cancel();
-                                        gsensorTimer.remove(dev.getId());
-                                    }else if (checkDev.defence==0) {
-                                        gsensorDelay.cancel();
-                                        gsensorTimer.remove(dev.getId());
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, 15*1000, 5*1000);
                     }
                     if (signal.getOrientSensorValue() > dev.setting_orientsensor_level && orientSensorTimer.get(dev.getId())==null) {
                         final Timer orientSensorDelay = new Timer();
+                        orientSensorDelay.schedule(new DeviceOrientSensorTimer(dev.getId(), orientSensorDelay), 15*1000, 5*1000);
                         orientSensorTimer.put(dev.getId(), orientSensorDelay);
-                        orientSensorDelay.schedule(new TimerTask(){
-                            @Override
-                            public void run() {
-                                try {
-                                    Device checkDev = dbDataManager.getDeviceByID(dev.getId());
-                                    Timestamp checkSignalTime = new Timestamp(dbDataManager.selectLastSignal(dev.getId()).getTime().getTime());
-                                    if (checkDev.defence==1 && System.currentTimeMillis()-checkSignalTime.getTime()*1000 < 15*1000)  {
-                                        Alarm(5553, dev);
-                                        orientSensorDelay.cancel();
-                                        orientSensorTimer.remove(dev.getId());
-                                    }else if (checkDev.defence==0) {
-                                        orientSensorDelay.cancel();
-                                        orientSensorTimer.remove(dev.getId());
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                orientSensorDelay.cancel();
-                                orientSensorTimer.remove(dev.getId());
-                            }
-                        }, 15*1000, 5*1000);
                     }
 
                     if ((dev.getId()==9) && System.currentTimeMillis() - signalRawTime.getTime()*1000 > SIGNAL_EMPTY_ALARM_INTERVAL) {
@@ -253,8 +304,10 @@ public class SignalWatcher {
 
 
 
-        dbDataManager.setDefenceValue(dev.getId(), 0);
-        dbDataManager.setCommandValue(dev.getId(), "set defence:0;");
+        if (alarmType!=5551 && alarmType!=5552 && alarmType!=5553) {
+            dbDataManager.setDefenceValue(dev.getId(), 0);
+            dbDataManager.setCommandValue(dev.getId(), "set defence:0;");
+        }
 
         Signal signal = dbDataManager.selectLastSignal(dev.getId());
         Position position = dbDataManager.selectLastPosition(dev.getId());
