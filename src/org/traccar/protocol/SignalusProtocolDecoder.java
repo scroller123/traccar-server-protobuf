@@ -349,7 +349,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
             if (device!=null && device.getCommands()!=null && device.getCommands().length()>1) {
                 responsePacket.addCommands(device.getCommands());
                 Log.info("Send commands to device: "+device.getCommands());
-                getDataManager().setCommandValue(deviceId, "");
+
             }
 
             if ((dataPacket.getGsensorLevel()>0 || dataPacket.getNoiseVolumeLevel()>0 || dataPacket.getOrientsensorLevel()>0)
@@ -385,7 +385,8 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
                 }
             }
 
-            if (updateStatus == -1 && dataPacket.hasDefence()) {
+            //set defence
+            if (updateStatus == -1 && dataPacket.hasDefence() /*&& (!device.getCommands().equals("set defence:1;") && !device.getCommands().equals("set defence:0;"))*/) {
                 if (prevDefence != dataPacket.getDefence()) {
                     if (dataPacket.getDefence()==1) {
                         Position lastPosition = getDataManager().selectLastPosition(device.getId());

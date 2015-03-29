@@ -44,6 +44,7 @@ public interface DataManager {
     public void setDefenceCoordsValue(Long deviceId, String value) throws Exception;
     public void setVersionValue(Long deviceId, int value) throws Exception;
 
+
     public void setDoUpdateVersionValue(Long deviceId, int value) throws Exception;
     public void setDoSearchingBluetoothValue(Long deviceId, int value) throws Exception;
     public void setDoBindingBluetoothValue(Long deviceId, int value) throws Exception;

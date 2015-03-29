@@ -38,6 +38,12 @@ public class SignalWatcher {
     private Map<Long, Timer> gsensorTimer;
     private Map<Long, Timer> orientSensorTimer;
 
+    private Map<Long, Float> gSensorValue;
+    private Map<Long, Double> noiseValue;
+    private Map<Long, Double> orientSensorValue;
+
+
+
     public SignalWatcher(DatabaseDataManager dbDataManager) throws Exception {
         this.dbDataManager = dbDataManager;
         //TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
@@ -50,6 +56,10 @@ public class SignalWatcher {
         this.noiseTimer = new HashMap<Long, Timer>();
         this.gsensorTimer = new HashMap<Long, Timer>();
         this.orientSensorTimer = new HashMap<Long, Timer>();
+
+        this.gSensorValue = new HashMap<Long, Float>();
+        this.noiseValue = new HashMap<Long, Double>();
+        this.orientSensorValue = new HashMap<Long, Double>();
 
 
         Timer timer = new Timer();
@@ -254,18 +264,25 @@ public class SignalWatcher {
 
                     //sensors
                     if (signal.getNoiseValue() > dev.setting_noise_volume_level && noiseTimer.get(dev.getId())==null) {
+                        noiseValue.put(dev.getId(), signal.getNoiseValue());
+
                         Log.info("DEV:"+dev.getId()+", noiseTimer START");
                         final Timer noiseDelay = new Timer();
                         noiseDelay.schedule(new DeviceNoiseTimer(dev.getId(), noiseDelay), 15*1000, 5*1000);
                         noiseTimer.put(dev.getId(), noiseDelay);
                     }
                     if (signal.getGSensor() > dev.setting_gsensor_level && gsensorTimer.get(dev.getId())==null) {
+                        gSensorValue.put(dev.getId(), signal.getGSensor());
+
                         Log.info("DEV:"+dev.getId()+", gsensorTimer START");
                         final Timer gsensorDelay = new Timer();
                         gsensorDelay.schedule(new DeviceGSensorTimer(dev.getId(), gsensorDelay), 15*1000, 5*1000);
                         gsensorTimer.put(dev.getId(), gsensorDelay);
                     }
                     if (signal.getOrientSensorValue() > dev.setting_orientsensor_level && orientSensorTimer.get(dev.getId())==null) {
+                        orientSensorValue.put(dev.getId(), signal.getOrientSensorValue());
+
+                        Log.info("DEV:"+dev.getId()+", orientTimer START");
                         final Timer orientSensorDelay = new Timer();
                         orientSensorDelay.schedule(new DeviceOrientSensorTimer(dev.getId(), orientSensorDelay), 15*1000, 5*1000);
                         orientSensorTimer.put(dev.getId(), orientSensorDelay);
@@ -344,13 +361,16 @@ public class SignalWatcher {
         else if (alarmType==9999)
             typeText = "POSITION";
         else if (alarmType==5551)
-            typeText = "NOISE";
+            typeText = "NOISE:"+(noiseValue.get(dev.getId()));
         else if (alarmType==5552)
-            typeText = "GSENSOR";
+            typeText = "GSENSOR:"+(gSensorValue.get(dev.getId()));
         else if (alarmType==5553)
-            typeText = "ORIENTATION";
+            typeText = "ORIENTATION:"+(orientSensorValue.get(dev.getId()));
         else
             typeText = String.valueOf(alarmType);
+
+
+
 
 
 
