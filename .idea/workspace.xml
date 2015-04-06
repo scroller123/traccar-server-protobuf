@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java" line="523" />
+    <bookmark url="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java" line="524" />
     <bookmark url="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java" line="226" />
     <bookmark url="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java" line="352" />
     <bookmark url="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java" line="246" />
@@ -76,7 +76,7 @@
       <file leaf-file-name="SignalusProtocolDecoder.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="388" column="167" selection-start="18765" selection-end="18765" vertical-scroll-proportion="1.0081799">
+            <state line="377" column="21" selection-start="18248" selection-end="18248" vertical-scroll-proportion="-0.42638037">
               <folding />
             </state>
           </provider>
@@ -85,7 +85,7 @@
       <file leaf-file-name="Device.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Device.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="18" selection-start="2149" selection-end="2149" vertical-scroll-proportion="0.0">
+            <state line="189" column="27" selection-start="4468" selection-end="4468" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -94,7 +94,7 @@
       <file leaf-file-name="DataManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DataManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="0" selection-start="1653" selection-end="1653" vertical-scroll-proportion="0.0">
+            <state line="56" column="16" selection-start="2279" selection-end="2279" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -103,7 +103,7 @@
       <file leaf-file-name="DatabaseDataManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="496" column="8" selection-start="18859" selection-end="18859" vertical-scroll-proportion="0.0">
+            <state line="251" column="41" selection-start="10438" selection-end="10456" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -112,7 +112,7 @@
       <file leaf-file-name="SignalWatcher.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="367" column="56" selection-start="14657" selection-end="14657" vertical-scroll-proportion="0.0">
+            <state line="290" column="20" selection-start="11502" selection-end="11502" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -144,11 +144,11 @@
         <option value="$PROJECT_DIR$/src/org/traccar/protocol/Gt06ProtocolDecoder.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/ServerManager.java" />
         <option value="$PROJECT_DIR$/test/org/traccar/helper/TestDataManager.java" />
-        <option value="$PROJECT_DIR$/src/org/traccar/model/Device.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/model/Signal.java" />
-        <option value="$PROJECT_DIR$/src/org/traccar/SignalWatcher.java" />
-        <option value="$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/model/DataManager.java" />
+        <option value="$PROJECT_DIR$/src/org/traccar/model/Device.java" />
+        <option value="$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java" />
+        <option value="$PROJECT_DIR$/src/org/traccar/SignalWatcher.java" />
         <option value="$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java" />
       </list>
     </option>
@@ -347,10 +347,10 @@
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
     <property name="Downloaded.Files.Path" value="F:\www.PROJECTS\Signalus\traccar-master-2014\lib" />
   </component>
   <component name="RecentsManager">
@@ -383,24 +383,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -427,6 +409,24 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -558,7 +558,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297244" sideWeight="0.4957265" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297244" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17521368" sideWeight="0.67027557" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17200854" sideWeight="0.67027557" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.871063" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14797008" sideWeight="0.67027557" order="0" side_tool="false" content_ui="combo" />
@@ -686,31 +686,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/model/Device.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="18" selection-start="2149" selection-end="2149" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DataManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="0" selection-start="1653" selection-end="1653" vertical-scroll-proportion="0.0" />
+        <state line="189" column="27" selection-start="4468" selection-end="4468" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DatabaseDataManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="496" column="8" selection-start="18859" selection-end="18859" vertical-scroll-proportion="0.0">
+        <state line="251" column="41" selection-start="10438" selection-end="10456" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/SignalWatcher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="367" column="56" selection-start="14657" selection-end="14657" vertical-scroll-proportion="0.0">
+        <state line="290" column="20" selection-start="11502" selection-end="11502" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/traccar/model/DataManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="16" selection-start="2279" selection-end="2279" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/traccar/protocol/SignalusProtocolDecoder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="388" column="167" selection-start="18765" selection-end="18765" vertical-scroll-proportion="1.0081799">
+        <state line="377" column="21" selection-start="18248" selection-end="18248" vertical-scroll-proportion="-0.42638037">
           <folding />
         </state>
       </provider>

@@ -349,7 +349,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
             if (device!=null && device.getCommands()!=null && device.getCommands().length()>1) {
                 responsePacket.addCommands(device.getCommands());
                 Log.info("Send commands to device: "+device.getCommands());
-
+                getDataManager().setCommandValue(deviceId, "");
             }
 
             if ((dataPacket.getGsensorLevel()>0 || dataPacket.getNoiseVolumeLevel()>0 || dataPacket.getOrientsensorLevel()>0)
@@ -376,17 +376,20 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
             free commands from terminal
              */
             int updateStatus = -1;
+            int storageActiveSim = -1;
             StringBuilder addsMessage = new StringBuilder();
             for(String message : dataPacket.getMessagesList()) {
                 addsMessage.append(message+";");
                 String[] split = message.split(":");
                 if (split[0].equals("update")) {
                     updateStatus = Integer.parseInt(split[1]);
+                }else if (split[0].equals("activesim")) {
+                    storageActiveSim = Integer.parseInt(split[1]);
                 }
             }
 
             //set defence
-            if (updateStatus == -1 && dataPacket.hasDefence() /*&& (!device.getCommands().equals("set defence:1;") && !device.getCommands().equals("set defence:0;"))*/) {
+            if (storageActiveSim == -1 && dataPacket.hasDefence() && (!device.getCommands().equals("set defence:1;") && !device.getCommands().equals("set defence:0;"))) {
                 if (prevDefence != dataPacket.getDefence()) {
                     if (dataPacket.getDefence()==1) {
                         Position lastPosition = getDataManager().selectLastPosition(device.getId());

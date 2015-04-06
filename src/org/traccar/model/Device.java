@@ -187,6 +187,9 @@ public class Device {
     public int positionTime;
 
 
+    public int alarmTimeInDefence;
+
+
 
 
     public int do_settings_update;

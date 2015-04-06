@@ -249,6 +249,7 @@ public class DatabaseDataManager implements DataManager {
                 device.defence = result.getInt("defence");
                 device.defenceCoords = result.getString("defence_coords");
                 device.setPhoneNumber(result.getString("notification_number"));
+                device.alarmTimeInDefence = result.getInt("alarm_time_in_defence");
 
                 deviceList.add(device);
             }

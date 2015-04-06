@@ -288,9 +288,7 @@ public class SignalWatcher {
                         orientSensorTimer.put(dev.getId(), orientSensorDelay);
                     }
 
-                    if ((dev.getId()==9) && System.currentTimeMillis() - signalRawTime.getTime()*1000 > SIGNAL_EMPTY_ALARM_INTERVAL) {
-                        Alarm(8627, dev);
-                    }else if (System.currentTimeMillis() - signalRawTime.getTime()*1000 > TERMINAL_EMPTY_SIGNAL_ALARM_INTERVAL){
+                    if (System.currentTimeMillis() - signalRawTime.getTime()*1000 > dev.alarmTimeInDefence*1000){
                         Log.info("SignalTime TS: "+signalRawTime.getTime());
                         Log.info("Current TS: "+System.currentTimeMillis());
                         Alarm(8627, dev);
