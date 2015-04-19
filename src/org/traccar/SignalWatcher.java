@@ -125,7 +125,7 @@ public class SignalWatcher {
 
                 if (checkDev.defence==1 && checkDev.getDistance(checkPosition) > 0.45) {
                     dbDataManager.setDefenceCoordsValue(checkDev.getId(), String.valueOf(checkPosition.getLatitude()) + "," + String.valueOf(checkPosition.getLongitude()));
-                    Alarm(9999, checkDev);
+                    Alarm(8629, checkDev);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -238,7 +238,7 @@ public class SignalWatcher {
                     final Timestamp positionTime = new Timestamp(position.getTime().getTime());
 
     //                if (signal.getGps()==0)
-    //                   Alarm(7233, dev);
+    //                   Alarm(11589, dev);
 
                     if (signal.getCharge()==0)
                         Alarm(7235, dev);
@@ -288,7 +288,8 @@ public class SignalWatcher {
                         orientSensorTimer.put(dev.getId(), orientSensorDelay);
                     }
 
-                    if (System.currentTimeMillis() - signalRawTime.getTime()*1000 > dev.alarmTimeInDefence*1000){
+                    if (System.currentTimeMillis() - signalRawTime.getTime()*1000 >= dev.alarmTimeInDefence*1000 &&
+                        System.currentTimeMillis() - signalRawTime.getTime()*1000 <= dev.alarmTimeInDefence*1000+500){
                         Log.info("SignalTime TS: "+signalRawTime.getTime());
                         Log.info("Current TS: "+System.currentTimeMillis());
                         Alarm(8627, dev);
@@ -319,7 +320,7 @@ public class SignalWatcher {
 
 
 
-        if (alarmType!=5551 && alarmType!=5552 && alarmType!=5553) {
+        if (alarmType!=8627) {
             dbDataManager.setDefenceValue(dev.getId(), 0);
             dbDataManager.setCommandValue(dev.getId(), "set defence:0;");
         }
@@ -338,14 +339,17 @@ public class SignalWatcher {
 
         Log.info("Onverify alarm. Type: "+alarmType+", device: "+dev.getId()+", phone: "+dev.getPhoneNumber()+", last signal: "+signal.getTime().getTime()+", now: "+System.currentTimeMillis());
 
-//        StringBuilder url = new StringBuilder();
-//        url.append("http://www.onverify.com/call.php?userid=5226&apipass=1837&template_id="+alarmType+"&number="+dev.getPhoneNumber());
-//        SendCallAlarmProcess process = new SendCallAlarmProcess(url.toString());
-//        try {
-//            process.execute();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
+        if (alarmType==7235 || alarmType==8624 || alarmType==11589 || alarmType==8629){
+            StringBuilder url = new StringBuilder();
+            url.append("http://www.onverify.com/call.php?userid=5226&apipass=1837&template_id="+alarmType+"&number="+dev.getPhoneNumber());
+            SendCallAlarmProcess process = new SendCallAlarmProcess(url.toString());
+            try {
+                process.execute();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         String typeText;
         if (alarmType==7235)
@@ -354,9 +358,9 @@ public class SignalWatcher {
             typeText = "ACC";
         else if (alarmType==8627)
             typeText = "GSM";
-        else if (alarmType==7233)
+        else if (alarmType==11589)
             typeText = "GPS";
-        else if (alarmType==9999)
+        else if (alarmType==8629)
             typeText = "POSITION";
         else if (alarmType==5551)
             typeText = "NOISE:"+(noiseValue.get(dev.getId()));
