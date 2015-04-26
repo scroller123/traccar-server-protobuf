@@ -20,6 +20,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+
 /**
  * Created with IntelliJ IDEA.
  * User: SCROLL
@@ -38,9 +42,13 @@ public class SignalWatcher {
     private Map<Long, Timer> gsensorTimer;
     private Map<Long, Timer> orientSensorTimer;
 
+    ScheduledThreadPoolExecutor exec;
+
     private Map<Long, Float> gSensorValue;
     private Map<Long, Double> noiseValue;
     private Map<Long, Double> orientSensorValue;
+
+    private int smsH=1;
 
 
 
@@ -61,6 +69,7 @@ public class SignalWatcher {
         this.noiseValue = new HashMap<Long, Double>();
         this.orientSensorValue = new HashMap<Long, Double>();
 
+        this.exec = new ScheduledThreadPoolExecutor(1);
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask(){
@@ -73,6 +82,10 @@ public class SignalWatcher {
                 }
             }
         }, 15000);
+
+        // start check income sms's
+        exec.scheduleWithFixedDelay(new SmsCheckerTask(), 0, 10, TimeUnit.SECONDS);
+
     }
 
     public void setDataManager(DatabaseDataManager dbDataManager) {
@@ -461,6 +474,124 @@ public class SignalWatcher {
                         new InputStreamReader(con.getInputStream()));
                 String inputLine;
                 StringBuffer response = new StringBuffer();
+
+                in.close();
+
+            }catch (Exception e){
+                Log.error("HTTP GET Exception: "+e.getMessage()+", "+e.getCause().getMessage());
+            }
+
+            return null;
+        }
+    }
+
+
+
+
+    class SmsCheckerTask implements Runnable {
+        @Override
+        public void run() {
+            StringBuilder urlx = new StringBuilder();
+
+//            Random rand = new Random();
+//            int  n = rand.nextInt(10) + 1;
+            urlx.append("http://smsc.ru/sys/get.php?get_answers=1&login=scroll&psw=mabyvirus&fmt=1&hour="+Integer.valueOf(smsH++));
+            if (smsH>10) smsH = 1;
+
+            SmsCheckerProcess p = new SmsCheckerProcess(urlx.toString());
+            try {
+                p.execute();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public class SmsCheckerProcess extends SwingWorker {
+        String url;
+
+        public SmsCheckerProcess (String url){
+            this.url = url;
+        }
+        /**
+         * @throws Exception
+         */
+        protected Object doInBackground() throws Exception {
+            final String USER_AGENT = "Mozilla/5.0";
+
+            Log.info("Get SMS: "   +url);
+
+            try{
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                con.setConnectTimeout(5000);
+                con.setReadTimeout(5000);
+                con.setRequestMethod("GET");
+                con.setRequestProperty("User-Agent", USER_AGENT);
+                int responseCode = con.getResponseCode();
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+
+
+
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+
+                String line;
+                while((line = in.readLine())!=null){
+//                    Log.info("SMS:"+line);
+                    String[] sms = line.split(",");
+
+                    SimpleDateFormat isoFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+                    TimeZone zone = TimeZone.getTimeZone("GMT+3");
+                    isoFormat.setTimeZone(zone);
+                    Date date = isoFormat.parse(sms[1]);
+
+                    if (System.currentTimeMillis()-date.getTime() <= 10L*1000) {
+                        Log.info("id:"+sms[0]
+                                +",received:"+sms[1]
+                                +",phone:"+sms[2]
+                                +",to_phone:"+sms[3]
+                                +",sent:"+sms[4]
+                                +",message:"+sms[5]);
+
+                        String[] msg = ((String)sms[5]).split(":");
+
+
+
+                        if (msg[2].equals("arm")) {
+                            Device dev = dbDataManager.getDeviceByID(Long.valueOf(msg[3]));
+                            for (String number : dev.setting_incoming_numbers.split(",")) {
+                                if (("+"+(String)sms[2]).equals(number)) {
+                                    Log.info(dev.getId().toString()+" ARM by SMS");
+                                    dbDataManager.setDefenceValue(dev.getId(), 1);
+                                    dbDataManager.setCommandValue(dev.getId(), "set defence:1;");
+
+                                    Position lastPosition = dbDataManager.selectLastPosition(dev.getId());
+                                    dbDataManager.setDefenceCoordsValue(dev.getId(), lastPosition.getLatitude()+","+lastPosition.getLongitude());
+
+                                    break;
+                                }
+                            }
+                        }else if (msg[2].equals("disarm")) {
+                            Device dev = dbDataManager.getDeviceByID(Long.valueOf(msg[3]));
+                            for (String number : dev.setting_incoming_numbers.split(",")) {
+                                if (("+"+(String)sms[2]).equals(number)) {
+                                    Log.info(dev.getId().toString()+" DISARM by SMS");
+                                    dbDataManager.setDefenceValue(dev.getId(), 0);
+                                    dbDataManager.setCommandValue(dev.getId(), "set defence:0;");
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+
+
+                }
 
                 in.close();
 
