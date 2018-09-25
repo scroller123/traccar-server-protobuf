@@ -1,4 +1,5 @@
     traccar
+    with implemented Protobuf protocol
 
 Web page - http://www.traccar.org
 
