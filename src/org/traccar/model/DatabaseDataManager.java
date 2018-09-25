@@ -333,6 +333,7 @@ public class DatabaseDataManager implements DataManager {
             signal.setOrientSensorValue(result.getDouble("orient_sensor"));
             signal.setTimeFromTimeStamp(result.getLong("datetime"));
             signal.setUpdateStatus(result.getLong("update_status"));
+            signal.defence = result.getInt("defence");
 
             return signal;
         }
@@ -359,6 +360,7 @@ public class DatabaseDataManager implements DataManager {
             signal.setOrientSensorValue(result.getDouble("orient_sensor"));
             signal.setTimeFromTimeStamp(result.getLong("datetime"));
             signal.setUpdateStatus(result.getLong("update_status"));
+            signal.defence = result.getInt("defence");
 
             return signal;
         }

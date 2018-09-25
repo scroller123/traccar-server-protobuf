@@ -114,7 +114,7 @@ public class Signal  {
     }
 
 
-
+    public int defence;
 
 
 

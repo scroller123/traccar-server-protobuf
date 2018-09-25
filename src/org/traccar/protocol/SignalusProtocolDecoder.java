@@ -405,7 +405,7 @@ public class SignalusProtocolDecoder extends BaseProtocolDecoder {
             getDataManager().addSig("id:"+String.valueOf(deviceId),
                     dataPacket.getActiveSim(),
                     null,
-                    device.defence,
+                    dataPacket.getDefence(),
                     addsMessage.toString(),
                     dataPacket.getSatellitesInFix() > 2 ? "1" : "0",
                     dataPacket.getSatellitesInFix(),
